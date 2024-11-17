@@ -1,0 +1,126 @@
+/*primary 9381ff
+secondary b8b8ff
+tertiary f8f7ff
+*/
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #9381ff;
+    color: #fff; 
+}
+
+/* Logo Section */
+.logo img {
+    max-width: 150px;
+}
+
+/* Navigation Bar */
+nav {
+    display: flex;
+    justify-content: space-between; /* Distribute items evenly */
+    align-items: center; /* Vertically aligns items in the center */
+}
+
+nav ul {
+    display: flex;
+    list-style: none; /* Removes default list styling */
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    margin-right: 20px; /* Adds spacing between the links */
+}
+
+nav li:last-child {
+    margin-right: 0; /* Removes right margin from the last link */
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff; /* White text */
+    font-weight: bold;
+    padding: 10px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ff66b2; /* Light pink color on hover */
+    background-color: #66ff66; /* Mint green background on hover */
+    border-radius: 5px;
+}
+
+/* Search Bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-bar input {
+    padding: 8px 15px;
+    border: 1px solid #ffeb3b; /* Bright yellow border */
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #ff66b2; /* Light pink text */
+}
+
+.search-bar button {
+    padding: 8px 15px;
+    background-color: #ffeb3b; /* Bright yellow button */
+    color: #ff66b2; /* Light pink text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-bar button:hover {
+    background-color: #ffcc00; /* Darker yellow on hover */
+}
+
+/* Cart Icon */
+.cart {
+    display: flex;
+    align-items: center;
+}
+
+.cart img {
+    max-width: 30px;
+    margin-right: 10px;
+}
+
+.cart-count {
+    background-color: #66ff66; /* Mint green background for count */
+    color: #fff; /* White text */
+    padding: 2px 7px;
+    border-radius: 50%;
+    font-weight: bold;
+    position: relative;
+    top: -5px;
+    left: -5px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+
+    .cart {
+        margin-top: 10px;
+    }
+}
