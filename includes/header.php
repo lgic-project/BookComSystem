@@ -32,7 +32,7 @@ echo '<link rel="stylesheet" type="text/css" href="assets/css/header.css">';
     <div class="cart">
         <a href="cart.php">
             <img src="assets/images/cart-icon.png" alt="Cart">
-            <span class="cart-count"><?php echo $cart_count; ?></span>
+            <span class="cart-count"><?php ?></span>
         </a>
     </div>
 </div>
