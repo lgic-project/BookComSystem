@@ -1,0 +1,150 @@
+/* Styling for the compact and stylish book-themed login page */
+
+body {
+    font-family: 'Garamond', serif;
+    background: url('https://i.imgur.com/e6fqU9E.jpg') no-repeat center center fixed; /* A warm, book-textured background */
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent parchment look */
+    border: 2px solid #7e57c2;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 350px; /* Compact width */
+    text-align: center;
+    padding: 25px 20px;
+    animation: fadeIn 1.5s ease-out;
+}
+
+.book-cover {
+    background: #7e57c2;
+    color: #ffd700;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-cover h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Consistent spacing between inputs and buttons */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.95rem;
+    border: 1px solid #7e57c2;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #5e35b1;
+    outline: none;
+    box-shadow: 0 0 10px rgba(94, 53, 177, 0.4);
+}
+
+.btn {
+    background: #7e57c2;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    background: #5e35b1;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.error {
+    color: #d32f2f;
+    background: rgba(211, 47, 47, 0.1);
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    .login-container {
+        padding: 20px;
+    }
+
+    .book-cover h1 {
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .login-container {
+        max-width: 400px;
+        padding: 30px;
+    }
+
+    .book-cover h1 {
+        font-size: 2rem;
+    }
+
+    .btn {
+        font-size: 1.1rem;
+        padding: 15px;
+    }
+}
