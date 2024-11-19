@@ -26,11 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Sasto E-Pasal</title>
-<<<<<<< HEAD
     <link rel="stylesheet" href="./css/register.css">
-=======
-    <link rel="stylesheet" href="css/register.css">
->>>>>>> e27faf5760f14c476a9f2fb8ec2bb73f7b228814
 </head>
 <body>
     <div class="register-container">
