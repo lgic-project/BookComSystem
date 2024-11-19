@@ -1,0 +1,22 @@
+
+
+.header-1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: whitesmoke;
+    margin: 10px 20px;
+}
+.navbar{
+    display: flex;
+    flex-direction: row;
+    margin: 15px;
+}
+.navbar a{
+    margin: auto 15px;
+}
+
+.logo{
+    font-size: 3rem;
+}
+

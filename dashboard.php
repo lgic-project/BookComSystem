@@ -20,7 +20,7 @@
 <body>
     <div class="dashboard-container">
         <div class="navbar">
-            <h2>Welcome to Sasto E-Pasal, <?php echo htmlspecialchars($username); ?>!</h2>
+            <h2>E-Pasal</h2>
             <div class="navbar-links">
                 <a href="profile.php">My Profile</a>
                 <a href="shop.php">Shop</a>
