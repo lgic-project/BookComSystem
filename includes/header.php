@@ -15,8 +15,9 @@ echo '<link rel="stylesheet" type="text/css" href="assets/css/header.css">';
     <nav>
         <ul>
             <li><a href="index.php">Home</a></li>
-            <li><a href="cart.php">Cart</a></li>
-            <li><a href="contact.php">Contact</a></li>
+            <li><a href="inlcudes/cart.php">Cart</a></li>
+            <li><a href="includes/contact.php">Contact</a></li>
+            <li><a href="includes/aboutus.php">About Us</a></li>
         </ul>
     </nav>
 
@@ -34,5 +35,8 @@ echo '<link rel="stylesheet" type="text/css" href="assets/css/header.css">';
             <img src="assets/images/cart-icon.png" alt="Cart">
             <span class="cart-count"><?php ?></span>
         </a>
+    </div>
+    <div>
+        <span><a href="login.php">Login </a></span>
     </div>
 </div>

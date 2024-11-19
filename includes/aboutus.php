@@ -34,7 +34,7 @@
 </head>
 
 <body>
-    <?php include('header.php') ?>
+    <?php include("includes/header.php") ?>
     <div class="about-us">
     <h1>About Us</h1>
     <p class="about-desc">Online Book store is an online store where you can easily find and buy the books you love without ever leaving
