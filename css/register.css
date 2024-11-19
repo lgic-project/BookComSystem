@@ -1,8 +1,11 @@
 /* Styling for the registration page */
-
+ *{
+    margin: 0;
+    padding: 0;
+    background: white;
+ }
 body {
     font-family: 'Garamond', serif;
-    background: url('https://i.imgur.com/e6fqU9E.jpg') no-repeat center center fixed; /* A warm, book-textured background */
     background-size: cover;
     margin: 0;
     padding: 0;
@@ -10,6 +13,8 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    
+    
 }
 
 .register-container {
@@ -26,7 +31,7 @@ body {
 
 .book-cover {
     background: #7e57c2;
-    color: #ffd700;
+    color: #ffffff;
     padding: 12px;
     border-radius: 8px;
     margin-bottom: 20px;
@@ -34,6 +39,7 @@ body {
 }
 
 .book-cover h1 {
+    background-color: #7e57c2;
     font-size: 1.8rem;
     font-weight: bold;
     margin: 0;

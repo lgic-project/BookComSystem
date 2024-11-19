@@ -1,10 +1,13 @@
 /* Styling for the user dashboard page */
 
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background: #f7f7f7;
+}
 body {
     font-family: 'Garamond', serif;
-    margin: 0;
-    padding: 0;
-    background: #f7f7f7;
 }
 
 .dashboard-container {

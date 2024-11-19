@@ -1,11 +1,13 @@
 /* Styling for the compact and stylish book-themed login page */
-
-body {
-    font-family: 'Garamond', serif;
-    background: url('https://i.imgur.com/e6fqU9E.jpg') no-repeat center center fixed; /* A warm, book-textured background */
-    background-size: cover;
+*{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    background: white;
+}
+body {
+    font-family: 'Garamond', serif;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,7 +28,6 @@ body {
 
 .book-cover {
     background: #7e57c2;
-    color: #ffd700;
     padding: 12px;
     border-radius: 8px;
     margin-bottom: 20px;
@@ -34,6 +35,8 @@ body {
 }
 
 .book-cover h1 {
+    background: #7e57c2;
+    color: white;
     font-size: 1.8rem;
     font-weight: bold;
     margin: 0;
@@ -104,7 +107,9 @@ form {
     font-size: 0.9rem;
     margin-bottom: 15px;
 }
-
+.switch-link{
+    margin-top: 10px;
+}
 /* Animations */
 @keyframes fadeIn {
     from {
