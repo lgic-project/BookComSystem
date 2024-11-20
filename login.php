@@ -11,14 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $login_success = false;
     foreach ($users as $user) {
-        if ($user['username'] == $username && $user['password'] == $password) {
+        if ($user['username'] === $username && $user['password'] === $password) {
             $login_success = true;
             break;
         }
     }
 
     if ($login_success) {
-        // Redirect to dashboard or home page
+        // Redirect to the dashboard or home page
         header('Location: dashboard.php');
         exit();
     } else {
@@ -26,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,6 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle">
+        <button id="theme-switch" class="toggle-btn">
+            🌞 Light Mode
+        </button>
+    </div>
+
     <div class="login-container">
         <div class="book-cover">
             <h1>Login - Sasto E-Pasal</h1>
@@ -58,5 +64,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             Don't have an account? <a href="register.php">Register here</a>.
         </p>
     </div>
+
+    <script>
+        const themeSwitch = document.getElementById('theme-switch');
+        const body = document.body;
+
+        // Load saved theme from localStorage
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        applyTheme(savedTheme);
+
+        // Event listener for theme toggle button
+        themeSwitch.addEventListener('click', () => {
+            const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            applyTheme(newTheme);
+        });
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+                body.classList.remove('light-mode');
+                themeSwitch.textContent = '🌙 Dark Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.add('light-mode');
+                body.classList.remove('dark-mode');
+                themeSwitch.textContent = '🌞 Light Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+    </script>
 </body>
 </html>
