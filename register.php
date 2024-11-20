@@ -1,22 +1,17 @@
 <?php
-// Handle registration form submission
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $email = $_POST['email'];
+include './connection/config.php';
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
+    $username = validate($_POST['username']);
+    $password = validate($_POST['password']);
+    $email = validate($_POST['email']);
 
-    // For demonstration, save to a dummy array (replace this with database logic)
-    $users = [];
+    
 
-    // Simple validation
-    if (empty($username) || empty($password) || empty($email)) {
-        $error_message = "All fields are required!";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error_message = "Invalid email format!";
-    } else {
-        $users[] = ['username' => $username, 'password' => $password, 'email' => $email];
-        $success_message = "Registration successful! You can now <a href='login.php'>login</a>.";
-    }
+function validate($data){
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data =  htmlspecialchars($data);
+    return $data;
 }
 ?>
 
@@ -38,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php elseif (isset($success_message)) : ?>
             <div class="success"><?php echo $success_message; ?></div>
         <?php endif; ?>
-        <form action="register.php" method="post">
+        <form action="register.php" id="signup" method="post">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>

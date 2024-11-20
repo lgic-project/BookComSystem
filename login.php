@@ -1,30 +1,33 @@
 <?php
-// Handle login form submission
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+session_start();
+$login_success = false;
+include './connection/config.php';
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+    $username = validate($_POST['username']);
+    $password = validate($_POST['password']);
 
-    // Dummy login logic (replace with actual authentication logic)
-    $users = [
-        ['username' => 'testuser', 'password' => 'password123'], // Example user
-    ];
-
-    $login_success = false;
-    foreach ($users as $user) {
-        if ($user['username'] === $username && $user['password'] === $password) {
-            $login_success = true;
-            break;
-        }
+    if(empty($username) || empty($password)) {
+        header("Location: index.php?error=empty_fields");
+        exit();
     }
 
+    $C = connect();
+    if($c){
+        $sql = "Select * from users where username='$username' AND password='$password'";
+        $result = $conn->query($sql);
     if ($login_success) {
-        // Redirect to the dashboard or home page
         header('Location: dashboard.php');
         exit();
-    } else {
-        $error_message = "Invalid username or password!";
     }
 }
+
+    function validate($data){
+        $data = trim($data);
+        $data =  htmlspecialchars($data);
+        return $data;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php if (isset($error_message)) : ?>
             <div class="error"><?php echo $error_message; ?></div>
         <?php endif; ?>
-        <form action="login.php" method="post">
+        <form action="login.php" id="login" method="post">
             <div class="form-group">
                 <!-- <label for="username">Username</label> -->
                 <input type="text" id="username" name="username" placeholder="Username" required>

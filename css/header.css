@@ -3,13 +3,18 @@
 .header-1{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-around;
     background-color: whitesmoke;
     margin: 10px 20px;
 }
+.header-2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 100px;
+}
 .navbar{
     display: flex;
-    flex-direction: row;
     margin: 15px;
 }
 .navbar a{
