@@ -1,8 +1,16 @@
 /* Base Styles */
 body {
     font-family: 'Garamond', serif;
+/* Styling for the compact and stylish book-themed login page */
+*{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    background: white;
+}
+body {
+    font-family: 'Garamond', serif;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,6 +97,39 @@ body.dark-mode .error {
     padding: 12px;
     border-radius: 8px;
     margin-bottom: 20px;
+    background: #7e57c2;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-cover h1 {
+    background: #7e57c2;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Consistent spacing between inputs and buttons */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
 }
 
 .form-group input {
@@ -122,6 +163,19 @@ body.dark-mode .error {
     position: fixed;
     top: 10px;
     right: 10px;
+.switch-link{
+    margin-top: 10px;
+}
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .toggle-btn {

@@ -1,51 +1,47 @@
 <?php
-// Start the session to track user information (like cart contents)
-session_start();
+// session_start();
 
-// Example: Check if there are items in the cart
-$cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
-?>
+// if (!isset($_SESSION['username'])) {
+//     header('Location: login.php');
+//     exit();
+// }
+
+// $username = $_SESSION['username']; // Fetch the logged-in username from session (in real app)
+// ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Store</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
-
+    <title>Dashboard - Sasto E-Pasal</title>
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="stylesheet" href="./css/footer.css">
 </head>
+
 <body>
-<?php include('includes/header.php'); ?>
-
-    
-    <!-- Main Content -->
-    <div class="main-content">
-        <h1>Welcome to E-Pasal</h1>
-        <p>Explore our collection of books.</p>
-
-        <!-- Example of displaying books dynamically -->
-        <div class="book-list">
-            <?php
-            // Example: Fetch books from the database (this is just a mockup)
-            $books = [
-                ['title' => 'The Great Gatsby', 'author' => 'F. Scott Fitzgerald', 'price' => '$10'],
-                ['title' => '1984', 'author' => 'George Orwell', 'price' => '$12'],
-                ['title' => 'To Kill a Mockingbird', 'author' => 'Harper Lee', 'price' => '$14']
-            ];
-
-            foreach ($books as $book) {
-                echo "<div class='book-item'>
-                        <h2>{$book['title']}</h2>
-                        <p>by {$book['author']}</p>
-                        <p>Price: {$book['price']}</p>
-                        <button>Add to Cart</button>
-                      </div>";
-            }
-            ?>
+    <?php include 'header.php'; ?>
+    <section class="home">
+        <div class="content">
+            <h3>Book from the bookstore </h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere corporis temporibus dolor enim unde?
+                Placeat veniam atque in voluptatum facere. Qui, quasi maxime! Animi, illo et facilis esse quo quas?</p>
+            <a href="about.php" class="white-btn">Discover</a>
         </div>
-    </div>
-
-    <!-- Footer Section -->
-    <?php include('includes/footer.php'); ?>
+    </section>
+    <section class="latest-product">
+        <h3>Latest Product</h3>
+    </section>
+    <section class="about-us">
+        <h3>About Us</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam debitis in porro libero cum magni repudiandae
+            aperiam itaque ab laudantium vitae pariatur recusandae aut, assumenda accusamus ad magnam. Illum, omnis.
+        </p>
+        <a href="about.php">Know More</a>
+    </section>
+    <?php include 'footer.php' ?>
 </body>
+
 </html>
