@@ -30,6 +30,16 @@
             <a href="about.php" class="white-btn">Discover</a>
         </div>
     </section>
+    <section class="latest-product">
+        <h3>Latest Product</h3>
+    </section>
+    <section class="about-us">
+        <h3>About Us</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam debitis in porro libero cum magni repudiandae
+            aperiam itaque ab laudantium vitae pariatur recusandae aut, assumenda accusamus ad magnam. Illum, omnis.
+        </p>
+        <a href="about.php">Know More</a>
+    </section>
 </body>
 
 </html>
