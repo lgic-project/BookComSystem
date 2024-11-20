@@ -18,6 +18,7 @@
     <title>Dashboard - Sasto E-Pasal</title>
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="stylesheet" href="./css/footer.css">
 </head>
 
 <body>
@@ -40,6 +41,7 @@
         </p>
         <a href="about.php">Know More</a>
     </section>
+    <?php include 'footer.php' ?>
 </body>
 
 </html>

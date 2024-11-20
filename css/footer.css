@@ -1,0 +1,23 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.footer{
+
+}
+
+.footer-1{
+    display: flex;
+    flex-direction: row;
+}
+
+a{
+    list-style: none;
+}
+
+.discover-more{
+    lis
+}
