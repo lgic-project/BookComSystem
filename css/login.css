@@ -98,6 +98,7 @@ body.dark-mode .login-container {
 
 /* Form Group */
 .form-group input {
+    /* width: 90%; */
     padding: 10px;
     border: 1px solid var(--button-bg);
     border-radius: 8px;

@@ -1,146 +1,170 @@
-/* Styling for the registration page */
- *{
-    margin: 0;
-    padding: 0;
-    background: white;
- }
+/* Shared Light and Dark Mode Variables */
+:root {
+    --button-bg: #7e57c2;
+    --button-text: #fff;
+}
+
+/* Light Mode */
+body.light-mode {
+    --bg-color: #f9f9f9;
+    --text-color: #333;
+    --container-bg: #ffffff;
+    --input-bg: #ffffff;
+    --input-focus-bg: rgba(126, 87, 194, 0.1);
+    --error-bg: #ffdce0;
+    --error-text: #d32f2f;
+}
+
+/* Dark Mode */
+body.dark-mode {
+    --bg-color: #1e1e2e;
+    --text-color: #fff;
+    --container-bg: rgba(30, 30, 46, 0.9);
+    --input-bg: #2e2e44;
+    --input-focus-bg: rgba(126, 87, 194, 0.3);
+    --error-bg: #552f33;
+    --error-text: #ff616f;
+}
+
+/* Global Styles */
 body {
     font-family: 'Garamond', serif;
-    background-size: cover;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    
-    
+    transition: background-color 0.5s, color 0.5s;
 }
 
+/* Register Container */
 .register-container {
-    background: rgba(255, 255, 255, 0.9); /* Semi-transparent parchment look */
-    border: 2px solid #7e57c2;
-    border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background: var(--container-bg);
+    padding: 20px;
+    border-radius: 10px;
     width: 90%;
-    max-width: 400px; /* Compact width */
+    max-width: 350px;
     text-align: center;
-    padding: 25px 20px;
-    animation: fadeIn 1.5s ease-out;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.5s ease;
 }
 
-.book-cover {
-    background: #7e57c2;
-    color: #ffffff;
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+@keyframes slideIn {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-.book-cover h1 {
-    background-color: #7e57c2;
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin: 0;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Consistent spacing between inputs and buttons */
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.form-group label {
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-}
-
+/* Form Group */
 .form-group input {
-    width: 90%;
+    /* width: 90%; */
     padding: 10px;
-    font-size: 0.95rem;
-    border: 1px solid #7e57c2;
+    border: 1px solid var(--button-bg);
     border-radius: 8px;
-    background: #fff;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    width: 95%;
+    font-size: 1rem;
+    margin-top: 10px;
+    outline: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    background-color: #fff; /* Initial background */
 }
 
 .form-group input:focus {
-    border-color: #5e35b1;
+    background: var(--input-focus-bg);
     outline: none;
-    box-shadow: 0 0 10px rgba(94, 53, 177, 0.4);
+    border-color: var(--button-bg);
 }
 
+/* Buttons */
 .btn {
-    background: #7e57c2;
-    color: #fff;
-    border: none;
+    background-color: var(--button-bg);
+    color: var(--button-text);
     padding: 12px;
-    font-size: 1rem;
+    border: none;
     border-radius: 8px;
     cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-}
-
-.btn:hover {
-    background: #5e35b1;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.switch-link {
-    font-size: 0.9rem;
+    width: 100%;
+    font-size: 1rem;
+    transition: transform 0.3s ease, background-color 0.3s ease;
     margin-top: 10px;
 }
 
-.switch-link a {
-    color: #7e57c2;
-    text-decoration: none;
-    font-weight: bold;
+.btn:hover {
+    background-color: var(--error-text);
+    transform: translateY(-3px);
 }
 
-.switch-link a:hover {
-    text-decoration: underline;
+
+/* Theme Toggle */
+.theme-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
 }
 
-.error, .success {
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    font-size: 0.9rem;
+.toggle-btn {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
-.error {
-    color: #d32f2f;
-    background: rgba(211, 47, 47, 0.1);
+.toggle-btn:hover {
+    background-color: var(--button-bg);
+    transform: scale(1.1) rotate(10deg);
 }
-
-.success {
-    color: #388e3c;
-    background: rgba(56, 142, 60, 0.1);
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
+/* Fall and Break Animation */
+@keyframes fallToGround {
+    0% {
         transform: translateY(0);
     }
+    80% {
+        transform: translateY(300px) rotate(30deg); /* Fall with rotation */
+    }
+    100% {
+        transform: translateY(300px) rotate(0); /* Stop at ground */
+    }
+}
+
+@keyframes shakeAndBreak {
+    0% {
+        transform: translateY(300px) rotate(0);
+    }
+    25% {
+        transform: translateY(300px) rotate(-5deg);
+    }
+    50% {
+        transform: translateY(300px) rotate(5deg);
+    }
+    75% {
+        transform: translateY(300px) rotate(-3deg);
+    }
+    100% {
+        transform: translateY(300px) scale(0.7); /* Shrink to show "breaking" */
+    }
+}
+
+/* Add the falling animation */
+.fall-and-break {
+    animation: fallToGround 1s ease-in-out forwards;
+    position: relative; /* Required for animation to work */
+}
+
+/* Add the breaking animation */
+.broken {
+    animation: shakeAndBreak 0.5s ease-in-out forwards;
+    opacity: 0.5; /* Make it look damaged */
 }
