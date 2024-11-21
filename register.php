@@ -31,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
     }
 }
 ?>
-//🌞 Light Mode
-//🌙 Dark Mode
+<!-- //🌞 Light Mode
+//🌙 Dark Mode -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,6 +88,7 @@ themeSwitch.addEventListener('click', () => {
         themeSwitch.classList.add('fall-and-break');
         setTimeout(() => {
             themeSwitch.classList.add('broken');
+            showSarcasticMessage(); // Display the sarcastic message
         }, 1000); // Add broken effect after the fall animation
         clickCount = 0; // Reset the click counter
     }
@@ -108,6 +109,19 @@ function applyTheme(theme) {
         themeSwitch.textContent = '🌞 Light Mode';
         localStorage.setItem('theme', 'light');
     }
+}
+
+// Show sarcastic message
+function showSarcasticMessage() {
+    const message = document.createElement('div');
+    message.textContent = "Congratulations! You broke the toggle. Happy now? 🙄";
+    message.className = 'sarcastic-message';
+    document.body.appendChild(message);
+
+    // Automatically remove the message after 3 seconds
+    setTimeout(() => {
+        message.remove();
+    }, 3000);
 }
 
 // Reset button after the "broken" state

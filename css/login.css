@@ -98,7 +98,6 @@ body.dark-mode .login-container {
 
 /* Form Group */
 .form-group input {
-    /* width: 90%; */
     padding: 10px;
     border: 1px solid var(--button-bg);
     border-radius: 8px;
@@ -107,23 +106,24 @@ body.dark-mode .login-container {
     margin-top: 10px;
     outline: none;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    background-color: #fff; /* Initial background */
+    background-color: #fff;
 }
-/* Animation on focus */
+
 .form-group input:focus {
     border: 2px solid var(--button-bg);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transform: scale(1.02); /* Slight zoom effect */
-    background-color: rgba(126, 87, 194, 0.1); /* Subtle background highlight */
+    transform: scale(1.02);
+    background-color: rgba(126, 87, 194, 0.1);
 }
-/* Animation for typing (optional) */
+
 .form-group input::placeholder {
     opacity: 1;
     transition: opacity 0.3s ease;
 }
 .form-group input:focus::placeholder {
-    opacity: 0.5; /* Fade out the placeholder */
+    opacity: 0.5;
 }
+
 /* Buttons */
 .btn {
     background-color: var(--button-bg);
@@ -153,7 +153,6 @@ body.dark-mode .login-container {
     animation: bounceIn 0.5s ease-out;
 }
 
-/* Bounce effect for error message */
 @keyframes bounceIn {
     0% {
         transform: scale(0.9);
@@ -191,19 +190,75 @@ body.dark-mode .login-container {
     background-color: var(--button-bg);
     transform: scale(1.1) rotate(10deg);
 }
-/* Bounce animation when hovering over input fields */
-@keyframes bounceHover {
+
+/* Fall and Break Animation */
+@keyframes fallToGround {
     0% {
         transform: translateY(0);
     }
-    50% {
-        transform: translateY(-3px);
+    80% {
+        transform: translateY(300px) rotate(30deg);
     }
     100% {
-        transform: translateY(0);
+        transform: translateY(300px) rotate(0);
     }
 }
 
-.form-group input:hover {
-    animation: bounceHover 0.5s ease-in-out;
+@keyframes shakeAndBreak {
+    0% {
+        transform: translateY(300px) rotate(0);
+    }
+    25% {
+        transform: translateY(300px) rotate(-5deg);
+    }
+    50% {
+        transform: translateY(300px) rotate(5deg);
+    }
+    75% {
+        transform: translateY(300px) rotate(-3deg);
+    }
+    100% {
+        transform: translateY(300px) scale(0.7);
+    }
+}
+
+.fall-and-break {
+    animation: fallToGround 1s ease-in-out forwards;
+    position: relative;
+}
+
+.broken {
+    animation: shakeAndBreak 0.5s ease-in-out forwards;
+    opacity: 0.5;
+}
+
+/* Sarcastic Message Styles */
+.sarcastic-message {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: 'Garamond', serif;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeInOut 3s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
