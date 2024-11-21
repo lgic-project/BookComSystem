@@ -10,6 +10,5 @@ function connect( ){
         return false;
     }
     return $conn;
-
 }
 ?>
