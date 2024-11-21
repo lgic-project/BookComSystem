@@ -63,16 +63,18 @@ body {
     }
 }
 
-/* Input Fields */
+/* Form Group */
 .form-group input {
-    width: 100%;
+    /* width: 90%; */
     padding: 10px;
-    margin-bottom: 10px;
     border: 1px solid var(--button-bg);
     border-radius: 8px;
-    background: var(--input-bg);
-    color: var(--text-color);
-    transition: background 0.3s, border-color 0.3s;
+    width: 95%;
+    font-size: 1rem;
+    margin-top: 10px;
+    outline: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    background-color: #fff; /* Initial background */
 }
 
 .form-group input:focus {
@@ -83,23 +85,44 @@ body {
 
 /* Buttons */
 .btn {
-    background: var(--button-bg);
+    background-color: var(--button-bg);
     color: var(--button-text);
+    padding: 12px;
     border: none;
-    padding: 10px;
     border-radius: 8px;
     cursor: pointer;
     width: 100%;
-    transition: background-color 0.3s;
+    font-size: 1rem;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    margin-top: 10px;
 }
 
 .btn:hover {
-    background: #5e35b1;
+    background-color: var(--error-text);
+    transform: translateY(-3px);
 }
+
 
 /* Theme Toggle */
 .theme-toggle {
     position: fixed;
     top: 10px;
     right: 10px;
+}
+
+.toggle-btn {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+    background-color: var(--button-bg);
+    transform: scale(1.1) rotate(10deg);
 }
