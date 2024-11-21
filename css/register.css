@@ -126,3 +126,45 @@ body {
     background-color: var(--button-bg);
     transform: scale(1.1) rotate(10deg);
 }
+/* Fall and Break Animation */
+@keyframes fallToGround {
+    0% {
+        transform: translateY(0);
+    }
+    80% {
+        transform: translateY(300px) rotate(30deg); /* Fall with rotation */
+    }
+    100% {
+        transform: translateY(300px) rotate(0); /* Stop at ground */
+    }
+}
+
+@keyframes shakeAndBreak {
+    0% {
+        transform: translateY(300px) rotate(0);
+    }
+    25% {
+        transform: translateY(300px) rotate(-5deg);
+    }
+    50% {
+        transform: translateY(300px) rotate(5deg);
+    }
+    75% {
+        transform: translateY(300px) rotate(-3deg);
+    }
+    100% {
+        transform: translateY(300px) scale(0.7); /* Shrink to show "breaking" */
+    }
+}
+
+/* Add the falling animation */
+.fall-and-break {
+    animation: fallToGround 1s ease-in-out forwards;
+    position: relative; /* Required for animation to work */
+}
+
+/* Add the breaking animation */
+.broken {
+    animation: shakeAndBreak 0.5s ease-in-out forwards;
+    opacity: 0.5; /* Make it look damaged */
+}

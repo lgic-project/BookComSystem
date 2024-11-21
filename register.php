@@ -31,7 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
     }
 }
 ?>
-
+//🌞 Light Mode
+//🌙 Dark Mode
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,32 +74,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
     </div>
 
     <script>
-        const themeSwitch = document.getElementById('theme-switch');
-        const body = document.body;
+const themeSwitch = document.getElementById('theme-switch');
+const body = document.body;
+let clickCount = 0;
 
-        // Load saved theme from localStorage
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        applyTheme(savedTheme);
+// Load saved theme from localStorage
+const savedTheme = localStorage.getItem('theme') || 'light';
+applyTheme(savedTheme);
 
-        themeSwitch.addEventListener('click', () => {
-            const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            applyTheme(newTheme);
-        });
+themeSwitch.addEventListener('click', () => {
+    clickCount++;
+    if (clickCount === 5) {
+        themeSwitch.classList.add('fall-and-break');
+        setTimeout(() => {
+            themeSwitch.classList.add('broken');
+        }, 1000); // Add broken effect after the fall animation
+        clickCount = 0; // Reset the click counter
+    }
+    const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    applyTheme(newTheme);
+});
 
-        function applyTheme(theme) {
-            if (theme === 'dark') {
-                body.classList.add('dark-mode');
-                body.classList.remove('light-mode');
-                themeSwitch.textContent = '🌙 Dark Mode';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                body.classList.add('light-mode');
-                body.classList.remove('dark-mode');
-                themeSwitch.textContent = '🌞 Light Mode';
-                localStorage.setItem('theme', 'light');
-            }
-        }
+function applyTheme(theme) {
+    if (theme === 'dark') {
+        body.classList.add('dark-mode');
+        body.classList.remove('light-mode');
+        themeSwitch.textContent = '🌙 Dark Mode';
+        localStorage.setItem('theme', 'dark');
+    } else {
+        body.classList.add('light-mode');
+        body.classList.remove('dark-mode');
+        themeSwitch.textContent = '🌞 Light Mode';
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+// Reset button after the "broken" state
+themeSwitch.addEventListener('animationend', () => {
+    if (themeSwitch.classList.contains('broken')) {
+        themeSwitch.classList.remove('fall-and-break', 'broken');
+    }
+});
+
     </script>
 </body>
 </html>
