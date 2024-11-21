@@ -1,18 +1,7 @@
 <?php
 include './connection/config.php';
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
-    $username = validate($_POST['username']);
-    $password = validate($_POST['password']);
-    $email = validate($_POST['email']);
 
-    
 
-function validate($data){
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data =  htmlspecialchars($data);
-    return $data;
-}
 ?>
 
 <!DOCTYPE html>
