@@ -1,18 +1,18 @@
 <?php
-include './connection/config.php';
+// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
+    function validate($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+
     $username = validate($_POST['username']);
-    $password = validate($_POST['password']);
     $email = validate($_POST['email']);
-
-    
-
-function validate($data){
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data =  htmlspecialchars($data);
-    return $data;
-}}
+    $password = validate($_POST['password']);
+    // Add further validation and database logic here
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,9 +21,14 @@ function validate($data){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Sasto E-Pasal</title>
-    <link rel="stylesheet" href="./css/register.css">
+    <link rel="stylesheet" href="./css/register.css"> <!-- External CSS -->
 </head>
 <body>
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle">
+        <button id="theme-switch" class="toggle-btn">🌞 Light Mode</button>
+    </div>
+
     <div class="register-container">
         <div class="book-cover">
             <h1>Register - Sasto E-Pasal</h1>
@@ -52,5 +57,35 @@ function validate($data){
             Already have an account? <a href="login.php">Login here</a>.
         </p>
     </div>
+
+    <script>
+        const themeSwitch = document.getElementById('theme-switch');
+        const body = document.body;
+
+        // Load saved theme from localStorage
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        applyTheme(savedTheme);
+
+        // Event listener for theme toggle button
+        themeSwitch.addEventListener('click', () => {
+            const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            applyTheme(newTheme);
+        });
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+                body.classList.remove('light-mode');
+                themeSwitch.textContent = '🌙 Dark Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.add('light-mode');
+                body.classList.remove('dark-mode');
+                themeSwitch.textContent = '🌞 Light Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+    </script>
 </body>
 </html>

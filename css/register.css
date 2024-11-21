@@ -1,146 +1,105 @@
-/* Styling for the registration page */
- *{
-    margin: 0;
-    padding: 0;
-    background: white;
- }
+/* Light Mode */
+body.light-mode {
+    --bg-color: #f9f9f9;
+    --text-color: #333;
+    --button-bg: #7e57c2;
+    --button-text: #fff;
+}
+
+/* Dark Mode */
+body.dark-mode {
+    --bg-color: #1e1e2e;
+    --text-color: #fff;
+    --button-bg: #5e35b1;
+    --button-text: #e0e0e0;
+}
+
+/* Global Styles */
 body {
-    font-family: 'Garamond', serif;
-    background-size: cover;
     margin: 0;
-    padding: 0;
+    font-family: 'Garamond', serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    
-    
 }
 
 .register-container {
-    background: rgba(255, 255, 255, 0.9); /* Semi-transparent parchment look */
-    border: 2px solid #7e57c2;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid var(--button-bg);
     border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 400px; /* Compact width */
-    text-align: center;
     padding: 25px 20px;
-    animation: fadeIn 1.5s ease-out;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .book-cover {
-    background: #7e57c2;
-    color: #ffffff;
+    background: var(--button-bg);
+    color: var(--button-text);
     padding: 12px;
     border-radius: 8px;
     margin-bottom: 20px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .book-cover h1 {
-    background-color: #7e57c2;
     font-size: 1.8rem;
-    font-weight: bold;
     margin: 0;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Consistent spacing between inputs and buttons */
-}
-
 .form-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    margin-bottom: 15px;
 }
 
 .form-group label {
     font-size: 0.9rem;
     font-weight: bold;
-    color: #333;
     margin-bottom: 5px;
+    display: block;
 }
 
 .form-group input {
-    width: 90%;
+    width: 100%;
     padding: 10px;
-    font-size: 0.95rem;
-    border: 1px solid #7e57c2;
+    border: 1px solid var(--button-bg);
     border-radius: 8px;
-    background: #fff;
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
 }
 
 .form-group input:focus {
-    border-color: #5e35b1;
     outline: none;
-    box-shadow: 0 0 10px rgba(94, 53, 177, 0.4);
+    border-color: var(--button-bg);
 }
 
 .btn {
-    background: #7e57c2;
-    color: #fff;
-    border: none;
+    background: var(--button-bg);
+    color: var(--button-text);
     padding: 12px;
-    font-size: 1rem;
+    border: none;
     border-radius: 8px;
     cursor: pointer;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
 }
 
 .btn:hover {
     background: #5e35b1;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .switch-link {
-    font-size: 0.9rem;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .switch-link a {
-    color: #7e57c2;
+    color: var(--button-bg);
     text-decoration: none;
-    font-weight: bold;
 }
 
 .switch-link a:hover {
     text-decoration: underline;
-}
-
-.error, .success {
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-}
-
-.error {
-    color: #d32f2f;
-    background: rgba(211, 47, 47, 0.1);
-}
-
-.success {
-    color: #388e3c;
-    background: rgba(56, 142, 60, 0.1);
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
