@@ -1,105 +1,105 @@
+/* Shared Light and Dark Mode Variables */
+:root {
+    --button-bg: #7e57c2;
+    --button-text: #fff;
+}
+
 /* Light Mode */
 body.light-mode {
     --bg-color: #f9f9f9;
     --text-color: #333;
-    --button-bg: #7e57c2;
-    --button-text: #fff;
+    --container-bg: #ffffff;
+    --input-bg: #ffffff;
+    --input-focus-bg: rgba(126, 87, 194, 0.1);
+    --error-bg: #ffdce0;
+    --error-text: #d32f2f;
 }
 
 /* Dark Mode */
 body.dark-mode {
     --bg-color: #1e1e2e;
     --text-color: #fff;
-    --button-bg: #5e35b1;
-    --button-text: #e0e0e0;
+    --container-bg: rgba(30, 30, 46, 0.9);
+    --input-bg: #2e2e44;
+    --input-focus-bg: rgba(126, 87, 194, 0.3);
+    --error-bg: #552f33;
+    --error-text: #ff616f;
 }
 
 /* Global Styles */
 body {
-    margin: 0;
     font-family: 'Garamond', serif;
     background-color: var(--bg-color);
     color: var(--text-color);
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    transition: background-color 0.5s, color 0.5s;
 }
 
+/* Register Container */
 .register-container {
-    background: rgba(255, 255, 255, 0.9);
-    border: 2px solid var(--button-bg);
-    border-radius: 12px;
-    padding: 25px 20px;
+    background: var(--container-bg);
+    padding: 20px;
+    border-radius: 10px;
     width: 90%;
-    max-width: 400px;
+    max-width: 350px;
     text-align: center;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.5s ease;
 }
 
-.book-cover {
-    background: var(--button-bg);
-    color: var(--button-text);
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+@keyframes slideIn {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-.book-cover h1 {
-    font-size: 1.8rem;
-    margin: 0;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-    display: block;
-}
-
+/* Input Fields */
 .form-group input {
     width: 100%;
     padding: 10px;
+    margin-bottom: 10px;
     border: 1px solid var(--button-bg);
     border-radius: 8px;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: var(--input-bg);
+    color: var(--text-color);
+    transition: background 0.3s, border-color 0.3s;
 }
 
 .form-group input:focus {
+    background: var(--input-focus-bg);
     outline: none;
     border-color: var(--button-bg);
 }
 
+/* Buttons */
 .btn {
     background: var(--button-bg);
     color: var(--button-text);
-    padding: 12px;
     border: none;
+    padding: 10px;
     border-radius: 8px;
     cursor: pointer;
-    text-transform: uppercase;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+    width: 100%;
+    transition: background-color 0.3s;
 }
 
 .btn:hover {
     background: #5e35b1;
 }
 
-.switch-link {
-    margin-top: 15px;
-}
-
-.switch-link a {
-    color: var(--button-bg);
-    text-decoration: none;
-}
-
-.switch-link a:hover {
-    text-decoration: underline;
+/* Theme Toggle */
+.theme-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
 }

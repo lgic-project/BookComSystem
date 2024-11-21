@@ -1,5 +1,7 @@
 <?php
-// Handle form submission
+session_start();
+include './connection/config.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
     function validate($data) {
         $data = trim($data);
@@ -11,7 +13,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
     $username = validate($_POST['username']);
     $email = validate($_POST['email']);
     $password = validate($_POST['password']);
-    // Add further validation and database logic here
+
+    if (empty($username) || empty($email) || empty($password)) {
+        $error_message = "All fields are required!";
+    } else {
+        $conn = connect();
+        if ($conn) {
+            $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
+            if ($conn->query($sql)) {
+                $success_message = "Registration successful!";
+            } else {
+                $error_message = "Error: " . $conn->error;
+            }
+        } else {
+            $error_message = "Database connection failed!";
+        }
+    }
 }
 ?>
 
@@ -21,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Sasto E-Pasal</title>
-    <link rel="stylesheet" href="./css/register.css"> <!-- External CSS -->
+    <link rel="stylesheet" href="./css/register.css">
 </head>
 <body>
     <!-- Theme Toggle Button -->
@@ -38,20 +55,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
         <?php elseif (isset($success_message)) : ?>
             <div class="success"><?php echo $success_message; ?></div>
         <?php endif; ?>
-        <form action="register.php" id="signup" method="post">
+        <form action="register.php" method="post">
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" name="username" placeholder="Username" required>
             </div>
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" name="email" placeholder="Email" required>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" name="password" placeholder="Password" required>
             </div>
-            <button type="submit" class="btn">Register</button>
+            <button type="submit" name="signup" class="btn">Register</button>
         </form>
         <p class="switch-link">
             Already have an account? <a href="login.php">Login here</a>.
@@ -66,7 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
         const savedTheme = localStorage.getItem('theme') || 'light';
         applyTheme(savedTheme);
 
-        // Event listener for theme toggle button
         themeSwitch.addEventListener('click', () => {
             const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
