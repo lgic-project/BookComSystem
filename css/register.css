@@ -168,3 +168,33 @@ body {
     animation: shakeAndBreak 0.5s ease-in-out forwards;
     opacity: 0.5; /* Make it look damaged */
 }
+/* Sarcastic Message Styles */
+.sarcastic-message {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: 'Garamond', serif;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeInOut 3s ease-in-out;
+}
+/* Fade in and out animation */
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

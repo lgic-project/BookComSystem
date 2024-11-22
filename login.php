@@ -42,8 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    mysqli_close($conn);
-
 }
 
 
@@ -67,7 +65,6 @@ if(isset($_GET['error'])) {
             $error="";
             break;
     }
-}
 
 ?>
 <!DOCTYPE html>
@@ -91,9 +88,7 @@ if(isset($_GET['error'])) {
 <body>
     <!-- Theme Toggle Button -->
     <div class="theme-toggle">
-        <button id="theme-switch" class="toggle-btn">
-            🌞 Light Mode
-        </button>
+        <button id="theme-switch" class="toggle-btn">🌞 Light Mode</button>
     </div>
 
     <div class="login-container">
@@ -103,14 +98,12 @@ if(isset($_GET['error'])) {
         <?php if (isset($error_message)): ?>
             <div class="error"><?php echo $error_message; ?></div>
         <?php endif; ?>
-        <form action="login.php" id="login" method="post">
+        <form action="login.php" method="post">
             <div class="form-group">
-                <!-- <label for="username">Username</label> -->
-                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="email" name="email" placeholder="Email" required>
             </div>
             <div class="form-group">
-                <!-- <label for="password">Password</label> -->
-                <input type="password" id="password" name="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Password" required>
             </div>
             <button type="submit" class="btn">Login</button>
             <?php
@@ -118,6 +111,11 @@ if(isset($_GET['error'])) {
                 echo "<div class='error'>$error</div>";
             };
             ?>
+            <button type="submit" name="login" class="btn">Login</button>
+            <p class="switch-link">
+    <a href="forgotpw.php">Forgot Password?</a>.
+</p>
+
         </form>
         <p class="switch-link">
             Don't have an account? <a href="register.php">Register here</a>.
@@ -125,33 +123,62 @@ if(isset($_GET['error'])) {
     </div>
 
     <script>
-        const themeSwitch = document.getElementById('theme-switch');
-        const body = document.body;
+const themeSwitch = document.getElementById('theme-switch');
+const body = document.body;
+let clickCount = 0;
 
-        // Load saved theme from localStorage
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        applyTheme(savedTheme);
+// Load saved theme from localStorage
+const savedTheme = localStorage.getItem('theme') || 'light';
+applyTheme(savedTheme);
 
-        // Event listener for theme toggle button
-        themeSwitch.addEventListener('click', () => {
-            const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            applyTheme(newTheme);
-        });
+themeSwitch.addEventListener('click', () => {
+    clickCount++;
+    if (clickCount === 5) {
+        themeSwitch.classList.add('fall-and-break');
+        setTimeout(() => {
+            themeSwitch.classList.add('broken');
+            showSarcasticMessage(); // Display the sarcastic message
+        }, 1000); // Add broken effect after the fall animation
+        clickCount = 0; // Reset the click counter
+    }
+    const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    applyTheme(newTheme);
+});
 
-        function applyTheme(theme) {
-            if (theme === 'dark') {
-                body.classList.add('dark-mode');
-                body.classList.remove('light-mode');
-                themeSwitch.textContent = '🌙 Dark Mode';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                body.classList.add('light-mode');
-                body.classList.remove('dark-mode');
-                themeSwitch.textContent = '🌞 Light Mode';
-                localStorage.setItem('theme', 'light');
-            }
-        }
+function applyTheme(theme) {
+    if (theme === 'dark') {
+        body.classList.add('dark-mode');
+        body.classList.remove('light-mode');
+        themeSwitch.textContent = '🌙 Dark Mode';
+        localStorage.setItem('theme', 'dark');
+    } else {
+        body.classList.add('light-mode');
+        body.classList.remove('dark-mode');
+        themeSwitch.textContent = '🌞 Light Mode';
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+// Show sarcastic message
+function showSarcasticMessage() {
+    const message = document.createElement('div');
+    message.textContent = "Congratulations! You broke the toggle. Happy now? 🙄";
+    message.className = 'sarcastic-message';
+    document.body.appendChild(message);
+
+    // Automatically remove the message after 3 seconds
+    setTimeout(() => {
+        message.remove();
+    }, 3000);
+}
+
+// Reset button after the "broken" state
+themeSwitch.addEventListener('animationend', () => {
+    if (themeSwitch.classList.contains('broken')) {
+        themeSwitch.classList.remove('fall-and-break', 'broken');
+    }
+});
     </script>
 </body>
 
