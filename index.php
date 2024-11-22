@@ -1,13 +1,13 @@
 <?php
-// session_start();
+session_start();
 
-// if (!isset($_SESSION['username'])) {
-//     header('Location: login.php');
+// if (!isset($_SESSION["login_success"]) || $_SESSION["login_success"] !== true) {
+//     header("Location: login.php");
 //     exit();
 // }
 
-// $username = $_SESSION['username']; // Fetch the logged-in username from session (in real app)
-// ?>
+require_once './connection/config.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
