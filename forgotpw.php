@@ -1,8 +1,7 @@
 <?php
-session_start();
 include './connection/config.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reset'])) {
     function validate($data) {
         $data = trim($data);
         $data = stripslashes($data);
@@ -11,20 +10,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
     }
 
     $email = validate($_POST['email']);
-    $password = validate($_POST['password']);
 
-    if (empty($email) || empty($password)) {
-        $error_message = "All fields are required!";
+    if (empty($email)) {
+        $error_message = "Please enter your email!";
     } else {
         $conn = connect();
         if ($conn) {
-            $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+            $sql = "SELECT * FROM users WHERE email = '$email'";
             $result = $conn->query($sql);
             if ($result && $result->num_rows > 0) {
-                $_SESSION['user'] = $email;
-                header("Location: dashboard.php");
+                // In real apps, generate a reset token and email it.
+                $success_message = "A password reset link has been sent to your email.";
             } else {
-                $error_message = "Invalid credentials!";
+                $error_message = "No account found with that email.";
             }
         } else {
             $error_message = "Database connection failed!";
@@ -37,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sasto E-Pasal</title>
-    <link rel="stylesheet" href="./css/login.css">
+    <title>Forgot Password - Sasto E-Pasal</title>
+    <link rel="stylesheet" href="./css/forgotpw.css">
 </head>
 <body>
     <!-- Theme Toggle Button -->
@@ -46,28 +44,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         <button id="theme-switch" class="toggle-btn">🌞 Light Mode</button>
     </div>
 
-    <div class="login-container">
+    <div class="forgotpw-container">
         <div class="book-cover">
-            <h1>Login - Sasto E-Pasal</h1>
+            <h1>Forgot Password</h1>
         </div>
         <?php if (isset($error_message)) : ?>
             <div class="error"><?php echo $error_message; ?></div>
         <?php endif; ?>
-        <form action="login.php" method="post">
+        <?php if (isset($success_message)) : ?>
+            <div class="success"><?php echo $success_message; ?></div>
+        <?php endif; ?>
+        <form action="forgotpw.php" method="post">
             <div class="form-group">
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="email" name="email" placeholder="Enter your email" required>
             </div>
-            <div class="form-group">
-                <input type="password" name="password" placeholder="Password" required>
-            </div>
-            <button type="submit" name="login" class="btn">Login</button>
-            <p class="switch-link">
-    <a href="forgotpw.php">Forgot Password?</a>.
-</p>
-
+            <button type="submit" name="reset" class="btn">Send Reset Link</button>
         </form>
         <p class="switch-link">
-            Don't have an account? <a href="register.php">Register here</a>.
+            Back to <a href="login.php">Login</a>.
         </p>
     </div>
 
