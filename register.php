@@ -30,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("s", $username);
         if ($stmt->execute()) {
-            $stmt->store_result();
             if ($stmt->num_rows > 0) {
                 header("Location: register.php?error=username_taken");
                 exit();
@@ -43,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
     if($stmt = $mysqli->prepare($sql)){
         $stmt->bind_param("s",$email);
         if($stmt->execute()){
-            $stmt->store_result();
             if($stmt->num_rows > 0){
                 header("Location: register.php?error=email_taken");
                 exit();
