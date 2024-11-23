@@ -1,22 +1,31 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-
-.footer{
-
-}
-
-.footer-1{
+.footer .box-container{
     display: flex;
     flex-direction: row;
+    padding: 2rem 10rem;
+    border: 2px;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    justify-content: space-around;
+    background-color: purple;
+    color: white;
 }
 
-a{
-    list-style: none;
+.footer .box-container .box{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.8rem;
+
 }
 
-.discover-more{
+.footer .box-container .box a{
+    text-decoration: none;
+    color: white;
+}
+
+.footer .credit{
+    padding: 1rem;
+    text-align: center;
+    background-color: purple;
+    color: white;
+    
 }

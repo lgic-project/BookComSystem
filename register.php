@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
     $sql = "INSERT INTO user (username , email , password) VALUES (?,?, ?)";
 
     if ($stmt= $mysqli->prepare( $sql)) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $hashed_password = md5($password);
         $stmt->bind_param("sss", $username, $email, $hashed_password);
         if($stmt->execute()){
             header("Location: login.php?signup=success");

@@ -15,7 +15,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sasto E-Pasal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">  <!-- for font and icons -->
     <link rel="stylesheet" href="./css/style.css"> <!-- Main stylesheet -->
+    <link rel="stylesheet" href="./css/footer.css">
 </head>
 <body>
     <!-- Header Section -->
@@ -47,6 +49,9 @@
             include 'homepage.php'; // Default page
         }
         ?>
+
+
+        <div> lorem </div>
     </main>
 
     <!-- Footer -->
