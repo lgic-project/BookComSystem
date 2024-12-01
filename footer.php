@@ -1,4 +1,4 @@
-<section class="footer">
+<footer class="footer">
 
     <div class="box-container">
         <div class="box">
@@ -33,4 +33,4 @@
 
     <p class="credit"> &copy; copyright @ <?php echo date('Y'); ?> by <span>E-pasal</span> </p>
 
-</section>
+</footer>

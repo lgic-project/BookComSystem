@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reset'])) {
     if (empty($email)) {
         $error_message = "Please enter your email!";
     } else {
-        $conn = connect();
         if ($conn) {
             $sql = "SELECT * FROM users WHERE email = '$email'";
             $result = $conn->query($sql);
