@@ -4,7 +4,14 @@
     box-sizing: border-box;
 }
 
-.site-header, main {
+.header, main {
     flex-grow: 1;
 }
 
+
+.header nav{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
