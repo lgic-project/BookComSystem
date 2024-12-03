@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+.about-us{
+    background: white;
+}
+
 .about-dev{
     height: 100vh;
     display: flex;
