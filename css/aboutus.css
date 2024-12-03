@@ -1,26 +1,7 @@
-.header, .about-us{
-    flex-grow: 1;
-}
-
-
-.about-com{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    gap: 1rem;
-    background-color: red;
-}
-
-.about-com h1{
-    color: red;
-}
-
-.about-com p{
-    width: 500px;
-    height: 800px;
-    border: 3px solid red;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .about-dev{
@@ -29,8 +10,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #ff0a0a;
-    color: purple;
 }
 
 
@@ -55,7 +34,6 @@
     position: relative;
 }
 .profile-card::before {
-    content: "";
     position: absolute;
     top: 0;
     left: 0;

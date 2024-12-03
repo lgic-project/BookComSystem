@@ -28,17 +28,6 @@ if (isset($_POST['addbook'])) {
             }
         }
     }
-    // if ($stmt = mysqli_prepare($conn, $sql)) {
-    //     mysqli_stmt_bind_param($stmt, "s", $title);
-    //     if (mysqli_stmt_execute($stmt)) {
-    //         mysqli_stmt_store_result($stmt);
-    //         if (mysqli_stmt_num_rows($stmt) > 0) {
-    //             header("Location: index.php?error=books_already_in_store");
-    //             exit();
-    //         }
-    //     }
-    //     mysqli_stmt_close($stmt);
-    // }
 
     //inserting book in the database
     $sql = "INSERT into books (title, author, genre, pub_year, isbn, publisher, price, stock ) VAlUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -56,18 +45,6 @@ if (isset($_POST['addbook'])) {
         }
     }
 
-    // if ($stmt = mysqli_prepare($conn, $sql)) {
-    //     mysqli_stmt_bind_param($stmt, "sssissdi", $title, $author, $genre, $publication_year, $isbn, $publisher, $price, $stock);
-    //     if (mysqli_stmt_execute($stmt)) {
-    //         header("Location: index.php?add_book=success");
-    //         mysqli_stmt_close($stmt);
-    //         exit();
-    //     } else {
-    //         header("Location: index.php?add_book= Book_add_fail");
-    //         mysqli_stmt_close($stmt);
-    //         exit();
-    //     }
-    // }
 }
 
 ?>

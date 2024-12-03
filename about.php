@@ -5,15 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
-    <link rel="stylesheet" href="./css/aboutus.css">
     <link rel="stylesheet" href="./css/footer.css">
-    <link rel="stylesheet" href="./css/header.css">
-    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/aboutus.css">
 
 </head>
 
 <body>
-    <?php include_once './header.php'; ?>
+    <?php include './header.php'; ?>
     <section class="about-us">
         <section class="about-com">
             <h1 >About us</h1>
@@ -77,7 +75,7 @@
             </div>
         </section>
     </section>
-    <?php include_once './footer.php'; ?>
+    <?php include './footer.php'; ?>
 </body>
 
 </html>

@@ -3,15 +3,3 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-.header, main {
-    flex-grow: 1;
-}
-
-
-.header nav{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
