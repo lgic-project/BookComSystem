@@ -13,10 +13,9 @@
 </head>
 
 <body>
-    <?php include './header.php'; ?>
     <section class="about-us">
         <section class="about-com">
-            <h1 >About us</h1>
+            <!-- <h1 >About us</h1> -->
             <p></p>
         </section>
         <section class="about-dev">
