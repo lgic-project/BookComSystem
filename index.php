@@ -44,7 +44,7 @@
         }
         ?>
     </main>
-
+    <?php include 'about.php'; ?>
     <!-- Footer -->
     <?php include 'footer.php'; ?>
 

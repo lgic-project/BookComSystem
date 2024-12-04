@@ -7,7 +7,7 @@
         <div class="box">
             <h3>Quick links</h3>
             <a href="index.php">Home</a>
-            <a href="about.php">About</a>
+            <li><a href="index.php?page=about">About Us</a> </li>
             <a href="shop.php">shop</a>
             <a href="contact.php">contact</a>
         </div>
