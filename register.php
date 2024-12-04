@@ -1,47 +1,129 @@
 <?php
-session_start();
-include './connection/config.php';
+require_once './connection/config.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
-    function validate($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
+
+    $username = $mysqli->real_escape_string(trim($_POST['username']));
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+    $confirm_password = trim($_POST['confirm_password']);
+
+    if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+        header("Location: register.php?error=empty_fields");
+        exit();
+    }
+    if ($password !== $confirm_password) {
+        header("Location: register.php?error=password_mismatch");
+        exit();
+    }
+    if (strlen($password) < 6) {
+        header("Location: register.php?error=password_too_short");
+        exit();
     }
 
-    $username = validate($_POST['username']);
-    $email = validate($_POST['email']);
-    $password = validate($_POST['password']);
-
-    if (empty($username) || empty($email) || empty($password)) {
-        $error_message = "All fields are required!";
-    } else {
-        $conn = connect();
-        if ($conn) {
-            $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
-            if ($conn->query($sql)) {
-                $success_message = "Registration successful!";
-            } else {
-                $error_message = "Error: " . $conn->error;
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        header("Location: register.php?error= Email Invalid");
+        exit();
+    }
+    $sql = "SELECT id FROM user WHERE username = ?";
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("s", $username);
+        if ($stmt->execute()) {
+            if ($stmt->num_rows > 0) {
+                header("Location: register.php?error=username_taken");
+                exit();
             }
-        } else {
-            $error_message = "Database connection failed!";
         }
+        $stmt->close();
+    }
+
+    $sql = "SELECT id FROM user WHERE email = ?";
+    if($stmt = $mysqli->prepare($sql)){
+        $stmt->bind_param("s",$email);
+        if($stmt->execute()){
+            if($stmt->num_rows > 0){
+                header("Location: register.php?error=email_taken");
+                exit();
+            }
+        }
+        $stmt->close();
+    }
+
+    // Insert new user
+    $sql = "INSERT INTO user (username , email , password) VALUES (?,?, ?)";
+
+    if ($stmt= $mysqli->prepare( $sql)) {
+        $hashed_password = md5($password);
+        $stmt->bind_param("sss", $username, $email, $hashed_password);
+        if($stmt->execute()){
+            header("Location: login.php?signup=success");
+            $stmt->close();
+            exit();
+        }else{
+            header("Location: register.php?error=registration_failed");
+            $stmt->close();
+            exit();
+        }
+    }
+
+}
+
+
+$error = '';
+if (isset($_GET['error'])) {
+    switch ($_GET['error']) {
+        case 'invalid_password':
+            $error = "Invalid password!";
+            break;
+        case 'user_not_found':
+            $error = "User not found!";
+            break;
+        case 'username_taken':
+            $error = "Username is already taken!";
+            break;
+        case 'registration_failed':
+            $error = "Registration failed! Please try again.";
+            break;
+        case 'database_error':
+            $error = "Database error! Please try again.";
+            break;
+        case 'password_mismatch':
+            $error = "Passwords do not match!";
+            break;
+        case 'password_too_short':
+            $error = "Password must be at least 6 characters long!";
+            break;
+        case 'empty_fields':
+            $error = "All fields are required!";
+            break;
+        default:
+            $error = "";
+            break;
     }
 }
 ?>
-<!-- //🌞 Light Mode
-//🌙 Dark Mode -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Sasto E-Pasal</title>
     <link rel="stylesheet" href="./css/register.css">
+    <style>
+        .error {
+            background-color: #552f33;
+            color: white;
+            margin: 8px;
+            padding: 7px;
+        }
+    </style>
 </head>
+
 <body>
+    <!-- //🌞 Light Mode
+    //🌙 Dark Mode -->
     <!-- Theme Toggle Button -->
     <div class="theme-toggle">
         <button id="theme-switch" class="toggle-btn">🌞 Light Mode</button>
@@ -51,12 +133,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
         <div class="book-cover">
             <h1>Register - Sasto E-Pasal</h1>
         </div>
-        <?php if (isset($error_message)) : ?>
+        <?php if (isset($error_message)): ?>
             <div class="error"><?php echo $error_message; ?></div>
-        <?php elseif (isset($success_message)) : ?>
+        <?php elseif (isset($success_message)): ?>
             <div class="success"><?php echo $success_message; ?></div>
         <?php endif; ?>
-        <form action="register.php" method="post">
+        <form action="register.php" id="signup" method="post">
             <div class="form-group">
                 <input type="text" name="username" placeholder="Username" required>
             </div>
@@ -66,7 +148,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
             <div class="form-group">
                 <input type="password" name="password" placeholder="Password" required>
             </div>
+            <div class="form-group">
+                <input type="password" name="confirm_password" placeholder="Confirm your password" required>
+            </div>
             <button type="submit" name="signup" class="btn">Register</button>
+
+            <?php
+            if (isset($_GET['error']) && in_array($_GET['error'], ['username_taken', 'registration_failed', 'password_mismatch', 'password_too_short', 'empty_fields'])) {
+                echo '<div class="error">' . $error . '</div>';
+            }
+            ?>
         </form>
         <p class="switch-link">
             Already have an account? <a href="login.php">Login here</a>.
@@ -74,13 +165,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
     </div>
 
     <script>
-const themeSwitch = document.getElementById('theme-switch');
-const body = document.body;
-let clickCount = 0;
+        const themeSwitch = document.getElementById('theme-switch');
+        const body = document.body;
+        let clickCount = 0;
 
-// Load saved theme from localStorage
-const savedTheme = localStorage.getItem('theme') || 'light';
-applyTheme(savedTheme);
+        // Load saved theme from localStorage
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        applyTheme(savedTheme);
 
 themeSwitch.addEventListener('click', () => {
     clickCount++;
@@ -133,4 +224,5 @@ themeSwitch.addEventListener('animationend', () => {
 
     </script>
 </body>
+
 </html>

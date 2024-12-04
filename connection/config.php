@@ -1,14 +1,14 @@
 <?php
-define('DB_HOST','localhost');
+define('DB_SERVER','localhost');
 define('DB_USERNAME','root');
 define('DB_PASSWORD','');
-define('DB_DATABASE','users');
+define('DB_DATABASE','books');
 
-function connect( ){
-    $conn = new mysqli(DB_DATABASE, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
-    if ($conn->connect_error) {
-        return false;
-    }
-    return $conn;
+// Attempt to connect to MySQL database
+$mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+
+// Check connection
+if($mysqli->connect_errno) {
+    exit();
 }
 ?>
