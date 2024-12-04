@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             if($stmt->num_rows == 1){
                 $row = $stmt->fetch_assoc();
+                
                 if(password_verify($password, $row['password'])){
                     session_start();
                     $_SESSION["login_success"] = true;
