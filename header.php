@@ -8,8 +8,8 @@
             <div class="menu">
                 <ul class="nav-links">
                     <li><a href="./index.php">Home</a> </li>
-                    <li><a href="#">Products</a> </li>
-                    <li><a href="#">Categories <i class="fas fa-caret-down"></i> </a>
+                    <li><a href="product.php">Products</a> </li>
+                    <li><a href="category.php">Categories <i class="fas fa-caret-down"></i> </a>
 
                     <div class="dropdown_menu">
                         <ul>
@@ -27,8 +27,8 @@
                     </div>
 
                     </li>
-                    <li><a href="#">About Us</a> </li>
-                    <li><a href="#">Contact Us</a> </li>
+                    <li><a href="about.php">About Us</a> </li>
+                    <li><a href="contact.php">Contact us</a> </li>
                 </ul>
             </div>
             <div class="nav-2">
