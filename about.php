@@ -1,4 +1,6 @@
-<section class="about">
-    <h2>About Sasto E-Pasal</h2>
-    <p>We are dedicated to providing affordable books for everyone.</p>
-</section>
+<main>
+    <section>
+        <h2>About Us</h2>
+        <p>This app is built with PHP but follows a React-like component structure.</p>
+    </section>
+</main>
