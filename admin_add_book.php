@@ -6,10 +6,9 @@
 
 include './connection/config.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && $_FILES["book_image"]["error"] === UPLOAD_ERR_OK) {
-    
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = trim($_POST['title']);
-    $auther = trim($_POST['author']);
+    $author = trim($_POST['author']);
     $genre = trim($_POST['genre']);
     $pub_year = trim($_POST['pub_year']);
     $isbn = $_POST['isbn'];
@@ -42,37 +41,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_FILES["book_image"]["error"] === U
 
 
 
-    $sql = "SELECT id from books where title=?";
+    $sql = "SELECT id FROM books WHERE title=?";
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("s", $title);
+
         if ($stmt->execute()) {
+            $stmt->store_result();
             if ($stmt->num_rows > 0) {
-                header("Location: index.php?error=books_already_in_store");
+                echo "add error";
+                header("Location: .php?error=books_already_in_store");
                 exit();
             }
         }
     }
     $stmt;
-    //inserting book in the database
-    //first we need to uplaod file
+    // inserting book in the database
+    // first we need to uplaod file
     if (move_uploaded_file($_FILES["book_image"]["tmp_name"], $target_file)) {
-        $sql = "INSERT  INTO books (title, author, genre, pub_year, isbn, publisher, price, stock, book_img ) VAlUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
-        if ($stmt = $mysqli->prepare($sql)) {
-            $stmt->bind_param("sssissdis",$title, $auther, $genre, $pub_year, $isbn, $publisher, $price, $stock, $new_book_img);
-            if ($stmt->execute()) {
-                $stmt->store_result();
-                header("Location: admin_add_book.php?add_book=success");
-                $stmt->close();
-                exit();
-            } else {
-                header("Location: admin_add_book.php?add_book= Book_add_fail");
-                $stmt->close();
-                exit();
-            }
+    if ($stmt = $mysqli->prepare("INSERT  INTO books(title, author, genre, pub_year, isbn, publisher, price, stock, book_img ) VAlUES (?, ?, ?, ?, ?, ?, ?, ?,?)")) {
+        $stmt->bind_param("sssissdis", $title, $author, $genre, $pub_year, $isbn, $publisher, $price, $stock, $new_book_img);
+        if ($stmt->execute()) {
+            $stmt->store_result();
+            echo "book added into database";
+            header("Location: admin_add_book.php?add_book=success");
+            $stmt->close();
+            exit();
+        } else {
+            header("Location: admin_add_book.php?add_book= Book_add_fail");
+            $stmt->close();
+            exit();
         }
-    }else{
-
     }
+}
+    
+
+
+
+
 
 }
 
@@ -80,11 +85,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_FILES["book_image"]["error"] === U
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Entry Form</title>
 </head>
+
 <body>
     <h1>Enter Book Details</h1>
     <form action="admin_add_book.php" method="POST" enctype="multipart/form-data">
@@ -130,11 +137,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_FILES["book_image"]["error"] === U
 
         <!-- Image -->
         <label for="img">Book Cover Image:</label>
-        <input type="file"  name="book_image" id="book_image" accept="bookspic/" required >
+        <input type="file" name="book_image" id="book_image" accept="bookspic/" required>
         <br><br>
 
         <!-- Submit Button -->
         <button type="submit">Add Book</button>
     </form>
 </body>
+
 </html>
