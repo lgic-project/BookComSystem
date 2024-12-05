@@ -12,6 +12,53 @@
     <p>Discover your next great read!</p>
 </section>
 
+<section class="top-books">
+    <h2>Top Bought Books</h2>
+    <div class="scroll-container">
+        <button class="scroll-btn left-btn" onclick="scrollLeft()">&#8249;</button>
+        <div class="scrollable">
+            <div class="book">
+                <img src="top1.jpg" alt="Top Book 1">
+                <h3>Top Book 1</h3>
+            </div>
+            <div class="book">
+                <img src="top2.jpg" alt="Top Book 2">
+                <h3>Top Book 2</h3>
+            </div>
+            <div class="book">
+                <img src="top3.jpg" alt="Top Book 3">
+                <h3>Top Book 3</h3>
+            </div>
+            <div class="book">
+                <img src="top1.jpg" alt="Top Book 1">
+                <h3>Top Book 1</h3>
+            </div>
+            <div class="book">
+                <img src="top2.jpg" alt="Top Book 2">
+                <h3>Top Book 2</h3>
+            </div>
+            <div class="book">
+                <img src="top3.jpg" alt="Top Book 3">
+                <h3>Top Book 3</h3>
+            </div>
+            <div class="book">
+                <img src="top1.jpg" alt="Top Book 1">
+                <h3>Top Book 1</h3>
+            </div>
+            <div class="book">
+                <img src="top2.jpg" alt="Top Book 2">
+                <h3>Top Book 2</h3>
+            </div>
+            <div class="book">
+                <img src="top3.jpg" alt="Top Book 3">
+                <h3>Top Book 3</h3>
+            </div>
+            <!-- Add more books as needed -->
+        </div>
+        <button class="scroll-btn right-btn" onclick="scrollRight()">&#8250;</button>
+    </div>
+</section>
+
 <section class="book-grid">
     <h2>Featured Books</h2>
     <div class="books">
@@ -38,5 +85,16 @@
     <p>E Book Pasal is your one-stop shop for amazing books. We provide a wide range of collections to satisfy every reader.</p>
 </section>
 
+<script>
+    function scrollLeft() {
+        const container = document.querySelector('.scrollable');
+        container.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+
+    function scrollRight() {
+        const container = document.querySelector('.scrollable');
+        container.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+</script>
 </body>
 </html>
