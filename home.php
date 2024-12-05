@@ -6,95 +6,60 @@
     <title>Book Commercial Site</title>
     <link rel="stylesheet" href="css/home.css">
 </head>
-<body>
-<section class="banner">
-    <h1>Welcome to E Book Pasal</h1>
-    <p>Discover your next great read!</p>
-</section>
+<body class="light-mode">
+    <div class="theme-toggle" onclick="toggleTheme()">Switch Theme</div>
 
-<section class="top-books">
-    <h2>Top Bought Books</h2>
-    <div class="scroll-container">
-        <button class="scroll-btn left-btn" onclick="scrollLeft()">&#8249;</button>
-        <div class="scrollable">
-            <div class="book">
-                <img src="top1.jpg" alt="Top Book 1">
-                <h3>Top Book 1</h3>
-            </div>
-            <div class="book">
-                <img src="top2.jpg" alt="Top Book 2">
-                <h3>Top Book 2</h3>
-            </div>
-            <div class="book">
-                <img src="top3.jpg" alt="Top Book 3">
-                <h3>Top Book 3</h3>
-            </div>
-            <div class="book">
-                <img src="top1.jpg" alt="Top Book 1">
-                <h3>Top Book 1</h3>
-            </div>
-            <div class="book">
-                <img src="top2.jpg" alt="Top Book 2">
-                <h3>Top Book 2</h3>
-            </div>
-            <div class="book">
-                <img src="top3.jpg" alt="Top Book 3">
-                <h3>Top Book 3</h3>
-            </div>
-            <div class="book">
-                <img src="top1.jpg" alt="Top Book 1">
-                <h3>Top Book 1</h3>
-            </div>
-            <div class="book">
-                <img src="top2.jpg" alt="Top Book 2">
-                <h3>Top Book 2</h3>
-            </div>
-            <div class="book">
-                <img src="top3.jpg" alt="Top Book 3">
-                <h3>Top Book 3</h3>
-            </div>
-            <!-- Add more books as needed -->
-        </div>
-        <button class="scroll-btn right-btn" onclick="scrollRight()">&#8250;</button>
-    </div>
-</section>
+    <section class="banner">
+        <h1>Welcome to E Book Pasal</h1>
+        <p>Your journey to knowledge begins here.</p>
+    </section>
 
-<section class="book-grid">
-    <h2>Featured Books</h2>
-    <div class="books">
-        <div class="book">
-            <img src="book1.jpg" alt="Book 1">
+    <section class="scroll-container">
+        <div class="card">
+            <img src="developerpic/bishal.jpg" alt="Book Cover">
             <h3>Book Title 1</h3>
-            <p>$15.99</p>
+            <p>Author: John Doe</p>
+            <p>Price: $19.99</p>
+            <button class="btn">Buy Now</button>
         </div>
-        <div class="book">
-            <img src="book2.jpg" alt="Book 2">
-            <h3>Book Title 2</h3>
-            <p>$12.49</p>
-        </div>
-        <div class="book">
-            <img src="book3.jpg" alt="Book 3">
-            <h3>Book Title 3</h3>
-            <p>$19.99</p>
-        </div>
-    </div>
-</section>
 
-<section class="about">
-    <h2>About Us</h2>
-    <p>E Book Pasal is your one-stop shop for amazing books. We provide a wide range of collections to satisfy every reader.</p>
-</section>
+        <div class="card">
+            <img src="developerpic/bishal.jpg" alt="Book Cover">
+            <h3>Book Title 2</h3>
+            <p>Author: Jane Smith</p>
+            <p>Price: $15.49</p>
+            <button class="btn">Buy Now</button>
+        </div>
+
+        <div class="card">
+            <img src="developerpic/bishal.jpg" alt="Book Cover">
+            <h3>Book Title 3</h3>
+            <p>Author: Alice Johnson</p>
+            <p>Price: $22.99</p>
+            <button class="btn">Buy Now</button>
+        </div>
+
+        <!-- Add more cards as needed -->
+    </section>
 
 <script>
-    function scrollLeft() {
-        const container = document.querySelector('.scrollable');
+function scrollLeft() {
+    const container = document.querySelector('.scrollable');
+    if (container) {
         container.scrollBy({ left: -200, behavior: 'smooth' });
     }
+}
 
-    function scrollRight() {
-        const container = document.querySelector('.scrollable');
+function scrollRight() {
+    const container = document.querySelector('.scrollable');
+    if (container) {
         container.scrollBy({ left: 200, behavior: 'smooth' });
     }
+}
+function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            document.body.classList.toggle('dark-mode');
+        }
 </script>
 </body>
 </html>

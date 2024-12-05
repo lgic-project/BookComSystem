@@ -1,94 +1,161 @@
-/* Top Bought Books Section */
-.top-books {
-    width: 90%;
-    height: 30vh;
-    margin: 20px auto;
-    position: relative;
-    overflow: hidden;
-    background-color: var(--container-bg);
-    border-radius: 10px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-    padding: 10px;
+/* Base Styles */
+body {
+    font-family: 'Garamond', serif;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: background-color 0.3s ease;
-}
-
-.top-books h2 {
-    font-family: 'Garamond', serif;
+    min-height: 100vh;
+    background: var(--bg-gradient);
     color: var(--text-color);
-    margin-bottom: 10px;
+    transition: background 1s ease, color 0.3s ease;
 }
 
+/* Light and Dark Mode Variables */
+body.light-mode {
+    --bg-gradient: linear-gradient(to bottom, #f3f4f6, #ffffff);
+    --text-color: #333;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --card-shadow: rgba(0, 0, 0, 0.2);
+    --button-bg: #7e57c2;
+    --button-hover: #5e35b1;
+}
+
+body.dark-mode {
+    --bg-gradient: radial-gradient(circle, #121212, #1e1e2e);
+    --text-color: #fff;
+    --card-bg: rgba(30, 30, 46, 0.95);
+    --card-shadow: rgba(0, 0, 0, 0.5);
+    --button-bg: #5e35b1;
+    --button-hover: #7e57c2;
+}
+
+/* Page Title and Banner */
+.banner {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.banner h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.banner p {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    animation: slideIn 0.6s ease-out;
+}
+
+/* Horizontal Scroll Container */
 .scroll-container {
     display: flex;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    position: relative;
-}
-
-.scrollable {
-    display: flex;
     overflow-x: auto;
+    gap: 20px;
+    margin: 30px auto;
+    width: 90%;
+    max-width: 1200px;
+    padding-bottom: 20px;
+    scrollbar-width: thin;
     scroll-behavior: smooth;
-    width: 100%;
-    gap: 15px;
-    scrollbar-width: none; /* Hides scrollbar */
 }
 
-.scrollable::-webkit-scrollbar {
-    display: none; /* Hides scrollbar */
-}
-
-.book {
-    min-width: 150px;
+/* Card Styling */
+.card {
+    background: var(--card-bg);
+    color: var(--text-color);
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
     flex-shrink: 0;
-    text-align: center;
-    background-color: var(--input-bg);
-    border-radius: 5px;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
-.book:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px var(--card-shadow);
 }
 
-.book img {
+/* Card Image */
+.card img {
     width: 100%;
-    height: auto;
-    border-radius: 5px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* Card Content */
+.card h3 {
+    font-size: 1.5rem;
     margin-bottom: 10px;
 }
 
-.scroll-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: var(--button-bg);
-    color: var(--button-text);
+.card p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* Button */
+.card .btn {
+    background: var(--button-bg);
+    color: #fff;
+    padding: 10px;
     border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    border-radius: 8px;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background 0.3s ease;
+    width: 100%;
+    text-align: center;
 }
 
-.scroll-btn:hover {
-    background-color: var(--error-text);
-    transform: scale(1.1);
+.card .btn:hover {
+    background: var(--button-hover);
 }
 
-.left-btn {
-    left: 10px;
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
-.right-btn {
-    right: 10px;
+@keyframes slideIn {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: var(--button-bg);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1) rotate(10deg);
+    background: var(--button-hover);
 }
