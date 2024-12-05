@@ -53,6 +53,25 @@ $result = $mysqli->query($sql);
             reader.</p>
     </section>
 
+<script>
+function scrollLeft() {
+    const container = document.querySelector('.scrollable');
+    if (container) {
+        container.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+}
+
+function scrollRight() {
+    const container = document.querySelector('.scrollable');
+    if (container) {
+        container.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+}
+function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            document.body.classList.toggle('dark-mode');
+        }
+</script>
 </body>
 
 </html>
