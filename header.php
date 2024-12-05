@@ -1,7 +1,12 @@
-<!-- header.php -->
+<html>
+    <head>
+        <link rel="stylesheet" href="css/header.css">
+    </head>
+    <body>
+        <!-- header.php -->
 <header class="header">
     <div class="header-1">
-        <h1 class="logo"> <a href="bookspic/"><img src="bookspic/logo-no-slogan-removebg-preview.png" alt=""></a> </h1>
+        <h1 class="logo"> <a href="bookspic/"><img class="logo-pic" src="bookspic/logo-no-slogan-removebg-preview.png" alt=""></a> </h1>
     </div>
     <nav class="header-2">
         <div class="nav-bar">
@@ -32,3 +37,6 @@
         </div>
     </nav>
 </header>
+
+    </body>
+</html>
