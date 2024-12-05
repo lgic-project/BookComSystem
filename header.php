@@ -1,12 +1,13 @@
 <!-- header.php -->
 <header class="header">
     <div class="header-1">
-        <h1 class="logo"> <a href="./index.php">Bookly</a> </h1>
+        <h1 class="logo"> <a href="bookspic/"><img src="bookspic/logo-no-slogan-removebg-preview.png" alt=""></a> </h1>
     </div>
     <nav class="header-2">
         <div class="nav-bar">
             <div class="menu">
-                <ul class="nav-links">
+          
+            <ul class="nav-links">
                     <li><a href="./index.php">Home</a> </li>
                     <li><a href="product.php">Products</a> </li>
                     <li><a href="category.php">Categories <i class="fas fa-caret-down"></i> </a>
