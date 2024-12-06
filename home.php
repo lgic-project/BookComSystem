@@ -21,6 +21,7 @@ $result = $mysqli->query($sql);
 </head>
 
 <body>
+<?php include 'header.php'; ?>
     <section class="banner">
         <h1>Welcome to E Book Pasal</h1>
         <p>Discover your next great read!</p>
