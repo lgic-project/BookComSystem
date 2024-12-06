@@ -6,7 +6,7 @@
     <title>Book Commercial Site</title>
     <link rel="stylesheet" href="css/home.css">
 </head>
-<body class="light-mode">
+<body>
     <div class="theme-toggle" onclick="toggleTheme()">Switch Theme</div>
 
     <section class="banner">
@@ -38,24 +38,9 @@
             <p>Price: $22.99</p>
             <button class="btn">Buy Now</button>
         </div>
-
-        <!-- Add more cards as needed -->
     </section>
 
 <script>
-function scrollLeft() {
-    const container = document.querySelector('.scrollable');
-    if (container) {
-        container.scrollBy({ left: -200, behavior: 'smooth' });
-    }
-}
-
-function scrollRight() {
-    const container = document.querySelector('.scrollable');
-    if (container) {
-        container.scrollBy({ left: 200, behavior: 'smooth' });
-    }
-}
 function toggleTheme() {
             document.body.classList.toggle('light-mode');
             document.body.classList.toggle('dark-mode');

@@ -1,12 +1,17 @@
 <?php
-// session_start();
+// Start the session to manage theme preference across pages
+session_start();
 
-// if (!isset($_SESSION['username'])) {
-//     header('Location: login.php');
-//     exit();
-// }
+// Check if a theme toggle request is made
+if (isset($_POST['theme'])) {
+    // Set the theme in the session
+    $_SESSION['theme'] = $_POST['theme'];
+}
 
-// $username = $_SESSION['username']; // Fetch the logged-in username from session (in real app)
+// Default theme (light) if no theme is set in the session
+if (!isset($_SESSION['theme'])) {
+    $_SESSION['theme'] = 'light-mode';
+}
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +27,8 @@
     <link rel="stylesheet" href="./css/footer.css">
 </head>
 
-<body>
+<body class="<?php echo $_SESSION['theme']; ?>"> <!-- Apply the theme class from session -->
+
     <?php include 'header.php'; ?>
 
     <!-- Main Content -->
@@ -44,11 +50,11 @@
         }
         ?>
     </main>
-    <?php include 'about.php'; ?>
-    <!-- Footer -->
+
     <?php include 'footer.php'; ?>
 
-    <script src="./js/script.js"></script> <!-- Main JavaScript -->
+    <!-- Main JavaScript -->
+    <script src="./js/script.js"></script>
 </body>
 
 </html>
