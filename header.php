@@ -54,7 +54,7 @@ if (isset($_POST['theme'])) {
                         </ul>
                     </div>
                 </li>
-                <li><a href="index.php?page=about">About Us</a></li>
+                <li><a href="about.php">About Us</a></li>
                 <li><a href="contact.php">Contact Us</a></li>
             </ul>
         </nav>
