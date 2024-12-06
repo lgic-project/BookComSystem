@@ -25,10 +25,11 @@ include 'header.php';
 </head>
 <body>
 
-<section class="banner">
-    <h1>Welcome to E Book Pasal</h1>
-    <p>Discover your next great read!</p>
+<section class="banner" style="background: url('bookspic/bg4.jpg') no-repeat center center/cover; height: 50vh; text-align: center; padding: 100px 20px;">
+    <h1>WELCOME TO BOOKLY</h1>
+    <p>A book a day keeps reality away!!</p>
 </section>
+
 
 <section class="book-grid">
     <h2>Featured Books</h2>
