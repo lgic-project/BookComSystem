@@ -1,27 +1,102 @@
-/* Footer Styles */
+/* General reset for footer */
 footer {
-    background-color: var(--footer-bg);
-    color: var(--footer-text);
+    background-color: #333;
+    color: #fff;
+    padding: 50px 0;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+}
+
+/* Footer Container */
+.footer .box-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Each Box */
+.footer .box {
+    flex: 1;
     padding: 20px;
-    text-align: center;
-}
-
-footer a {
-    color: var(--footer-link);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-footer a:hover {
-    color: var(--footer-link-hover);
-}
-
-footer .social-icons i {
-    font-size: 1.5rem;
+    min-width: 250px;
     margin: 0 10px;
-    transition: color 0.3s ease;
 }
 
-footer .social-icons i:hover {
-    color: var(--button-bg);
+/* Logo styling (if you add an image) */
+.footer .box img {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+/* Header in each box */
+.footer .box h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+    animation: fadeIn 1s ease-out;
+}
+
+/* Styling links */
+.footer .box a {
+    color: #fff;
+    display: block;
+    margin: 5px 0;
+    font-size: 16px;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer .box a:hover {
+    color: #ff6347; /* Change link color on hover */
+}
+
+/* Contact info icons */
+.footer .box p i {
+    margin-right: 10px;
+}
+
+/* Social media icons */
+.footer .box a i {
+    font-size: 20px;
+    margin-right: 15px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.footer .box a:hover i {
+    transform: scale(1.2); /* Icon zoom effect */
+}
+
+/* Animation for the footer's content */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.footer .credit {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+    animation: fadeIn 2s ease-out;
+}
+
+/* Small screen adjustments */
+@media (max-width: 768px) {
+    .footer .box-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer .box {
+        margin-bottom: 20px;
+    }
 }

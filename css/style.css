@@ -1,65 +1,27 @@
-/* Base Styles */
-* {
+/* Very light purple background for the entire page */
+body {
+    background-color: #f3e6f7; /* Light purple color */
+    color: #333; /* Text color */
+    font-family: Arial, sans-serif; /* Font styling */
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-body {
-    font-family: 'Garamond', serif;
-    transition: background 1s ease, color 0.3s ease;
-}
-
-/* Light Mode */
-body.light-mode {
-    background: #f9f9f9;
-    color: #333;
-}
-
-body.dark-mode {
-    background: #121212;
+/* Additional styling for header and other components */
+header {
+    background-color: #6a0dad; /* Purple background */
     color: #fff;
-}
-
-/* Header */
-.header {
-    background-color: var(--header-bg);
-    color: var(--header-text);
-    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px 20px;
     position: sticky;
     top: 0;
     z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.header-1 .logo img {
-    width: 150px;
-    height: auto;
-}
-
-.nav-links a {
-    color: var(--header-text);
-    text-decoration: none;
-    font-size: 1.2rem;
-    padding: 10px 15px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.nav-links a:hover {
-    background-color: var(--button-bg);
-    color: white;
-}
-
-/* Theme Toggle Button */
-.theme-toggle {
-    background-color: var(--button-bg);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.theme-toggle:hover {
-    background-color: var(--button-hover);
-}
+/* You can add more styles here for header, footer, etc. */
