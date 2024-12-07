@@ -1,6 +1,6 @@
 /* General Header Styles */
 header {
-    background-color: #6a0dad; /* Purple background */
+    background-color: #b39ddb; /* Light Purple background */
     color: #fff; /* White text for contrast */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     padding: 10px 20px;
@@ -62,7 +62,7 @@ header:hover {
 /* Navigation Link Styling */
 .nav-links a {
     text-decoration: none;
-    color: #f1f1f1; /* Lighter color for better contrast */
+    color: #f3e5f5; /* Light text for better contrast */
     font-weight: 500;
     padding: 8px 12px;
     border-radius: 5px;
@@ -70,9 +70,9 @@ header:hover {
 }
 
 .nav-links a:hover {
-    background-color: #4b0072; /* Darker purple on hover */
-    color: #fff; /* White text on hover */
-    transform: scale(1.1); /* Slight zoom effect */
+    background-color: #d1c4e9; /* Lighter hover effect */
+    color: #fff;
+    transform: scale(1.1);
 }
 
 /* Dropdown Menu */
@@ -81,7 +81,7 @@ header:hover {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #6a0dad;
+    background-color: #b39ddb;
     border-radius: 5px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     padding: 10px 0;
@@ -112,7 +112,7 @@ header:hover {
 }
 
 .dropdown_menu ul li a:hover {
-    background-color: #4b0072;
+    background-color: #d1c4e9;
     color: #fff;
 }
 
@@ -143,12 +143,12 @@ header:hover {
 }
 
 .search-bar input[type="text"]:focus {
-    border-color: #007BFF;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.6); /* Blue glow effect */
+    border-color: #b39ddb;
+    box-shadow: 0 0 5px rgba(179, 157, 255, 0.6);
 }
 
 .search-bar button {
-    background-color: #007BFF;
+    background-color: #b39ddb;
     color: #fff;
     padding: 10px;
     border: none;
@@ -159,8 +159,8 @@ header:hover {
 }
 
 .search-bar button:hover {
-    background-color: #0056b3;
-    transform: rotate(90deg); /* Rotate search icon on hover */
+    background-color: #9c8cba;
+    transform: rotate(90deg);
 }
 
 /* Cart Icon */
@@ -171,8 +171,8 @@ header:hover {
 }
 
 .cart a:hover {
-    color: #ffd700; /* Gold color on hover */
-    transform: scale(1.1); /* Zoom effect */
+    color: #ffeb3d;
+    transform: scale(1.1);
 }
 
 /* Fade-in animation for links */

@@ -32,16 +32,18 @@ body.dark-mode {
 
 /* Banner Section */
 .banner {
-    background: url('bookspic/bg.jpg') no-repeat center center/cover; /* Background image */
+    background: url('bookspic/bg.jpg') no-repeat center center/cover;
     color: black;
-    padding: 100px 20px; /* Padding to give space around the text */
+    padding: 100px 20px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Shadow effect */
-    height: 50vh; /* Make the banner take up the full viewport height */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    height: 50vh;
     width: 95%;
+    /* Fading lower border effect */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), transparent 50%) center center/cover no-repeat, url('bookspic/bg.jpg') no-repeat center center/cover;
 }
 
 /* Banner Heading */
