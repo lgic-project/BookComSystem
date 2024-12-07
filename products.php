@@ -9,6 +9,7 @@ $result = $mysqli->query($sql);
 if (!$result) {
     die("Error fetching books: " . $mysqli->error);
 }
+include 'header.php';
 ?>
 
 <!DOCTYPE html>
@@ -151,5 +152,34 @@ if (!$result) {
             <?php endwhile; ?>
         </div>
     </div>
+    <div id="popup-message" style="display: none; position: fixed; top: 20%; left: 50%; transform: translate(-50%, -50%); 
+    background-color: #6200ea; color: #fff; padding: 20px 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); z-index: 1000;">
+    <p>Added to cart</p>
+</div>
+
+<script>
+    document.querySelectorAll('form[action="add_to_cart.php"]').forEach(form => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const formData = new FormData(this);
+            
+            fetch('add_to_cart.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Show popup message
+                const popup = document.getElementById('popup-message');
+                popup.style.display = 'block';
+
+                // Hide after 2 seconds
+                setTimeout(() => popup.style.display = 'none', 2000);
+            });
+        });
+    });
+</script>
+
 </body>
 </html>
