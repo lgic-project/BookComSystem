@@ -37,7 +37,7 @@ if (isset($_POST['theme'])) {
         <nav class="nav-bar">
             <ul class="nav-links">
                 <li><a href="./index.php">Home</a></li>
-                <li><a href="product.php">Products</a></li>
+                <li><a href="products.php">Products</a></li>
                 <li>
                     <a href="category.php">Categories <i class="fas fa-caret-down"></i></a>
                     <div class="dropdown_menu">
