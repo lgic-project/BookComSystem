@@ -121,6 +121,7 @@ body.dark-mode {
     text-align: center;
     margin-bottom: 20px;
     color: #6a1b9a;
+}
 /* Horizontal Scroll Container */
 .scroll-container {
     display: flex;
@@ -142,6 +143,7 @@ body.dark-mode {
     gap: 20px;
     margin: 30px auto;
     padding: 20px;
+}
 /* Card Styling */
 .card {
     background: var(--card-bg);
@@ -163,6 +165,7 @@ body.dark-mode {
 
 .grid-item {
     border: 1px solid #ddd;
+}
 /* Card Image */
 .card img {
     width: 100%;
@@ -181,6 +184,7 @@ body.dark-mode {
 .grid-item img {
     width: 100%;
     height: auto;
+}
 /* Card Content */
 .card h3 {
     font-size: 1.5rem;
@@ -200,6 +204,7 @@ body.dark-mode {
 .grid-item .price {
     font-weight: bold;
     color: #000;
+}
 .card p {
     font-size: 1rem;
     margin-bottom: 10px;
