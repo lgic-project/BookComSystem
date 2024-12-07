@@ -18,7 +18,6 @@ include 'header.php';
 
 // Determine the requested page
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
-
 switch ($page) {
     case 'about':
         include 'about.php';
@@ -28,6 +27,7 @@ switch ($page) {
         include 'home.php';
         break;
 }
+$page = isset($_GET['page']) ? $_GET['page'] : 'products';
 ?>
 
 <!DOCTYPE html>
