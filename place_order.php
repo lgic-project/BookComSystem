@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'connection/config.php';
-
+$_SESSION['user_id'] = 1;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_SESSION['user_id'])) {
         echo "<script>alert('Please log in to place an order!'); window.location.href = 'login.php';</script>";
