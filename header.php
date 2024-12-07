@@ -22,7 +22,7 @@ if (isset($_POST['theme'])) {
     <title>Website Header</title>
     <!-- Font Awesome for icons -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <!-- Link to header CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" href="css/header.css">
 </head>
 <body class="<?php echo $_SESSION['theme']; ?>">
@@ -55,7 +55,7 @@ if (isset($_POST['theme'])) {
                     </div>
                 </li>
                 <li><a href="about.php">About Us</a></li>
-                <li><a href="contact.php">Contact Us</a></li>
+                <li><a href="contactus.php">Contact Us</a></li>
             </ul>
         </nav>
 
