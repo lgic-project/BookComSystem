@@ -1,15 +1,15 @@
 <?php
 // Include database connection
 include 'connection/config.php'; // Update this path as needed
-
+include 'header.php';
 // Fetch books from the database
 $sql = "SELECT * FROM books";
 $result = $mysqli->query($sql);
 
 if (!$result) {
     die("Error fetching books: " . $mysqli->error);
+    
 }
-include 'header.php';
 ?>
 
 <!DOCTYPE html>
@@ -18,81 +18,15 @@ include 'header.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-            color: #6200ea;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .product-card {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .product-card img {
-            max-width: 80%;
-            margin-bottom: 15px;
-            border-radius: 8px;
-        }
-
-        .buttons button {
-            background: #6200ea;
-            color: #fff;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            margin: 5px;
-        }
-
-        .buttons button:hover {
-            background: #3700b3;
-        }
-
-        #popup-message {
-            display: none;
-            position: fixed;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #6200ea;
-            color: #fff;
-            padding: 20px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-        }
-    </style>
+    <link rel="stylesheet" href="css/products.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 </head>
 <body>
+
+    
+
+    <!-- Main Content -->
     <div class="container">
         <h1>Our Books</h1>
         <div class="products-grid">
@@ -115,8 +49,11 @@ include 'header.php';
             <?php endwhile; ?>
         </div>
     </div>
+
+    <!-- Popup for "Added to cart" -->
     <div id="popup-message"><p>Added to cart</p></div>
 
+    <!-- JavaScript for Cart Functionality -->
     <script>
         document.querySelectorAll('.add-to-cart-form').forEach(form => {
             form.addEventListener('click', function () {

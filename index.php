@@ -8,12 +8,10 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Set the default theme if not set
 if (!isset($_SESSION['theme'])) {
     $_SESSION['theme'] = 'light-mode';
 }
 
-// Include the header for all pages
 include 'header.php';
 
 // Determine the requested page

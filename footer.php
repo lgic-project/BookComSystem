@@ -38,7 +38,7 @@ footer {
 
 /* Logo styling (if you add an image) */
 .footer .box img {
-    width: 80px; /* Adjusted logo size */
+    width: 200px; /* Adjusted logo size */
     margin-bottom: 15px;
     align-self: center;
 }
@@ -132,7 +132,7 @@ footer {
 
     <div class="box-container">
         <div class="box">
-            <img src="" alt="logo">
+            <img src="logo/logo-removebg-preview.png" alt="logo">
         </div>
         <div class="box">
             <h3>Quick links</h3>
