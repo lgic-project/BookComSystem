@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: login.php?error=empty_fields");
         exit();
     }
-    $sql = "SELECT id, username, password FROM user WHERE email = ?";
+    $sql = "SELECT id, username, password FROM users WHERE email = ?";
     if($stmt= $mysqli->prepare($sql)){
         $stmt->bind_param("s",$email);
 

@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
         header("Location: register.php?error= Email Invalid");
         exit();
     }
-    $sql = "SELECT id FROM user WHERE username = ?";
+    $sql = "SELECT id FROM users WHERE username = ?";
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("s", $username);
         if ($stmt->execute()) {
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
         $stmt->close();
     }
 
-    $sql = "SELECT id FROM user WHERE email = ?";
+    $sql = "SELECT id FROM users WHERE email = ?";
     if($stmt = $mysqli->prepare($sql)){
         $stmt->bind_param("s",$email);
         if($stmt->execute()){
@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
     }
 
     // Insert new user
-    $sql = "INSERT INTO user (username , email , password) VALUES (?,?, ?)";
+    $sql = "INSERT INTO users (username , email , password) VALUES (?,?, ?)";
 
     if ($stmt= $mysqli->prepare( $sql)) {
         $hashed_password = md5($password);
