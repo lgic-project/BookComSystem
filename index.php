@@ -38,7 +38,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'products';
     <title>Website</title>
     
     <!-- Linking external CSS -->
-    <link rel="stylesheet" href="css/style.css"> <!-- Make sure the path is correct -->
+    <link rel="stylesheet" href="css/style.css"> 
 </head>
 <body>
     <!-- Page content -->
