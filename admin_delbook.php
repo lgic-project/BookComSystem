@@ -51,6 +51,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 // if (isset($_POST['delbook'])) {
 // $title = trim($_POST['title']);
 // $sql = "SELECT title from book where title=?";

@@ -4,7 +4,7 @@ include 'connection/config.php';
 $_SESSION['user_id'] = 1;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_SESSION['user_id'])) {
-        echo "<script>alert('Please log in to place an order!'); window.location.href = 'login.php';</script>";
+        header("Location:place_order.php?status=login_to_place_order_");
         exit;
     }
 
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $status = 'Pending';
 
             // Insert order into database
-            $stmt = $mysqli->prepare("INSERT INTO orders (user_id, order_date, product_price, status) VALUES (?, ?, ?, ?)");
+            $stmt = $mysqli->prepare("INSERT INTO orders (user_id, order_date, total_price, status) VALUES (?, ?, ?, ?)");
             $stmt->bind_param("issd", $user_id, $order_date, $total_price, $status);
 
             if ($stmt->execute()) {

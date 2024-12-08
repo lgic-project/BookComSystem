@@ -14,6 +14,12 @@ if(isset($_POST['quantity_added'])){
 
 }
 
+if(isset($_POST['proceed_to_order'])){
+    $cart_id= $_POST['cart_id'];
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -60,6 +66,11 @@ if(isset($_POST['quantity_added'])){
                 echo '<p>No books found</p>';
             }
             ?>
+            <form action="" method="POST">
+                <input type="hidden" name="cart_id" value="<?php $cart_row['id'] ?>">
+                <button type="submit" name="proceed_to_order">Proceed to order</button>
+            </form>
+            
 
         </div>
     </section>

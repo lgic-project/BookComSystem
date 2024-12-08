@@ -1,0 +1,39 @@
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+
+.addbook-container {
+    margin: 20px;
+    padding: 20px;
+    background: white;
+}
+
+.addbook-container h1 {
+    text-align: center;
+    color: purple;
+    margin-bottom: 5px;
+}
+
+.addbook-container .form-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.addbook-container .form-group .input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group input {
+    height: 2rem;
+    padding: 4px;
+}
+
+
+.addbook-container .form-group button {
+    width: 10rem;
+    height: 5rem;
+    right: 0;
+}

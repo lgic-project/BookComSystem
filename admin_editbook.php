@@ -2,7 +2,7 @@
 include_once './connection/config.php';
 
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_book'])) {
     $book_id = $_POST['book_id'];
     $title = $_POST['title'];
     $author = $_POST['author'];
