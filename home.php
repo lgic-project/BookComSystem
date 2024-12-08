@@ -20,6 +20,48 @@ $result = $mysqli->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Commercial Site</title>
     <link rel="stylesheet" href="css/home.css">
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .grid-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 10px;
+            padding-bottom: 15px;
+            margin: 15px 15px;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: auto;
+        }
+
+        .grid-item h3 {
+            font-size: 18px;
+            margin: 10px 10px;
+        }
+
+        .grid-item p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .grid-item .price {
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 10px;
+        }
+
+        
+    </style>
 </head>
 <body>
 
@@ -55,6 +97,8 @@ $result = $mysqli->query($sql);
     <p>E Book Pasal is your one-stop shop for amazing books. We provide a wide range of collections to satisfy every reader.</p>
 </section>
 
+<?php include 'footer.php'; ?>
+
 <script>
 function toggleTheme() {
             document.body.classList.toggle('light-mode');
@@ -63,4 +107,3 @@ function toggleTheme() {
 </script>
 </body>
 </html>
-<?php include 'footer.php'; ?>

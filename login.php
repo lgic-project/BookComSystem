@@ -1,8 +1,9 @@
 <?php
 
 require_once './connection/config.php';
+session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $mysqli->real_escape_string( trim($_POST['email']));
+    $email = $mysqli->real_escape_string($_POST['email']);
     $password = trim($_POST['password']);
 
 
@@ -10,34 +11,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: login.php?error=empty_fields");
         exit();
     }
-    $sql = "SELECT id, username, password FROM users WHERE email = ?";
-    if($stmt= $mysqli->prepare($sql)){
-        $stmt->bind_param("s",$email);
+    $sql = "SELECT id, username, `password` FROM users WHERE email = ?";
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("s", $email);
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
 
-        if($stmt->execute()){
-            $stmt = $stmt->get_result();
-            
-            if($stmt->num_rows == 1){
-                $row = $stmt->fetch_assoc();
-                
-                if(password_verify($password, $row['password'])){
-                    session_start();
-                    $_SESSION["login_success"] = true;
+            if ($result->num_rows == 1) {
+                $row = $result->fetch_assoc();
+                if (password_verify($password, $row['password'])) {
+                    $_SESSION["loggedin"] = true;
                     $_SESSION["id"] = $row["id"];
                     $_SESSION["username"] = $row["username"];
                     header("Location: index.php");
+                    
                     exit();
-                }else{
+                } else {
                     header("Location: login.php?error=invalid_password");
                     $stmt->close();
                     exit();
                 }
-            }else{
+            } else {
                 header("Location: login.php?error=user_not_found");
                 $stmt->close();
                 exit();
             }
-        } else{
+        } else {
             header("Location: login.php?error=database_error");
             $stmt->close();
             exit();
@@ -75,6 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
+session_abort();
+
 
 // login error get 
 $error = '';
@@ -105,7 +106,7 @@ if (isset($_GET['error'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Sasto E-Pasal</title>
+    <title>Login - Bookly</title>
     <link rel="stylesheet" href="./css/login.css">
     <style>
         .error {
@@ -125,12 +126,12 @@ if (isset($_GET['error'])) {
 
     <div class="login-container">
         <div class="book-cover">
-            <h1>Login - Sasto E-Pasal</h1>
+            <h1>Login - Bookly</h1>
         </div>
         <?php if (isset($error_message)): ?>
             <div class="error"><?php echo $error_message; ?></div>
         <?php endif; ?>
-        <form action="login.php" method="post">
+        <form action="login.php" method="POST">
             <div class="form-group">
                 <input type="email" name="email" placeholder="Email" required>
             </div>

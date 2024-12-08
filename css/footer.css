@@ -1,9 +1,9 @@
-/* General reset for footer */
+
+General reset for footer
 footer {
     background-color: #333;
     color: #fff;
-    padding: 50px 0;
-    font-family: 'Arial', sans-serif;
+    width: 100%;
     position: relative;
 }
 
@@ -12,7 +12,6 @@ footer {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }

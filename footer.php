@@ -1,5 +1,4 @@
 <head>
-    <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 </head>
 <style>
@@ -7,44 +6,43 @@
 footer {
     background-color: #6a0dad; /* Deep purple background */
     color: #fff;
+    width: 100%;
     padding: 20px 0;
     font-family: 'Arial', sans-serif;
     position: relative;
-    height: 300px; /* Fixed height for half height effect */
+    height: auto; /* Fixed height for half height effect */
 }
 
 /* Footer Container */
 .footer .box-container {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    height: 100%;
+    justify-content: space-around;
+    padding: auto 20px;
+    margin: auto 120px;
 }
 
+
+
 /* Each Box */
-.footer .box {
+.footer .box-container .box {
     flex: 1;
     padding: 10px;
-    min-width: 250px;
     margin: 0 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content:left;
     align-items: center;
 }
 
 /* Logo styling (if you add an image) */
-.footer .box img {
+.footer .box-container .box img {
     width: 200px; /* Adjusted logo size */
     margin-bottom: 15px;
     align-self: center;
 }
 
 /* Header in each box */
-.footer .box h3 {
+.footer .box-container .box h3 {
     font-size: 18px;
     margin-bottom: 15px;
     text-transform: uppercase;
@@ -56,7 +54,7 @@ footer {
 }
 
 /* Styling links */
-.footer .box a {
+.footer .box-container .box a {
     color: #f1f1f1; /* Light color for links */
     display: block;
     margin: 5px 0;
@@ -66,7 +64,18 @@ footer {
     text-align: center;
 }
 
-.footer .box a:hover {
+.footer .box-container .box p{
+    color: #f1f1f1; /* Light color for links */
+    display: block;
+    margin: 5px 0;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+
+
+.footer .box-container .box a:hover {
     color: #ffb3e6; /* Light pink hover effect */
 }
 
@@ -102,7 +111,7 @@ footer {
     text-align: center;
     font-size: 14px;
     margin-top: 20px;
-    color: #f1f1f1; /* Lighter color for copyright text */
+    color: white; /* Lighter color for copyright text */
     animation: fadeIn 2s ease-out;
 }
 
@@ -160,6 +169,6 @@ footer {
 
     </div>
 
-    <p class="credit"> &copy; copyright @ <?php echo date('Y'); ?> by <span>E-pasal</span> </p>
+    <p class="credit"> &copy; copyright @ <?php echo date('Y'); ?> by <span>Bookly</span> </p>
 
 </footer>

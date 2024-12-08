@@ -1,10 +1,16 @@
 /* Very light purple background for the entire page */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
 body {
     background-color: #f3e6f7; /* Light purple color */
     color: #333; /* Text color */
-    font-family: Arial, sans-serif; /* Font styling */
-    margin: 0;
-    padding: 0;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; /* Font styling */
+   
 }
 
 /* Additional styling for header and other components */
