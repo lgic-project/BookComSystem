@@ -1,42 +1,42 @@
-<!-- <?php 
-// Start the session only if it hasn't been started yet
+<?php
+// Start the session if not started already
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Set default theme if not set
 if (!isset($_SESSION['theme'])) {
     $_SESSION['theme'] = 'light-mode'; // Default theme
 }
 
-// Toggle the theme
+// Update theme if requested
 if (isset($_POST['theme'])) {
     $_SESSION['theme'] = $_POST['theme'];
 }
-?> -->
-
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header</title>
-    <link rel="stylesheet" href="css/header.css">
+    <title>Website Header</title>
     <!-- Font Awesome for icons -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="css/header.css">
 </head>
-<!-- <body class="<?php echo $_SESSION['theme']; ?>"> -->
-
+<body class="<?php echo $_SESSION['theme']; ?>">
 <header class="header">
     <div class="header-container">
         <!-- Logo -->
         <div class="logo">
-            <a href="index.php"><img src="logo/logo-no-slogan-removebg-preview.png  " alt="Logo"></a>
+            <a href="index.php"><img src="logo/logo-no-slogan-removebg-preview.png" alt="Logo"></a>
         </div>
 
-        <!-- Navigation Links -->
+        <!-- Navigation Bar -->
         <nav class="nav-bar">
             <ul class="nav-links">
-                <li><a href="./index.php">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="products.php">Products</a></li>
                 <li>
                     <a href="category.php">Categories <i class="fas fa-caret-down"></i></a>
@@ -55,33 +55,23 @@ if (isset($_POST['theme'])) {
                     </div>
                 </li>
                 <li><a href="about.php">About Us</a></li>
-                <li><a href="contact.php">Contact Us</a></li>
+                <li><a href="contactus.php">Contact Us</a></li>
             </ul>
         </nav>
 
-        <!-- Right Section: Search Bar, Cart, Theme Toggle -->
+        <!-- Search Bar and Cart -->
         <div class="header-right">
-    <div class="search-bar">
-        <form action="search.php" method="GET">
-            <input type="text" name="query" placeholder="Search for books..." />
-            <button type="submit"><i class="fas fa-search"></i></button>
-        </form>
-    </div>
-    <div class="cart">
-        <a href="cart.php"><i class="fas fa-shopping-cart"></i></a>
-    </div>
-</div>
-
-            <!-- <form action="" method="POST" class="theme-toggle-form">
-                <label class="toggle-switch">
-                    <input type="hidden" name="theme" value="<?php echo ($_SESSION['theme'] === 'light-mode') ? 'dark-mode' : 'light-mode'; ?>">
-                    <input type="checkbox" onchange="this.form.submit()" <?php echo ($_SESSION['theme'] === 'dark-mode') ? 'checked' : ''; ?>>
-                    <span class="slider"></span>
-                </label>
-            </form> -->
+            <div class="search-bar">
+                <form action="search.php" method="GET">
+                    <input type="text" name="query" placeholder="Search for books..." />
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="cart">
+                <a href="cart.php"><i class="fas fa-shopping-cart"></i></a>
+            </div>
         </div>
     </div>
 </header>
-
 </body>
 </html>
