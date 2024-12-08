@@ -82,9 +82,9 @@
     <!-- Company Info Section -->
     <div class="info-section">
         <h3>Our Contact Information</h3>
-        <p><i class="fas fa-map-marker-alt"></i> Address: Sasto E-Pasal, Main Street, Kathmandu</p>
-        <p><i class="fas fa-phone"></i> Phone: +977 9876543210</p>
-        <p><i class="fas fa-envelope"></i> Email: <a href="mailto:support@sastoe-pasal.com">support@sastoe-pasal.com</a></p>
+        <p><i class="fas fa-map-marker-alt"></i> Address: Bookly, Chipledhunga, Pokhara</p>
+        <p><i class="fas fa-phone"></i> Phone: +977 987665905</p>
+        <p><i class="fas fa-envelope"></i> Email: <a href="mailto:bsaladkari@gmail.com">bsaladkari@gmail.com</a></p>
         <p>Follow us on:</p>
         <a href="https://www.facebook.com" target="_blank" class="btn">Facebook</a>
         <a href="https://www.instagram.com" target="_blank" class="btn">Instagram</a>
