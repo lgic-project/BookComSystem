@@ -25,30 +25,6 @@ $result = $mysqli->query($sql);
 
   <title>Dashboard Admin: <?php echo $username ?> </title>
   <style>
-        .search-container h2 {
-            margin: 10px 5px 20px 5px;
-            text-align: center;
-            font-size: 30px;
-            color: purple;
-        }
-
-        .search-container .form-group {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            font-size: larger;
-        }
-
-
-
-        .search-container .form-group input[type='submit'] {
-            padding: 3px;
-        }
-
-        .search-container h3 {
-            margin-left: 3rem;
-        }
-
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
@@ -103,7 +79,7 @@ $result = $mysqli->query($sql);
 
   <!-- SIDEBAR -->
   <section id="sidebar">
-    <a href="#" class="brand">
+  <a href="#" class="brand">
       <i class='bx bxs-smile'></i>
       <span class="text">Bookly</span>
     </a>
@@ -133,7 +109,7 @@ $result = $mysqli->query($sql);
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="admin_orderprocess.php">
           <i class='bx bxs-group'></i>
           <span class="text">Order</span>
         </a>
@@ -147,7 +123,7 @@ $result = $mysqli->query($sql);
     </ul>
     <ul class="side-menu">
       <li>
-        <a href="#">
+        <a href="admin_profilecard.php">
           <i class='bx bx-user-circle'></i>
           <span class="text">Profile</span>
         </a>
@@ -168,29 +144,33 @@ $result = $mysqli->query($sql);
   <section id="content">
     <!-- NAVBAR -->
     <nav>
-      <a href="#" class="nav-link">Admin Dashboard</a>
+    
+      <a href="admin_dashboard.php" class="nav-link">Admin Dashboard</a>
       <div class="nav-link-2">
-        <a href="#" class="profile">
+        <a href="admin_profilecard.php" class="profile">
           <img src="img/people.png">
         </a>
       </div>
     </nav>
     <!-- NAVBAR -->
-  <div>
+  <div id="main-content">
+    <h2>Book Lists</h2>
   <div class="grid-container">
             <?php
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo '<div class="grid-item">';
-                    echo '<img src="./bookspic/' . $row['book_img'] . '" alt="' . htmlspecialchars($row['title']) . '">';
-                    echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
-                    echo '<p>by ' . htmlspecialchars($row['author']) . '</p>';
-                    echo '<p class="price">$' . htmlspecialchars($row['price']) . '</p>';
-                    echo '<form method="POST" action="admin_delbook.php"  name="delbook">';
-                    echo '<input type="hidden" name="book_title" value="' . htmlspecialchars($row['title']) . '">';
-                    echo '<button type="submit" name="delete">Delete</button>';
-                    echo '</form>';
-                    echo '</div>';
+                  ?>
+                    <div class="grid-item">
+                    <img src="./bookspic/<?php echo $row['book_img'] ?> " alt="<?php echo htmlspecialchars($row['title']) ?>">
+                    <h3> <?php echo htmlspecialchars($row['title']) ?> </h3>
+                    <p>by <?php  htmlspecialchars($row['author']) ?> </p>
+                    <p class="price">$ <?php echo htmlspecialchars($row['price']) ?> </p>
+                    <form method="POST" action="admin_delbook.php"  name="delbook">
+                    <input type="hidden" name="book_title" value="<?php echo htmlspecialchars($row['title']) ?> ">
+                    <button type="submit" name="delete">Delete</button>
+                    </form>
+                    </div>
+                    <?php
                 }
             } else {
                 echo '<p>No books found</p>';

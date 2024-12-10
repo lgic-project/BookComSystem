@@ -5,10 +5,10 @@ ini_set('display_errors', 1);
 
 // Start the session
 session_start();
-// if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-//     header("Location: login.php");
-//     exit();
-// }
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("Location: login.php");
+    exit();
+}
 
 if (!isset($_SESSION['theme'])) {
     $_SESSION['theme'] = 'light-mode';

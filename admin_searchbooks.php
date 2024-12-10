@@ -194,7 +194,7 @@ $username = $_SESSION['username'];
     <section id="content">
         <!-- NAVBAR -->
         <nav>
-            <a href="#" class="nav-link">Admin Dashboard</a>
+            <a href="#" class="nav-link">Admin Dashboard : Search Books</a>
             <div class="nav-link-2">
                 <a href="admin_dashboard.php" class="profile">
                     <img src="img/people.png">
@@ -202,6 +202,8 @@ $username = $_SESSION['username'];
             </div>
         </nav>
         <!-- NAVBAR -->
+
+        <div id="main-content">
         <div class="search-container">
             <h2>Search Books</h2>
 
@@ -241,6 +243,7 @@ $username = $_SESSION['username'];
                 <p>No results found for "<?php echo htmlspecialchars($search_query); ?>".</p>
             <?php endif; ?>
 
+        </div>
         </div>
 
 

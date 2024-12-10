@@ -104,7 +104,7 @@ $username = $_SESSION['username'];
     <section id="content">
         <!-- NAVBAR -->
         <nav>
-            <a href="#" class="nav-link">Admin Dashboard</a>
+            <a href="#" class="nav-link">Admin Dashboard : Edit Book</a>
             <div class="nav-link-2">
                 <a href="#" class="profile">
                     <img src="img/people.png">
@@ -112,7 +112,7 @@ $username = $_SESSION['username'];
             </div>
         </nav>
         <!-- NAVBAR -->
-        <div class="addbook-container">
+        <div class="addbook-container" id="main-content">
             <h1>Edit Book Details</h1>
 
             <form action="admin_editbook.php" method="POST" class="form-group">

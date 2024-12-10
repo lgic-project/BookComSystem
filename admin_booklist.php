@@ -168,7 +168,7 @@ $result = $mysqli->query($sql);
     <section id="content">
         <!-- NAVBAR -->
         <nav>
-            <a href="#" class="nav-link">Admin Dashboard</a>
+            <a href="#" class="nav-link">Admin Dashboard : Booklist </a>
             <div class="nav-link-2">
                 <a href="#" class="profile">
                     <img src="img/people.png">

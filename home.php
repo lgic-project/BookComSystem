@@ -5,7 +5,7 @@ require_once './connection/config.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$sql = "SELECT id, title, author, price, book_img  FROM books";
+$sql = "SELECT id, title, author, price, book_img  FROM books limit 8";
 $result = $mysqli->query($sql);
 
 
@@ -34,9 +34,9 @@ $result = $mysqli->query($sql);
             overflow: hidden;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             text-align: center;
-            padding: 10px;
+            padding: 20px;
             padding-bottom: 15px;
-            margin: 15px 15px;
+            margin: 10px 10px;
         }
 
         .grid-item img {
