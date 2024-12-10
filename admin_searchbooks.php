@@ -50,30 +50,30 @@ $username = $_SESSION['username'];
 
     <title>Dashboard Admin: <?php echo $username ?> </title>
     <style>
-        
-        .search-container h2{
+        .search-container h2 {
             margin: 10px 5px 20px 5px;
             text-align: center;
             font-size: 30px;
             color: purple;
         }
 
-        .search-container .form-group{
+        .search-container .form-group {
             display: flex;
             justify-content: center;
             gap: 10px;
             font-size: larger;
         }
 
-        
 
-        .search-container .form-group input[type='submit']{
+
+        .search-container .form-group input[type='submit'] {
             padding: 3px;
         }
 
-        .search-container h3{
+        .search-container h3 {
             margin-left: 3rem;
         }
+
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
@@ -113,7 +113,8 @@ $username = $_SESSION['username'];
             margin-bottom: 10px;
         }
 
-        .edit-button {
+        .b-button {
+            margin-top: 10px;
             padding: 8px;
             color: white;
             background: purple;
@@ -134,7 +135,7 @@ $username = $_SESSION['username'];
         </a>
         <ul class="side-menu top">
             <li class="active">
-                <a href="#">
+                <a href="admin_dashboard.php">
                     <i class='bx bxs-dashboard'></i>
                     <span class="text">Dashboard</span>
                 </a>
@@ -166,7 +167,7 @@ $username = $_SESSION['username'];
             <li>
                 <a href="#">
                     <i class='bx bx-line-chart'></i>
-                    <span class="text">Statistics</span>
+                    <span class="text">Report</span>
                 </a>
             </li>
         </ul>
@@ -217,14 +218,22 @@ $username = $_SESSION['username'];
                 <h3>Search Results:</h3>
                 <div class="grid-container">
                     <?php
-                    foreach ($search_results as $row) {
-                        echo '<div class="grid-item">';
-                        echo '<img src="./bookspic/' . $row['book_img'] . '" alt="' . htmlspecialchars($row['title']) . '">';
-                        echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
-                        echo '<p>by ' . htmlspecialchars($row['author']) . '</p>';
-                        echo '<p class="price">$' . htmlspecialchars($row['price']) . '</p>';
-                        echo "<p><a  class='edit-button' href='admin_editbooks.php?book_title=" . $row['title'] . "' >Edit</a></p>";
-                        echo '</div>';
+                    foreach ($search_results as $row) { ?>
+                        <div class="grid-item">'
+                            <img src="./bookspic/<?php echo $row['book_img'] ?>"
+                                alt=" <?php echo htmlspecialchars($row['title']) ?> ">
+                            <h3> <?php echo htmlspecialchars($row['title']) ?> </h3>
+                            <p>by <?php echo htmlspecialchars($row['author']) ?></p>
+                            <p class="price">$ <?php echo htmlspecialchars($row['price']) ?> </p>
+                            <p><a class='b-button' href='  admin_editbooks.php?book_title=<?php echo $row['title'] ?>'>Edit</a>
+                            <form method="POST" action="admin_delbook.php" name="delbook">
+                                <input type="hidden" name="book_title" value="<?php echo htmlspecialchars($row['title']) ?>">
+                                <input type="hidden" name="del_from_search" value="<?php $del_from_search = true ?> ">
+                                <button class="b-button" type="submit" name="delete">Delete</button>
+                            </form>
+                            </p>
+                        </div>
+                        <?php
                     }
                     ?>
                 </div>

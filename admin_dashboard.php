@@ -141,7 +141,7 @@ $result = $mysqli->query($sql);
       <li>
         <a href="#">
           <i class='bx bx-line-chart'></i>
-          <span class="text">Statistics</span>
+          <span class="text">Report</span>
         </a>
       </li>
     </ul>

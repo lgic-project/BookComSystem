@@ -8,6 +8,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     // Use prepared statements to delete by title
     $book_title = $_POST['book_title'];
 
+    if (isset($_POST['del_from_search'])== true) {
+        $del_from_search = $_POST['del_from_search'];
+    }
+
 
     //reterive the img path from the database
     $stmt = $mysqli->prepare("SELECT book_img FROM books WHERE title = ?");
@@ -32,8 +36,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
 
         // Execute the query
         if ($stmt->execute()) {
-            // header("Location: admin_booklist?delete_book=success");
-            header("Location: admin_booklist.php");
+            if ($del_from_search) {
+                header("Location: admin_searchbooks.php?book_delete=success");
+                $stmt->close();
+                exit();
+            } else {
+                header("Location: admin_booklist?delete_book=success");
+                $stmt->close();
+            }
 
         } else {
             header("Location: admin_booklist?delete_book=unsuccess");
@@ -42,8 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     }
 
 
-    // Close the statement
-    $stmt->close();
 }
 ?>
 

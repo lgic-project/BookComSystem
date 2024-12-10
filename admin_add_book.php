@@ -111,7 +111,7 @@ $username = $_SESSION['username'];
     </a>
     <ul class="side-menu top">
       <li class="active">
-        <a href="#">
+        <a href="admin_dashboard.php">
           <i class='bx bxs-dashboard'></i>
           <span class="text">Dashboard</span>
         </a>
@@ -143,7 +143,7 @@ $username = $_SESSION['username'];
       <li>
         <a href="#">
           <i class='bx bx-line-chart'></i>
-          <span class="text">Statistics</span>
+          <span class="text">Report</span>
         </a>
       </li>
     </ul>
@@ -151,7 +151,7 @@ $username = $_SESSION['username'];
       <li>
         <a href="#">
           <i class='bx bx-user-circle'></i>
-          <span class="text">Settings</span>
+          <span class="text">Profile</span>
         </a>
       </li>
       <li>
