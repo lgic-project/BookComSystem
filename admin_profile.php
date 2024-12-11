@@ -4,10 +4,6 @@ $username = $_SESSION['username'];
 
 require_once './connection/config.php';
 
-
-$sql = "SELECT id, title, author, price, book_img  FROM books";
-$result = $mysqli->query($sql);
-
 ?>
 
 
@@ -71,8 +67,6 @@ $result = $mysqli->query($sql);
 </style>
 
 <body>
-
-
     <!-- SIDEBAR -->
     <section id="sidebar">
         <a href="#" class="brand">
@@ -133,8 +127,6 @@ $result = $mysqli->query($sql);
         </ul>
     </section>
     <!-- SIDEBAR -->
-
-
 
     <!-- CONTENT -->
     <section id="content">
