@@ -28,9 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
         $search_results[] = $row;
     }
 }
-?>
-
-<?php
 $_SESSION['username'] = "Deepak";
 $username = $_SESSION['username'];
 ?>
@@ -50,8 +47,11 @@ $username = $_SESSION['username'];
 
     <title>Dashboard Admin: <?php echo $username ?> </title>
     <style>
+        .search-container{
+            margin:auto 4rem 2rem 0;
+        }
         .search-container h2 {
-            margin: 10px 5px 20px 5px;
+            margin: 10px 5px 20px 0;
             text-align: center;
             font-size: 30px;
             color: purple;
