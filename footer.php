@@ -155,7 +155,7 @@ footer {
             <h3>Contact info</h3>
             <p><i class="fas fa-phone"></i> +977-9746311761</p>
             <p><i class="fas fa-phone"></i> +977-9746311761</p>
-            <p><i class="fas fa-envelope"></i> epasal4156@gmail.com</p>
+            <p><i class="fas fa-envelope"></i> bookly4156@gmail.com</p>
             <p><i class="fas fa-map-marker-alt"></i> Pokhara, Nepal - 33700</p>
         </div>
 

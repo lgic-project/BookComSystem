@@ -7,6 +7,24 @@ require_once './connection/config.php';
 $sql = "SELECT id, title, author, price, book_img  FROM books";
 $result = $mysqli->query($sql);
 
+
+$error = "";
+$book_title = "";
+if (isset($_GET['delete_book'])) {
+  $book_title = htmlspecialchars($_GET['book_name']);
+  switch ($_GET['delete_book']) {
+    case 'success':
+      $error = "$book_title has been successfully removed";
+      break;
+    case 'unsuccess':
+      $error = "$book_title fail to remove";
+      break;
+    default:
+      $error = "";
+      break;
+  }
+}
+
 ?>
 
 
@@ -28,6 +46,7 @@ $result = $mysqli->query($sql);
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
       gap: 20px;
+      margin-left: 20px;
       padding: 20px;
     }
 
@@ -69,6 +88,17 @@ $result = $mysqli->query($sql);
       background: purple;
       border: 2px solid wheat;
       border-radius: 7px;
+    }
+  </style>
+
+  <!-- fro erro handling -->
+  <style>
+    .error {
+      background: #4b49ac;
+      color: white;
+      margin: 8px;
+      padding: 7px;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -153,6 +183,13 @@ $result = $mysqli->query($sql);
     </nav>
     <!-- NAVBAR -->
     <div id="main-content">
+      <h2> 
+      <?php  
+      if($error){
+      echo "<div class='error'> $error </div>";
+      } 
+      ?>
+    </h2>
       <h2>Book Lists</h2>
       <div class="grid-container">
         <?php
@@ -165,6 +202,7 @@ $result = $mysqli->query($sql);
               <p>by <?php htmlspecialchars($row['author']) ?> </p>
               <p class="price">$ <?php echo htmlspecialchars($row['price']) ?> </p>
               <form method="POST" action="admin_delbook.php" name="delbook">
+                <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($row['id']) ?> ">
                 <input type="hidden" name="book_title" value="<?php echo htmlspecialchars($row['title']) ?> ">
                 <button type="submit" name="delete">Delete</button>
               </form>
@@ -184,7 +222,7 @@ $result = $mysqli->query($sql);
 
 
 
-  
+
 </body>
 
 </html>
