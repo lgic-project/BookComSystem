@@ -16,7 +16,7 @@
     <section class="about-us">
         <div class="about-com">
             <h1>About Us</h1>
-            <p>Welcome to Sasto E-Pasal. We aim to provide the best services at the lowest cost!</p>
+            <p>Welcome to Bookly. We aim to provide the best services at the lowest cost!</p>
         </div>
 
         <section class="about-dev">
@@ -32,10 +32,10 @@
                         <span class="job">Developer</span>
                     </div>
                     <div class="media-buttons">
-                        <a href="https://www.facebook.com/profile.php?id=100012898502822" target="_blank" style="background: #4267b2" class="link"> <i class="fas fa-facebook"></i> </a>
-                        <a href="https://www.instagram.com/deepak_chhantyal/" target="_blank" style="background: #e1306c" class="link"> <i class="fas fa-instagram"></i> </a>
-                        <a href="https://github.com/deepak4156" target="_blank" style="background: #000" class="link"> <i class="fas fa-github"></i> </a>
-                        <a href="https://www.linkedin.com/in/deepak-chhantyal-4a5ab0165/" target="_blank" style="background: #0077b5" class="link"> <i class="fas fa-linkedin"></i> </a>
+                        <a href="https://www.facebook.com/profile.php?id=100012898502822" target="_blank" style="background: #4267b2" class="link"> <i class="fab fa-facebook"></i> </a>
+                        <a href="https://www.instagram.com/deepak_chhantyal/" target="_blank" style="background: #e1306c" class="link"> <i class="fab fa-instagram"></i> </a>
+                        <a href="https://github.com/deepak4156" target="_blank" style="background: #000" class="link"> <i class="fab fa-github"></i> </a>
+                        <a href="https://www.linkedin.com/in/deepak-chhantyal-4a5ab0165/" target="_blank" style="background: #0077b5" class="link"> <i class="fab fa-linkedin"></i> </a>
                     </div>
                 </div>
 
@@ -48,10 +48,10 @@
                         <span class="job">Developer</span>
                     </div>
                     <div class="media-buttons">
-                        <a href="https://www.facebook.com/bishal.adkary.1" target="_blank" style="background: #4267b2" class="link"> <i class="fas fa-facebook"></i> </a>
-                        <a href="https://www.instagram.com/bwi_sal/" target="_blank" style="background: #e1306c" class="link"> <i class="fas fa-instagram"></i> </a>
-                        <a href="https://github.com/BishalAdhikari0123" target="_blank" style="background: #000" class="link"> <i class="fas fa-github"></i> </a>
-                        <a href="https://www.linkedin.com/in/bishal-adhikari-051a09296/" target="_blank" style="background: #0077b5" class="link"> <i class="fas fa-linkedin"></i> </a>
+                        <a href="https://www.facebook.com/bishal.adkary.1" target="_blank" style="background: #4267b2" class="link"> <i class="fab fa-facebook"></i> </a>
+                        <a href="https://www.instagram.com/bwi_sal/" target="_blank" style="background: #e1306c" class="link"> <i class="fab fa-instagram"></i> </a>
+                        <a href="https://github.com/BishalAdhikari0123" target="_blank" style="background: #000" class="link"> <i class="fab fa-github"></i> </a>
+                        <a href="https://www.linkedin.com/in/bishal-adhikari-051a09296/" target="_blank" style="background: #0077b5" class="link"> <i class="fab fa-linkedin"></i> </a>
                     </div>
                 </div>
 
