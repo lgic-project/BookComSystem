@@ -1,7 +1,7 @@
 <?php
 // Include database connection
-include 'connection/config.php'; // Update this path as needed
-include 'header.php';
+include_once 'connection/config.php'; // Update this path as needed
+
 // Fetch books from the database
 $sql = "SELECT * FROM books";
 $result = $mysqli->query($sql);
@@ -18,14 +18,12 @@ if (!$result) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
-    <link rel="stylesheet" href="css/products.css">
+    <link rel="stylesheet" href="./css/products.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 </head>
 <body>
-
-    
-
+    <?php include 'header.php'; ?>
     <!-- Main Content -->
     <div class="container">
         <h1>Our Books</h1>

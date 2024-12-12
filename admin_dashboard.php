@@ -1,6 +1,5 @@
 <?php
-$_SESSION['username'] = "Deepak";
-$username = $_SESSION['username'];
+
 
 require_once './connection/config.php';
 
@@ -25,77 +24,53 @@ $result = $mysqli->query($sql);
 
   <title>Dashboard Admin: <?php echo $username ?> </title>
   <style>
-        .search-container h2 {
-            margin: 10px 5px 20px 5px;
-            text-align: center;
-            font-size: 30px;
-            color: purple;
-        }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
 
-        .search-container .form-group {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            font-size: larger;
-        }
+    .grid-item {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      padding: 10px;
+      padding-bottom: 15px;
+      margin: 15px 15px;
+    }
 
+    .grid-item img {
+      width: 100%;
+      height: auto;
+    }
 
+    .grid-item h3 {
+      font-size: 18px;
+      margin: 10px 10px;
+    }
 
-        .search-container .form-group input[type='submit'] {
-            padding: 3px;
-        }
+    .grid-item p {
+      font-size: 14px;
+      color: #555;
+    }
 
-        .search-container h3 {
-            margin-left: 3rem;
-        }
+    .grid-item .price {
+      font-weight: bold;
+      color: #000;
+      margin-bottom: 10px;
+    }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .grid-item {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            padding: 10px;
-            padding-bottom: 15px;
-            margin: 15px 15px;
-        }
-
-        .grid-item img {
-            width: 100%;
-            height: auto;
-        }
-
-        .grid-item h3 {
-            font-size: 18px;
-            margin: 10px 10px;
-        }
-
-        .grid-item p {
-            font-size: 14px;
-            color: #555;
-        }
-
-        .grid-item .price {
-            font-weight: bold;
-            color: #000;
-            margin-bottom: 10px;
-        }
-
-        .edit-button {
-            padding: 8px;
-            color: white;
-            background: purple;
-            border: 2px solid wheat;
-            border-radius: 7px;
-        }
-    </style>
+    .edit-button {
+      padding: 8px;
+      color: white;
+      background: purple;
+      border: 2px solid wheat;
+      border-radius: 7px;
+    }
+  </style>
 </head>
 
 <body>
@@ -133,7 +108,7 @@ $result = $mysqli->query($sql);
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="admin_orderprocess.php">
           <i class='bx bxs-group'></i>
           <span class="text">Order</span>
         </a>
@@ -141,13 +116,13 @@ $result = $mysqli->query($sql);
       <li>
         <a href="#">
           <i class='bx bx-line-chart'></i>
-          <span class="text">Statistics</span>
+          <span class="text">Report</span>
         </a>
       </li>
     </ul>
     <ul class="side-menu">
       <li>
-        <a href="#">
+        <a href="admin_profilecard.php">
           <i class='bx bx-user-circle'></i>
           <span class="text">Profile</span>
         </a>
@@ -168,38 +143,40 @@ $result = $mysqli->query($sql);
   <section id="content">
     <!-- NAVBAR -->
     <nav>
-      <a href="#" class="nav-link">Admin Dashboard</a>
+
+      <a href="admin_dashboard.php" class="nav-link">Admin Dashboard</a>
       <div class="nav-link-2">
-        <a href="#" class="profile">
+        <a href="admin_profilecard.php" class="profile">
           <img src="img/people.png">
         </a>
       </div>
     </nav>
     <!-- NAVBAR -->
-  <div>
-  <div class="grid-container">
-            <?php
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo '<div class="grid-item">';
-                    echo '<img src="./bookspic/' . $row['book_img'] . '" alt="' . htmlspecialchars($row['title']) . '">';
-                    echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
-                    echo '<p>by ' . htmlspecialchars($row['author']) . '</p>';
-                    echo '<p class="price">$' . htmlspecialchars($row['price']) . '</p>';
-                    echo '<form method="POST" action="admin_delbook.php"  name="delbook">';
-                    echo '<input type="hidden" name="book_title" value="' . htmlspecialchars($row['title']) . '">';
-                    echo '<button type="submit" name="delete">Delete</button>';
-                    echo '</form>';
-                    echo '</div>';
-                }
-            } else {
-                echo '<p>No books found</p>';
-            }
+    <div id="main-content">
+      <h2>Book Lists</h2>
+      <div class="grid-container">
+        <?php
+        if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
             ?>
-        </div>
-  </div>
-
-
+            <div class="grid-item">
+              <img src="./bookspic/<?php echo $row['book_img'] ?> " alt="<?php echo htmlspecialchars($row['title']) ?>">
+              <h3> <?php echo htmlspecialchars($row['title']) ?> </h3>
+              <p>by <?php htmlspecialchars($row['author']) ?> </p>
+              <p class="price">$ <?php echo htmlspecialchars($row['price']) ?> </p>
+              <form method="POST" action="admin_delbook.php" name="delbook">
+                <input type="hidden" name="book_title" value="<?php echo htmlspecialchars($row['title']) ?> ">
+                <button type="submit" name="delete">Delete</button>
+              </form>
+            </div>
+            <?php
+          }
+        } else {
+          echo '<p>No books found</p>';
+        }
+        ?>
+      </div>
+    </div>
 
   </section>
   <!-- CONTENT -->
@@ -207,22 +184,7 @@ $result = $mysqli->query($sql);
 
 
 
-  <script>
-    const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
-
-    allSideMenu.forEach(item => {
-      const li = item.parentElement;
-
-      item.addEventListener('click', function () {
-        allSideMenu.forEach(i => {
-          i.parentElement.classList.remove('active');
-        })
-        li.classList.add('active');
-      })
-    });
-
-
-  </script>
+  
 </body>
 
 </html>

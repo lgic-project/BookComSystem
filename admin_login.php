@@ -3,17 +3,17 @@
 require_once './connection/config.php';
 session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $mysqli->real_escape_string($_POST['email']);
+    $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
 
-    if (empty($email) || empty($password)) {
-        header("Location: login.php?error=empty_fields");
+    if (empty($username) || empty($password)) {
+        header("Location: admin_login.php?error=empty_fields");
         exit();
     }
-    $sql = "SELECT id, username, `password` FROM users WHERE email = ?";
+    $sql = "SELECT admin_id, username, `password` FROM admin WHERE username = ?";
     if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("s", $email);
+        $stmt->bind_param("s", $username);
         if ($stmt->execute()) {
             $result = $stmt->get_result();
 
@@ -21,10 +21,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $row = $result->fetch_assoc();
                 if (password_verify($password, $row['password'])) {
                     $_SESSION["loggedin"] = true;
-                    $_SESSION["id"] = $row["id"];
+                    $_SESSION["id"] = $row["admin_id"];
                     $_SESSION["username"] = $row["username"];
-                    header("Location: index.php");
-                    
+                    header("Location: admin_dashboard.php");
+                    $stmt->close();
                     exit();
                 } else {
                     header("Location: login.php?error=invalid_password");
@@ -32,12 +32,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     exit();
                 }
             } else {
-                header("Location: login.php?error=user_not_found");
+                header("Location: admin_login.php?error=user_not_found");
                 $stmt->close();
                 exit();
             }
         } else {
-            header("Location: login.php?error=database_error");
+            header("Location: admin_login.php?error=database_error");
             $stmt->close();
             exit();
         }
@@ -102,9 +102,9 @@ if (isset($_GET['error'])) {
         <?php if (isset($error_message)): ?>
             <div class="error"><?php echo $error_message; ?></div>
         <?php endif; ?>
-        <form action="login.php" method="POST">
+        <form action="admin_login.php" method="POST">
             <div class="form-group">
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="username" placeholder="username" required>
             </div>
             <div class="form-group">
                 <input type="password" name="password" placeholder="Password" required>
@@ -120,12 +120,12 @@ if (isset($_GET['error'])) {
                 <a href="forgotpw.php">Forgot Password?</a>.
             </p>
             <p>
-            <a href="admin_login.php">Admin Login</a>
+            <a href="login.php">User Login</a>
             </p>
 
         </form>
         <p class="switch-link">
-            Don't have an account? <a href="register.php">Register here</a>.
+            Don't have an account? <a href="admin_register.php">Register here</a>.
         </p>
     </div>
 

@@ -1,53 +1,77 @@
 <?php
-
 require_once './connection/config.php';
-session_start();
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $mysqli->real_escape_string($_POST['email']);
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
+
+    $username = $mysqli->real_escape_string(trim($_POST['username']));
+    $email = trim($_POST['email']);
     $password = trim($_POST['password']);
+    $full_name = trim($_POST['full_name']);
+    $ph_num = trim($_POST['phone_number']);
+    $confirm_password = trim($_POST['confirm_password']);
 
-
-    if (empty($email) || empty($password)) {
-        header("Location: login.php?error=empty_fields");
+    if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+        header("Location: register.php?error=empty_fields");
         exit();
     }
-    $sql = "SELECT id, username, `password` FROM users WHERE email = ?";
+    if ($password !== $confirm_password) {
+        header("Location: register.php?error=password_mismatch");
+        exit();
+    }
+    if (strlen($password) < 6) {
+        header("Location: register.php?error=password_too_short");
+        exit();
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        header("Location: register.php?error= Email Invalid");
+        exit();
+    }
+    $sql = "SELECT admin_id FROM admin WHERE username = ?";
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param("s", $username);
+        if ($stmt->execute()) {
+            if ($stmt->num_rows > 0) {
+                header("Location: admin_register.php?error=username_taken");
+                exit();
+            }
+        }
+        $stmt->close();
+    }
+
+    $sql = "SELECT admin_id FROM admin WHERE email = ?";
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("s", $email);
         if ($stmt->execute()) {
-            $result = $stmt->get_result();
-
-            if ($result->num_rows == 1) {
-                $row = $result->fetch_assoc();
-                if (password_verify($password, $row['password'])) {
-                    $_SESSION["loggedin"] = true;
-                    $_SESSION["id"] = $row["id"];
-                    $_SESSION["username"] = $row["username"];
-                    header("Location: index.php");
-                    
-                    exit();
-                } else {
-                    header("Location: login.php?error=invalid_password");
-                    $stmt->close();
-                    exit();
-                }
-            } else {
-                header("Location: login.php?error=user_not_found");
-                $stmt->close();
+            if ($stmt->num_rows > 0) {
+                header("Location: admin_register.php?error=email_taken");
                 exit();
             }
+        }
+        $stmt->close();
+    }
+
+    // Insert new user
+    $sql = "INSERT INTO admin (username , password , full_name , email, phone_number) VALUES (?,?,?,?, ?)";
+
+    if ($stmt = $mysqli->prepare($sql)) {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $stmt->bind_param("sssss", $username,  $hashed_password, $full_name, $email, $ph_num);
+        if ($stmt->execute()) {
+            header("Location: admin_login.php?signup=success");
+            $stmt->close();
+            exit();
         } else {
-            header("Location: login.php?error=database_error");
+            header("Location: admin_register.php?error=registration_failed");
             $stmt->close();
             exit();
         }
     }
+
 }
 
-session_abort();
 
-
-// login error get 
 $error = '';
 if (isset($_GET['error'])) {
     switch ($_GET['error']) {
@@ -57,8 +81,20 @@ if (isset($_GET['error'])) {
         case 'user_not_found':
             $error = "User not found!";
             break;
+        case 'username_taken':
+            $error = "Username is already taken!";
+            break;
+        case 'registration_failed':
+            $error = "Registration failed! Please try again.";
+            break;
         case 'database_error':
             $error = "Database error! Please try again.";
+            break;
+        case 'password_mismatch':
+            $error = "Passwords do not match!";
+            break;
+        case 'password_too_short':
+            $error = "Password must be at least 6 characters long!";
             break;
         case 'empty_fields':
             $error = "All fields are required!";
@@ -68,7 +104,6 @@ if (isset($_GET['error'])) {
             break;
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,8 +111,8 @@ if (isset($_GET['error'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Bookly</title>
-    <link rel="stylesheet" href="./css/login.css">
+    <title>Register - Sasto E-Pasal</title>
+    <link rel="stylesheet" href="./css/register.css">
     <style>
         .error {
             background-color: #552f33;
@@ -89,43 +124,51 @@ if (isset($_GET['error'])) {
 </head>
 
 <body>
-    
+    <!-- //🌞 Light Mode
+    //🌙 Dark Mode -->
     <!-- Theme Toggle Button -->
     <div class="theme-toggle">
         <button id="theme-switch" class="toggle-btn">🌞 Light Mode</button>
     </div>
 
-    <div class="login-container">
+    <div class="register-container">
         <div class="book-cover">
-            <h1>Login - Bookly</h1>
+            <h1>Register - Sasto E-Pasal</h1>
         </div>
         <?php if (isset($error_message)): ?>
             <div class="error"><?php echo $error_message; ?></div>
+        <?php elseif (isset($success_message)): ?>
+            <div class="success"><?php echo $success_message; ?></div>
         <?php endif; ?>
-        <form action="login.php" method="POST">
+        <form action="admin_register.php" id="signup" method="post">
+            <div class="form-group">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
             <div class="form-group">
                 <input type="email" name="email" placeholder="Email" required>
             </div>
             <div class="form-group">
+                <input type="text" name="full_name" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="phone_number" placeholder="Phone Number" required>
+            </div>
+            <div class="form-group">
                 <input type="password" name="password" placeholder="Password" required>
             </div>
-            <button type="submit" class="btn">Login</button>
-            <?php
-            if (isset($_GET['error']) && in_array($_GET['error'], ['invalid_password', 'user_not_found', 'database_error'])) {
-                echo "<div class='error'>$error</div>";
-            }
-            ;
-            ?>
-            <p class="switch-link">
-                <a href="forgotpw.php">Forgot Password?</a>.
-            </p>
-            <p>
-            <a href="admin_login.php">Admin Login</a>
-            </p>
+            <div class="form-group">
+                <input type="password" name="confirm_password" placeholder="Confirm your password" required>
+            </div>
+            <button type="submit" name="signup" class="btn">Register</button>
 
+            <?php
+            if (isset($_GET['error']) && in_array($_GET['error'], ['username_taken', 'registration_failed', 'password_mismatch', 'password_too_short', 'empty_fields'])) {
+                echo '<div class="error">' . $error . '</div>';
+            }
+            ?>
         </form>
         <p class="switch-link">
-            Don't have an account? <a href="register.php">Register here</a>.
+            Already have an account? <a href="admin_login.php">Login here</a>.
         </p>
     </div>
 
@@ -186,6 +229,7 @@ if (isset($_GET['error'])) {
                 themeSwitch.classList.remove('fall-and-break', 'broken');
             }
         });
+
     </script>
 </body>
 

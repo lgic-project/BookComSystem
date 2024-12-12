@@ -109,7 +109,7 @@ $result = $mysqli->query($sql);
         </a>
         <ul class="side-menu top">
             <li class="active">
-                <a href="#">
+                <a href="admin_dashboard.php">
                     <i class='bx bxs-dashboard'></i>
                     <span class="text">Dashboard</span>
                 </a>
@@ -141,15 +141,15 @@ $result = $mysqli->query($sql);
             <li>
                 <a href="#">
                     <i class='bx bx-line-chart'></i>
-                    <span class="text">Statistics</span>
+                    <span class="text">Report</span>
                 </a>
             </li>
         </ul>
         <ul class="side-menu">
             <li>
                 <a href="#">
-                    <i class='bx bxs-cog'></i>
-                    <span class="text">Settings</span>
+                    <i class='bx bxs-user-circle'></i>
+                    <span class="text">Profile</span>
                 </a>
             </li>
             <li>
@@ -168,7 +168,7 @@ $result = $mysqli->query($sql);
     <section id="content">
         <!-- NAVBAR -->
         <nav>
-            <a href="#" class="nav-link">Admin Dashboard</a>
+            <a href="#" class="nav-link">Admin Dashboard : Booklist </a>
             <div class="nav-link-2">
                 <a href="#" class="profile">
                     <img src="img/people.png">

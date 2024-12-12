@@ -11,6 +11,9 @@ body {
     background: var(--bg-gradient);
     animation: fadeIn 1s ease-in-out;
 }
+a{
+    text-decoration: none;
+}
 
 /* Animation for page fade-in */
 @keyframes fadeIn {
