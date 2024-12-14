@@ -91,7 +91,7 @@ if (isset($_GET['delete_book'])) {
     }
   </style>
 
-  <!-- fro erro handling -->
+  
   <style>
     .error {
       background: #4b49ac;
