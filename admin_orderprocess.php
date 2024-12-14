@@ -7,6 +7,7 @@ $sql = "SELECT o.id, o.order_date, o.status, o.total_price, u.username, u.email
         FROM orders o 
         JOIN users u ON o.user_id = u.id";
 $result = $mysqli->query($sql);
+
 $_SESSION['username'] = "Deepak";
 $username = $_SESSION['username'];
 

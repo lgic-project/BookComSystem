@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Insert order into database
             $stmt = $mysqli->prepare("INSERT INTO orders (user_id, order_date, total_price, status) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("issd", $user_id, $order_date, $total_price, $status);
+            $stmt->bind_param("isss", $user_id, $order_date, $total_price, $status);
 
             if ($stmt->execute()) {
                 unset($_SESSION['cart']);
