@@ -144,7 +144,7 @@ if (isset($_GET['delete_book'])) {
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="admin_stat.php">
           <i class='bx bx-line-chart'></i>
           <span class="text">Report</span>
         </a>

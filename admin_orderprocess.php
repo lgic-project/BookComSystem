@@ -213,7 +213,6 @@ $username = $_SESSION['username'];
                     $stmt->bind_param("si", $status, $order_id);
 
                     if ($stmt->execute()) {
-
                         header("Location:admin_orderprocess.php?book_order={$status}");
                     } else {
                         echo "<p>Error updating order: " . $mysqli->error . "</p>";

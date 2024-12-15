@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: admin_login.php?error=empty_fields");
         exit();
     }
-    $sql = "SELECT admin_id, username, `password` FROM admin WHERE username = ?";
+    $sql = "SELECT admin_id, username, password FROM admin WHERE username = ?";
     if ($stmt = $mysqli->prepare($sql)) {
         $stmt->bind_param("s", $username);
         if ($stmt->execute()) {
