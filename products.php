@@ -24,7 +24,6 @@ if (!$result) {
 </head>
 <body>
     <?php include 'header.php'; ?>
-    <!-- Main Content -->
     <div class="container">
         <h1>Our Books</h1>
         <div class="products-grid">
