@@ -1,11 +1,16 @@
 <?php
 
 include('./connection/config.php');
-
-if (isset($_GET['bookedit'])) {
+$msg_from_edit = "";
+if (isset( $_GET['bookedit'])) {
     if ($_GET['bookedit'] === 'success') {
-        echo "<h5>Book edit success <h5>";
+        $msg_from_edit = "Successfully Book Edit";
+    }elseif($_GET['bookedit'] === 'unsuccess'){
+        $msg_from_edit = "Book Edit Unsuccessful";
+    }else{
+        $msg_from_edit = "";
     }
+
 }
 
 $search_results = [];
@@ -16,16 +21,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
     $search_query = $_GET['search'];
 
     // Search the database for books matching the title or author
-    $sql = "SELECT * FROM books WHERE title LIKE ? OR author LIKE ?";
-    $stmt = $mysqli->prepare($sql);
-    $search_term = "%" . $search_query . "%"; // For partial matching
-    $stmt->bind_param('ss', $search_term, $search_term);
-    $stmt->execute();
-    $result = $stmt->get_result();
 
-    // Fetch the results into an array
-    while ($row = $result->fetch_assoc()) {
-        $search_results[] = $row;
+    if ($stmt = $mysqli->prepare("SELECT * FROM books WHERE title LIKE ? OR author LIKE ?")) {
+        $search_term = "%" . $search_query . "%"; // For partial matching
+        $stmt->bind_param('ss', $search_term, $search_term);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Fetch the results into an array
+        while ($row = $result->fetch_assoc()) {
+            $search_results[] = $row;
+        }
+    }else{
+        header("Location: admin_searchbooks.php?error=search_failed");
+        exit();
+    }
+}
+$error = "";
+if(isset($_GET['error'])){
+    if($_GET['error'] == "search_failed"){
+        $error="Search Failed";
     }
 }
 $_SESSION['username'] = "Deepak";
@@ -47,9 +62,10 @@ $username = $_SESSION['username'];
 
     <title>Dashboard Admin: <?php echo $username ?> </title>
     <style>
-        .search-container{
-            margin:auto 4rem 2rem 0;
+        .search-container {
+            margin: auto 4rem 2rem 0;
         }
+
         .search-container h2 {
             margin: 10px 5px 20px 0;
             text-align: center;
@@ -204,46 +220,58 @@ $username = $_SESSION['username'];
         <!-- NAVBAR -->
 
         <div id="main-content">
-        <div class="search-container">
-            <h2>Search Books</h2>
+            <h2>
+                <?php
+                if ($msg_from_edit) {
+                    echo "<div class='error'> $msg_from_edit </div>";
+                }
+                if($error){
+                    echo "<div> class='error'> $error </div>";
+                }
+                ?>
+            </h2>
+            <div class="search-container">
+                <h2>Search Books</h2>
 
-            <!-- Search Form -->
-            <form action="admin_searchbooks.php" method="GET" class="form-group">
-                <label for="search">Search by Title or Author:</label>
-                <input type="text" id="search" name="search" value="<?php echo htmlspecialchars($search_query); ?>"
-                    required>
-                <input type="submit" value="Search">
-            </form>
+                <!-- Search Form -->
+                <form action="admin_searchbooks.php" method="GET" class="form-group">
+                    <label for="search">Search by Title or Author:</label>
+                    <input type="text" id="search" name="search" value="<?php echo htmlspecialchars($search_query); ?>"
+                        required>
+                    <input type="submit" value="Search">
+                </form>
 
-            <?php
-            if (!empty($search_results)): ?>
-                <h3>Search Results:</h3>
-                <div class="grid-container">
-                    <?php
-                    foreach ($search_results as $row) { ?>
-                        <div class="grid-item">'
-                            <img src="./bookspic/<?php echo $row['book_img'] ?>"
-                                alt=" <?php echo htmlspecialchars($row['title']) ?> ">
-                            <h3> <?php echo htmlspecialchars($row['title']) ?> </h3>
-                            <p>by <?php echo htmlspecialchars($row['author']) ?></p>
-                            <p class="price">$ <?php echo htmlspecialchars($row['price']) ?> </p>
-                            <p><a class='b-button' href='  admin_editbooks.php?book_title=<?php echo $row['title'] ?>'>Edit</a>
-                            <form method="POST" action="admin_delbook.php" name="delbook">
-                                <input type="hidden" name="book_title" value="<?php echo htmlspecialchars($row['title']) ?>">
-                                <input type="hidden" name="del_from_search" value="<?php $del_from_search = true ?> ">
-                                <button class="b-button" type="submit" name="delete">Delete</button>
-                            </form>
-                            </p>
-                        </div>
+                <?php
+                if (!empty($search_results)): ?>
+                    <h3>Search Results:</h3>
+                    <div class="grid-container">
                         <?php
-                    }
-                    ?>
-                </div>
-            <?php elseif (!empty($search_query)): ?>
-                <p>No results found for "<?php echo htmlspecialchars($search_query); ?>".</p>
-            <?php endif; ?>
+                        foreach ($search_results as $row) { ?>
+                            <div class="grid-item">'
+                                <img src="./bookspic/<?php echo $row['book_img'] ?>"
+                                    alt=" <?php echo htmlspecialchars($row['title']) ?> ">
+                                <h3> <?php echo htmlspecialchars($row['title']) ?> </h3>
+                                <p>by <?php echo htmlspecialchars($row['author']) ?></p>
+                                <p class="price">$ <?php echo htmlspecialchars($row['price']) ?> </p>
+                                <p><a class='b-button'
+                                        href='  admin_editbooks.php?book_title=<?php echo $row['title'] ?>'>Edit</a>
+                                <form method="POST" action="admin_delbook.php" name="delbook">
+                                    <input type="hidden" name="book_title"
+                                        value="<?php echo htmlspecialchars($row['title']) ?>">
+                                    <input type="hidden" name="del_from_search" value="<?php $del_from_search = true ?> ">
+                                    <button class="b-button" type="submit" name="delete">Delete</button>
+                                </form>
+                                </p>
+                            </div>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                <?php elseif (!empty($search_query)): ?>
+                    <p>No results found for "<?php echo htmlspecialchars($search_query); ?>".</p>
+                <?php endif; ?>
 
-        </div>
+            </div>
         </div>
 
 

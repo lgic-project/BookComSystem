@@ -21,6 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mkdir('bookspic', 0777, true);
   }
 
+  if (empty($title) || empty($author) || empty($genre) || empty($pub_year) || empty($isbn) || empty($publisher) || empty($price) || empty($bookfile_name) || empty($stock)) {
+    header("Location: admin_add_book?error=empty_fields");
+    exit();
+  }
+
   $target_dir = "bookspic/";
   $file_extension = strtolower(pathinfo($bookfile_name, PATHINFO_EXTENSION));
   $new_book_img = uniqid() . '.' . $file_extension; // Generate unique filename
@@ -29,13 +34,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Check if image file is actual image
   $check = getimagesize($_FILES["book_image"]["tmp_name"]);
   if ($check === false) {
-    header("Location: dashboard.php?upload=error");
+    header("Location: admin_add_book.php?error=img_upl_err");
     exit();
   }
 
   // Allow certain file formats
   if ($file_extension != "jpg" && $file_extension != "png" && $file_extension != "jpeg" && $file_extension != "gif") {
-    header("Location: dashboard.php?upload=error");
+    header("Location: admin_add_book.php?error=not_suitable_img_format");
     exit();
   }
 
@@ -49,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $stmt->store_result();
       if ($stmt->num_rows > 0) {
         echo "add error";
-        header("Location: .php?error=books_already_in_store");
+        header("Location: admin_add_book.php?error=books_already_in_store");
         exit();
       }
     }
@@ -67,11 +72,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->close();
         exit();
       } else {
-        header("Location: admin_add_book.php?add_book= Book_add_fail");
+        header("Location: admin_add_book.php?add_book=Book_add_fail");
         $stmt->close();
         exit();
       }
     }
+  }
+}
+
+// login error get 
+$error = '';
+if (isset($_GET['error'])) {
+  switch ($_GET['error']) {
+    case 'img_upl_err':
+      $error = "Image Upload Error! Use Smaller size";
+      break;
+    case 'not_suitable_img_format':
+      $error = "Not Suitable Image format ";
+      break;
+    case 'books_already_in_store':
+      $error = "Alread in Store! Please Add new Book";
+      break;
+    case 'empty_fields':
+      $error = "All fields are required!";
+      break;
+    default:
+      $error = "";
+      break;
+  }
+}
+
+//msg when book added
+if (isset($_GET['add_book'])) {
+  switch ($_GET['add_book']) {
+    case 'success':
+      $error = "Successfully Book Added";
+      break;
+    case 'Book_add_fail':
+      $error = "Error While Adding Book in Store";
+      break;
+    default:
+      $error = "";
+      break;
   }
 }
 
@@ -98,6 +140,15 @@ $username = $_SESSION['username'];
   <link rel="stylesheet" href="./css/bookform.css">
 
   <title>Dashboard Admin: <?php echo $username ?> </title>
+  <style>
+    .error {
+      background: #4b49ac;
+      color: white;
+      margin: 8px;
+      padding: 7px;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 
 
@@ -179,66 +230,73 @@ $username = $_SESSION['username'];
       </div>
     </nav>
     <!-- NAVBAR -->
-      <div class="addbook-container" id="main-content">
-        <h1>Enter Book Details</h1>
-        <form action="admin_add_book.php" method="POST" enctype="multipart/form-data" class="form-group">
-          <div class="input-group">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required>
-          </div>
+    <div class="addbook-container" id="main-content">
+      <h2>
+        <?php
+        if ($error) {
+          echo "<div class='error'> $error </div>";
+        }
+        ?>
+      </h2>
+      <h1>Enter Book Details</h1>
+      <form action="admin_add_book.php" method="POST" enctype="multipart/form-data" class="form-group">
+        <div class="input-group">
+          <label for="title">Title:</label>
+          <input type="text" id="title" name="title" required>
+        </div>
 
-          <!-- Author -->
-          <div class="input-group">
-            <label for="author">Author:</label>
-            <input type="text" id="author" name="author" required>
-          </div>
+        <!-- Author -->
+        <div class="input-group">
+          <label for="author">Author:</label>
+          <input type="text" id="author" name="author" required>
+        </div>
 
-          <!-- Genre -->
-          <div class="input-group">
-            <label for="genre">Genre:</label>
-            <input type="text" id="genre" name="genre">
-          </div>
+        <!-- Genre -->
+        <div class="input-group">
+          <label for="genre">Genre:</label>
+          <input type="text" id="genre" name="genre">
+        </div>
 
-          <!-- Publication Year -->
-          <div class="input-group">
-            <label for="pub_year">Publication Year:</label>
-            <input type="number" id="pub_year" name="pub_year" min="1000" max="9999">
-          </div>
+        <!-- Publication Year -->
+        <div class="input-group">
+          <label for="pub_year">Publication Year:</label>
+          <input type="number" id="pub_year" name="pub_year" min="1000" max="9999">
+        </div>
 
-          <!-- ISBN -->
-          <div class="input-group">
-            <label for="isbn">ISBN:</label>
-            <input type="text" id="isbn" name="isbn" required>
-          </div>
+        <!-- ISBN -->
+        <div class="input-group">
+          <label for="isbn">ISBN:</label>
+          <input type="text" id="isbn" name="isbn" required>
+        </div>
 
-          <!-- Publisher -->
-          <div class="input-group">
-            <label for="publisher">Publisher:</label>
-            <input type="text" id="publisher" name="publisher">
-          </div>
+        <!-- Publisher -->
+        <div class="input-group">
+          <label for="publisher">Publisher:</label>
+          <input type="text" id="publisher" name="publisher">
+        </div>
 
-          <!-- Price -->
-          <div class="input-group">
-            <label for="price">Price:</label>
-            <input type="number" id="price" name="price" step="0.01" min="0">
-          </div>
+        <!-- Price -->
+        <div class="input-group">
+          <label for="price">Price:</label>
+          <input type="number" id="price" name="price" step="0.01" min="0">
+        </div>
 
-          <!-- Stock -->
-          <div class="input-group">
-            <label for="stock">Stock Quantity:</label>
-            <input type="number" id="stock" name="stock" min="0" step="1">
-          </div>
+        <!-- Stock -->
+        <div class="input-group">
+          <label for="stock">Stock Quantity:</label>
+          <input type="number" id="stock" name="stock" min="0" step="1">
+        </div>
 
-          <!-- Image -->
-          <div class="input-group">
-            <label for="img">Book Cover Image:</label>
-            <input type="file" name="book_image" id="book_image" accept="bookspic/" required>
-          </div>
+        <!-- Image -->
+        <div class="input-group">
+          <label for="img">Book Cover Image:</label>
+          <input type="file" name="book_image" id="book_image" accept="bookspic/" required>
+        </div>
 
-          <!-- Submit Button -->
-          <button type="submit">Add Book</button>
-        </form>
-      </div>
+        <!-- Submit Button -->
+        <button type="submit">Add Book</button>
+      </form>
+    </div>
   </section>
   <!-- CONTENT -->
 

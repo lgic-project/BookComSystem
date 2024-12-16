@@ -7,6 +7,7 @@ $sql = "SELECT o.id, o.order_date, o.status, o.total_price, u.username, u.email
         FROM orders o 
         JOIN users u ON o.user_id = u.id";
 $result = $mysqli->query($sql);
+
 $_SESSION['username'] = "Deepak";
 $username = $_SESSION['username'];
 
@@ -212,7 +213,6 @@ $username = $_SESSION['username'];
                     $stmt->bind_param("si", $status, $order_id);
 
                     if ($stmt->execute()) {
-
                         header("Location:admin_orderprocess.php?book_order={$status}");
                     } else {
                         echo "<p>Error updating order: " . $mysqli->error . "</p>";
