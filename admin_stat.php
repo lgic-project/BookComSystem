@@ -17,10 +17,10 @@ if ($result) {
 
 // fetching the completed order which represents the total sales
 $result = $mysqli->query("SELECT sum(total_price) AS total_sales FROM orders WHERE status = 'Completed'");
-if($result){
-    $row = $result-> fetch_assoc();
+if ($result) {
+    $row = $result->fetch_assoc();
     $total_sales = $row['total_sales'];
-}else{
+} else {
     $total_sales = 0;
 }
 
@@ -32,6 +32,38 @@ if ($result) {
 
 } else {
     $book_quantities = 0;
+}
+
+
+// select the order status
+
+$result = $mysqli->query("SELECT status, COUNT(*) AS count FROM orders WHERE status IN ('Pending', 'Completed', 'Cancelled') GROUP BY status");
+if ($result) {
+    // Initialize counts
+    $counts = [
+        'Pending' => 0,
+        'Completed' => 0,
+        'Cancelled' => 0
+    ];
+
+    // Fetch results
+    while ($row = $result->fetch_assoc()) {
+        if ($row['status'] === 'Pending') {
+            $counts['Pending'] = $row['count'];
+        } elseif ($row['status'] === 'Completed') {
+            $counts['Completed'] = $row['count'];
+        } elseif ($row['status'] === 'Cancelled') {
+            $counts['Cancelled'] = $row['count'];
+        }
+    }
+
+    // Assign to variables for easier usage
+    $order_pending = $counts['Pending'];
+    $order_completed = $counts['Completed'];
+    $order_cancelled = $counts['Cancelled'];
+
+} else {
+    echo "Error: " . $mysqli->error;
 }
 
 ?>
@@ -48,18 +80,52 @@ if ($result) {
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- My CSS -->
     <link rel="stylesheet" href="./css/admindashboard.css">
-
     <title>Dashboard Admin: <?php echo $username ?> </title>
 
 
     <!-- fro erro handling -->
     <style>
+        :root {
+            --main-color: #4b49AC;
+            --second-color: #98BDFF;
+            --light-blue: #7DA0FA;
+            --light-purple: #7978E9;
+            --light-red: #F3797E;
+        }
+
         .error {
             background: #4b49ac;
             color: white;
             margin: 8px;
             padding: 7px;
             border-radius: 10px;
+        }
+
+        .sales,
+        .order {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sales .boxes, .order .boxes{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            
+        }
+
+        .box {
+            width: 15rem;
+            height: 10rem;
+            border: 3px solid var(--light-red);
+            border-radius: 20px;
+            background: var(--second-color);
+            padding: 20px;
+            gap: 20px;
+            font-size: xx-large;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
     </style>
 </head>
@@ -68,64 +134,7 @@ if ($result) {
 
 
     <!-- SIDEBAR -->
-    <section id="sidebar">
-        <a href="#" class="brand">
-            <i class='bx bxs-smile'></i>
-            <span class="text">Bookly</span>
-        </a>
-        <ul class="side-menu top">
-            <li class="active">
-                <a href="admin_dashboard.php">
-                    <i class='bx bxs-dashboard'></i>
-                    <span class="text">Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="admin_add_book.php">
-                    <i class='bx bxs-file-plus'></i>
-                    <span class="text">Add Book</span>
-                </a>
-            </li>
-            <li>
-                <a href="admin_searchbooks.php">
-                    <i class='bx bx-search-alt-2'></i>
-                    <span class="text">Search Book</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bxs-folder-minus'></i>
-                    <span class="text">Delete Book</span>
-                </a>
-            </li>
-            <li>
-                <a href="admin_orderprocess.php">
-                    <i class='bx bxs-group'></i>
-                    <span class="text">Order</span>
-                </a>
-            </li>
-            <li>
-                <a href="admin_stat.php">
-                    <i class='bx bx-line-chart'></i>
-                    <span class="text">Report</span>
-                </a>
-            </li>
-        </ul>
-        <ul class="side-menu">
-            <li>
-                <a href="admin_profilecard.php">
-                    <i class='bx bx-user-circle'></i>
-                    <span class="text">Profile</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="logout">
-                    <i class='bx bxs-log-out-circle'></i>
-                    <span class="text">Logout</span>
-                </a>
-            </li>
-        </ul>
-    </section>
+    <?php include 'admin_sidebar.php' ?>;
     <!-- SIDEBAR -->
 
 
@@ -148,30 +157,45 @@ if ($result) {
                 <?php
                 if ($error) {
                     echo "<div class='error'> $error </div>";
-                    
+
                 }
                 ?>
             </h2>
             <h2> Overview</h2>
             <div class="overview">
                 <div class="sales">
-                    <div class="box">
-                        <h4>Total sales</h4>
-                        <p><?php echo $total_sales; ?></p>
-                    </div>
-                    <div class="box">
-                        <h4>Books </h4>
-                        <p> <?php echo $book_count; ?></p>
-                    </div>
-                    <div class="box">
-                        <h4>Books Quantity</h4>
-                        <p><?php echo $book_quantities ?></p>
+                    <h2>Sales</h2>
+                    <div class="boxes">
+                        <div class="box">
+                            <h4>Total sales</h4>
+                            <p><?php echo $total_sales; ?></p>
+                        </div>
+                        <div class="box">
+                            <h4>Books </h4>
+                            <p> <?php echo $book_count; ?></p>
+                        </div>
+                        <div class="box">
+                            <h4>Books Quantity</h4>
+                            <p><?php echo $book_quantities ?></p>
+                        </div>
                     </div>
                 </div>
                 <div class="order">
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
+                    <h2>Orders</h2>
+                    <div class="boxes">
+                        <div class="box">
+                            <h4>Pending</h4>
+                            <p><?php echo $order_pending ?> </p>
+                        </div>
+                        <div class="box">
+                            <h4>Completed</h4>
+                            <p><?php echo $order_completed ?> </p>
+                        </div>
+                        <div class="box">
+                            <h4>Cancelled</h4>
+                            <p><?php echo $order_cancelled ?> </p>
+                        </div>
+                    </div>
                 </div>
 
             </div>

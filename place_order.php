@@ -4,25 +4,24 @@ session_start();
 include 'connection/config.php';
 $_SESSION['user_id'] = 1;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $book_id = $_POST['id'];
     if (!isset($_SESSION['user_id'])) {
         header("Location:place_order.php?status=login_to_place_order_");
         exit;
     }
 
     //fetch book quantity from the database
-    if($result = $mysqli->query("SELECT stock AS book_quantity FROM books where id = $book_id")){
-        if($result){
-            $row = $result->fetch_assoc();
-            $book_quantity = $row['book_quantity'];
+    // if($result = $mysqli->query("SELECT stock AS book_quantity FROM books where id = $")){
+    //     if($result){
+    //         $row = $result->fetch_assoc();
+    //         $book_quantity = $row['book_quantity'];
 
-            if($book_quantity <= 0 ){
-                header("Location: place_order?error=out_of_stock");
-                exit();
-            }
-        }
-        $result->close();
-    }
+    //         if($book_quantity <= 0 ){
+    //             header("Location: place_order?error=out_of_stock");
+    //             exit();
+    //         }
+    //     }
+    //     $result->close();
+    // }
     
 
     if (!empty($_SESSION['cart'])) {
@@ -39,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             while ($row = $result->fetch_assoc()) {
                 $total_price += $row['price'];
             }
+
 
             $user_id = $_SESSION['user_id'];
             $order_date = date("Y-m-d H:i:s");

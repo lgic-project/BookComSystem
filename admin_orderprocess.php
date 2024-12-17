@@ -11,6 +11,27 @@ $result = $mysqli->query($sql);
 $_SESSION['username'] = "Deepak";
 $username = $_SESSION['username'];
 
+
+// Handle status update
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // var_dump(  $_POST);
+    $order_id = $_POST['order_id'];
+    $status = $_POST['status'];
+
+    $stmt = $mysqli->prepare("UPDATE orders SET status = ? WHERE id = ?");
+    $stmt->bind_param("si", $status, $order_id);
+
+    if ($stmt->execute()) {
+        header("Location:admin_orderprocess.php?book_order=" . urldecode($status) . "");
+        exit();
+    } else {
+        echo "<p>Error updating order: " . $mysqli->error . "</p>";
+    }
+}
+
+// Close connection
+$mysqli->close();
+
 ?>
 
 
@@ -26,6 +47,18 @@ $username = $_SESSION['username'];
     <!-- My CSS -->
     <link rel="stylesheet" href="./css/admindashboard.css">
     <style>
+        .o-process-section {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .order-processed {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            margin-right: 10rem;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -78,64 +111,7 @@ $username = $_SESSION['username'];
 
 
     <!-- SIDEBAR -->
-    <section id="sidebar">
-        <a href="#" class="brand">
-            <i class='bx bxs-smile'></i>
-            <span class="text">Bookly</span>
-        </a>
-        <ul class="side-menu top">
-            <li class="active">
-                <a href="admin_dashboard.php">
-                    <i class='bx bxs-dashboard'></i>
-                    <span class="text">Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="admin_add_book.php">
-                    <i class='bx bxs-file-plus'></i>
-                    <span class="text">Add Book</span>
-                </a>
-            </li>
-            <li>
-                <a href="admin_searchbooks.php">
-                    <i class='bx bx-search-alt-2'></i>
-                    <span class="text">Search Book</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bxs-folder-minus'></i>
-                    <span class="text">Delete Book</span>
-                </a>
-            </li>
-            <li>
-                <a href="admin_orderprocess.php">
-                    <i class='bx bxs-group'></i>
-                    <span class="text">Order</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-line-chart'></i>
-                    <span class="text">Report</span>
-                </a>
-            </li>
-        </ul>
-        <ul class="side-menu">
-            <li>
-                <a href="#">
-                    <i class='bx bx-user-circle'></i>
-                    <span class="text">Profile</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="logout">
-                    <i class='bx bxs-log-out-circle'></i>
-                    <span class="text">Logout</span>
-                </a>
-            </li>
-        </ul>
-    </section>
+    <?php include_once 'admin_sidebar.php' ?>;
     <!-- SIDEBAR -->
 
 
@@ -156,7 +132,13 @@ $username = $_SESSION['username'];
         <div id="main-content">
 
             <body>
-                <h1>Admin Order Management</h1>
+                <div class="o-process-section">
+                    <h1>Admin Order Management</h1>
+                    <div class="order-processed">
+                        <p><a href=""> Completed</a> </p>
+                        <p><a href=""> Cancelled</a> </p>
+                    </div>
+                </div>
 
                 <!-- Orders Table -->
                 <table>
@@ -164,6 +146,8 @@ $username = $_SESSION['username'];
                         <tr>
                             <th>Order ID</th>
                             <th>Customer</th>
+                            <th>Address</th>
+                            <th>Phone No.</th>
                             <th>Order Date</th>
                             <th>Status</th>
                             <th>Total Amount</th>
@@ -178,6 +162,8 @@ $username = $_SESSION['username'];
                                     <tr>
                                         <td><?php echo $row['id']; ?></td>
                                         <td><?php echo $row['username']; ?> (<?php echo $row['email']; ?>)</td>
+                                        <td>Address</td>
+                                        <td>Phone No.</td>
                                         <td><?php echo $row['order_date']; ?></td>
                                         <td><?php echo $row['status']; ?></td>
                                         <td>$<?php echo number_format($row['total_price'], 2); ?></td>
@@ -202,26 +188,7 @@ $username = $_SESSION['username'];
                     </tbody>
                 </table>
 
-                <?php
-                // Handle status update
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $order_id = $_POST['order_id'];
-                    $status = $_POST['status'];
 
-                    $update_sql = "UPDATE orders SET status = ? WHERE id = ?";
-                    $stmt = $mysqli->prepare($update_sql);
-                    $stmt->bind_param("si", $status, $order_id);
-
-                    if ($stmt->execute()) {
-                        header("Location:admin_orderprocess.php?book_order={$status}");
-                    } else {
-                        echo "<p>Error updating order: " . $mysqli->error . "</p>";
-                    }
-                }
-
-                // Close connection
-                $mysqli->close();
-                ?>
 
         </div>
 

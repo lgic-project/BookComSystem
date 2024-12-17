@@ -3,7 +3,6 @@
 
 }
 
-
 .addbook-container h1 {
     text-align: center;
     color: purple;
@@ -11,9 +10,8 @@
 }
 
 .addbook-container .form-group {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    
+
 }
 
 .addbook-container .form-group .input-group {
