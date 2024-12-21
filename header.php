@@ -1,5 +1,5 @@
 <?php
-// Start the session if not started already
+// Start the session if not already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -13,6 +13,10 @@ if (!isset($_SESSION['theme'])) {
 if (isset($_POST['theme'])) {
     $_SESSION['theme'] = $_POST['theme'];
 }
+
+// Example User Login Status
+$isLoggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] === true;
+$userAvatar = $isLoggedIn && isset($_SESSION['user_avatar']) ? $_SESSION['user_avatar'] : 'images/default-avatar.png';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,16 +63,39 @@ if (isset($_POST['theme'])) {
             </ul>
         </nav>
 
-        <!-- Search Bar and Cart -->
+        <!-- Search Bar, Cart, and Profile -->
         <div class="header-right">
+            <!-- Search Bar -->
             <div class="search-bar">
                 <form action="search.php" method="GET">
                     <input type="text" name="query" placeholder="Search for books..." />
                     <button type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </div>
+
+            <!-- Shopping Cart -->
             <div class="cart">
                 <a href="cart.php"><i class="fas fa-shopping-cart"></i></a>
+            </div>
+
+            <!-- User Profile -->
+            <div class="user-profile">
+                <div class="profile-dropdown">
+                    <img src="<?php echo $userAvatar; ?>" alt="User Avatar" class="avatar">
+                    <div class="dropdown-menu">
+                        <ul>
+                            <?php if ($isLoggedIn): ?>
+                                <li><a href="profile.php">Profile</a></li>
+                                <li><a href="settings.php">Settings</a></li>
+                                <li><a href="logout.php">Logout</a></li>
+                            <?php else: ?>
+                                <li><a href="login.php">Login</a></li>
+                                <li><a href="register.php">Register</a></li>
+                            <?php endif; ?>
+                            <li><a href="home.php">Home</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
