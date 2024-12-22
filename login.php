@@ -1,53 +1,68 @@
 <?php
-
+// Include the database connection
 require_once './connection/config.php';
+
+// Start the session
 session_start();
+
+// Handle login request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the input data
     $email = $mysqli->real_escape_string($_POST['email']);
     $password = trim($_POST['password']);
 
-
+    // Check if email and password are provided
     if (empty($email) || empty($password)) {
         header("Location: login.php?error=empty_fields");
         exit();
     }
+
+    // Prepare the SQL query to check if the user exists
     $sql = "SELECT id, username, `password` FROM users WHERE email = ?";
     if ($stmt = $mysqli->prepare($sql)) {
+        // Bind the email parameter
         $stmt->bind_param("s", $email);
+
+        // Execute the query
         if ($stmt->execute()) {
             $result = $stmt->get_result();
 
+            // Check if a user is found
             if ($result->num_rows == 1) {
                 $row = $result->fetch_assoc();
+                
+                // Verify the password
                 if (password_verify($password, $row['password'])) {
+                    // Successful login: Set session variables
                     $_SESSION["loggedin"] = true;
                     $_SESSION["id"] = $row["id"];
                     $_SESSION["username"] = $row["username"];
-                    header("Location: index.php");
                     
+                    // Optionally, set other session variables like avatar if needed
+                    // $_SESSION['user_avatar'] = 'path_to_avatar_image';
+
+                    // Redirect to index page or any other page
+                    header("Location: index.php");
                     exit();
                 } else {
+                    // Invalid password error
                     header("Location: login.php?error=invalid_password");
-                    $stmt->close();
                     exit();
                 }
             } else {
+                // User not found error
                 header("Location: login.php?error=user_not_found");
-                $stmt->close();
                 exit();
             }
         } else {
+            // Database query error
             header("Location: login.php?error=database_error");
-            $stmt->close();
             exit();
         }
     }
 }
 
-session_abort();
-
-
-// login error get 
+// Handle login error messages
 $error = '';
 if (isset($_GET['error'])) {
     switch ($_GET['error']) {
@@ -72,7 +87,6 @@ if (isset($_GET['error'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -87,9 +101,8 @@ if (isset($_GET['error'])) {
         }
     </style>
 </head>
-
 <body>
-    
+
     <!-- Theme Toggle Button -->
     <div class="theme-toggle">
         <button id="theme-switch" class="toggle-btn">🌞 Light Mode</button>
@@ -99,9 +112,12 @@ if (isset($_GET['error'])) {
         <div class="book-cover">
             <h1>Login - Bookly</h1>
         </div>
-        <?php if (isset($error_message)): ?>
-            <div class="error"><?php echo $error_message; ?></div>
+
+        <!-- Display Error Message if any -->
+        <?php if ($error): ?>
+            <div class="error"><?php echo $error; ?></div>
         <?php endif; ?>
+
         <form action="login.php" method="POST">
             <div class="form-group">
                 <input type="email" name="email" placeholder="Email" required>
@@ -110,20 +126,14 @@ if (isset($_GET['error'])) {
                 <input type="password" name="password" placeholder="Password" required>
             </div>
             <button type="submit" class="btn">Login</button>
-            <?php
-            if (isset($_GET['error']) && in_array($_GET['error'], ['invalid_password', 'user_not_found', 'database_error'])) {
-                echo "<div class='error'>$error</div>";
-            }
-            ;
-            ?>
-            <p class="switch-link">
-                <a href="forgotpw.php">Forgot Password?</a>.
-            </p>
-            <p>
-            <a href="admin_login.php">Admin Login</a>
-            </p>
-
         </form>
+
+        <p class="switch-link">
+            <a href="forgotpw.php">Forgot Password?</a>.
+        </p>
+        <p>
+            <a href="admin_login.php">Admin Login</a>
+        </p>
         <p class="switch-link">
             Don't have an account? <a href="register.php">Register here</a>.
         </p>
@@ -187,6 +197,6 @@ if (isset($_GET['error'])) {
             }
         });
     </script>
-</body>
 
+</body>
 </html>

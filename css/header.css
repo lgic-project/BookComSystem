@@ -90,6 +90,10 @@ body.dark-mode {
 .profile-dropdown .dropdown-menu ul li a:hover {
     color: #cf9fd5;
 }
+.profile-dropdown:hover .dropdown-menu,
+.profile-dropdown .dropdown-menu:hover {
+    display: block;
+}
 
 /* Navigation Menu */
 .nav-bar {

@@ -1,23 +1,15 @@
 <?php
-// Start the session if not already started
+// Start the session
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+// Check if user is logged in
+$isLoggedIn = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
 
-// Set default theme if not set
-if (!isset($_SESSION['theme'])) {
-    $_SESSION['theme'] = 'light-mode'; // Default theme
-}
-
-// Update theme if requested
-if (isset($_POST['theme'])) {
-    $_SESSION['theme'] = $_POST['theme'];
-}
-
-// Example User Login Status
-$isLoggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] === true;
+// Set default user avatar if not logged in
 $userAvatar = $isLoggedIn && isset($_SESSION['user_avatar']) ? $_SESSION['user_avatar'] : 'images/default-avatar.png';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,7 +84,7 @@ $userAvatar = $isLoggedIn && isset($_SESSION['user_avatar']) ? $_SESSION['user_a
                                 <li><a href="login.php">Login</a></li>
                                 <li><a href="register.php">Register</a></li>
                             <?php endif; ?>
-                            <li><a href="home.php">Home</a></li>
+                            <li><a href="index.php">Home</a></li>
                         </ul>
                     </div>
                 </div>
