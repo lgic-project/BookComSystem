@@ -2,24 +2,24 @@
 session_start();
 require_once './connection/config.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location: login.php");
+//     exit();
+// }
 
-$user_id = $_SESSION['user_id'];
-$sql = "SELECT username, email, profile_picture FROM users WHERE id = ?";
-if ($stmt = $mysqli->prepare($sql)) {
-    $stmt->bind_param("i", $user_id);
-    if ($stmt->execute()) {
-        $stmt->store_result();
-        $stmt->bind_result($username, $email, $profile_picture);
-        $stmt->fetch();
-    } else {
-        echo "Error retrieving profile information.";
-    }
-    $stmt->close();
-}
+// $user_id = $_SESSION['user_id'];
+// $sql = "SELECT username, email, profile_picture FROM users WHERE id = ?";
+// if ($stmt = $mysqli->prepare($sql)) {
+//     $stmt->bind_param("i", $user_id);
+//     if ($stmt->execute()) {
+//         $stmt->store_result();
+//         $stmt->bind_result($username, $email, $profile_picture);
+//         $stmt->fetch();
+//     } else {
+//         echo "Error retrieving profile information.";
+//     }
+//     $stmt->close();
+// }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile'])) {
     $new_username = $mysqli->real_escape_string(trim($_POST['username']));

@@ -30,7 +30,7 @@ $username = $_SESSION['username'];
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- My CSS -->
     <link rel="stylesheet" href="./css/admindashboard.css">
-    <link rel="stylesheet" href="./css/bookform.css">
+    <link rel="stylesheet" href="./css/admin_add_book.css">
     <title>Dashboard Admin: <?php echo $username ?> </title>
 </head>
 
@@ -38,64 +38,7 @@ $username = $_SESSION['username'];
 
 
     <!-- SIDEBAR -->
-    <section id="sidebar">
-        <a href="#" class="brand">
-            <i class='bx bxs-smile'></i>
-            <span class="text">Bookly</span>
-        </a>
-        <ul class="side-menu top">
-            <li class="active">
-                <a href="admin_dashboard.php">
-                    <i class='bx bxs-dashboard'></i>
-                    <span class="text">Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="admin_add_book.php">
-                    <i class='bx bxs-file-plus'></i>
-                    <span class="text">Add Book</span>
-                </a>
-            </li>
-            <li>
-                <a href="admin_searchbooks.php">
-                    <i class='bx bx-search-alt-2'></i>
-                    <span class="text">Search Book</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bxs-folder-minus'></i>
-                    <span class="text">Delete Book</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bxs-group'></i>
-                    <span class="text">Order</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-line-chart'></i>
-                    <span class="text">Report</span>
-                </a>
-            </li>
-        </ul>
-        <ul class="side-menu">
-            <li>
-                <a href="#">
-                    <i class='bx bx-user-circle'></i>
-                    <span class="text">Profile</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="logout">
-                    <i class='bx bxs-log-out-circle'></i>
-                    <span class="text">Logout</span>
-                </a>
-            </li>
-        </ul>
-    </section>
+    <?php include 'admin_sidebar.php' ?>;
     <!-- SIDEBAR -->
 
 
@@ -143,7 +86,7 @@ $username = $_SESSION['username'];
                 </div>
                 <div class="input-group">
                     <label for="publisher">Publisher:</label>
-                    <input type=" text" id="publisher" name="publisher"
+                    <input type="text" id="publisher" name="publisher"
                         value="<?php echo htmlspecialchars($book['publisher']); ?>">
                 </div>
 
@@ -160,7 +103,7 @@ $username = $_SESSION['username'];
                     <input type="number" id="stock" name="stock"
                         value="<?php echo htmlspecialchars($book['stock']); ?>">
                 </div>
-                <input type="submit" name="edit_book" style="width: 8rem; height: 3rem;" value="Update Book">
+                <input type="submit" name="edit_book" style="width: 8rem; height: 3rem; margin-left: 45px;" value="Update Book">
             </form>
 
         </div>

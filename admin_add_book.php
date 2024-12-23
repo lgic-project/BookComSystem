@@ -137,8 +137,8 @@ $username = $_SESSION['username'];
   <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
   <!-- My CSS -->
   <link rel="stylesheet" href="./css/admindashboard.css">
-  <link rel="stylesheet" href="./css/bookform.css">
-
+  <link rel="stylesheet" href="./css/admin_add_book.css">
+  
   <title>Dashboard Admin: <?php echo $username ?> </title>
   <style>
     .error {

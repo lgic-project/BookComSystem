@@ -83,7 +83,7 @@ $username = $_SESSION['username'];
 
 
         .search-container .form-group input[type='submit'] {
-            padding: 3px;
+            padding: 8px;
         }
 
         .search-container h3 {

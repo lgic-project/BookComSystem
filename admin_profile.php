@@ -1,8 +1,42 @@
 <?php
+session_start();
 $_SESSION['username'] = "Deepak";
 $username = $_SESSION['username'];
+$admin_id = 1;
 
 require_once './connection/config.php';
+
+$stmt = $mysqli->prepare("SELECT * FROM admin WHERE admin_id=?");
+$stmt->bind_param('i', $admin_id);
+
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $username = $row['username'];
+        $full_name = $row['full_name'];
+        $email = $row['email'];
+        $phone = $row['phone_number'];
+        $profile_img = $row['profile_img'];
+    }
+}
+
+
+if (isset($_POST['submit'])) {
+    $full_name = $_POST['full_name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+
+
+    $stmt = $mysqli->prepare("UPDATE admin SET username=?, full_name=?, email=?, phone_number=? WHERE admin_id=?");
+    $stmt->bind_param('sssi', $full_name, $email, $phone, $admin_id);
+
+    $stmt->execute();
+    $stmt->close();
+
+    header('Location: admin_profile.php');
+}
+
 
 ?>
 
@@ -22,110 +56,51 @@ require_once './connection/config.php';
     <title>Dashboard Admin: <?php echo $username ?> </title>
 </head>
 <style>
-
-    /* Profile Container */
-    .profile-container {
+    #main-content {
         display: flex;
-    }
-
-    /* Left Section */
-    .profile-left {
-        flex: 1;
-        display: flex;
-        align-items: center;
         justify-content: center;
-        padding: 20px;
     }
 
-    .profile-image {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        border: 5px solid white;
-        object-fit: cover;
+    .container {
+        margin-top: 100px;
+        padding: 30px;
+        display: flex;
+        flex-direction: row;
+        gap: 40px;
     }
 
-    /* Right Section */
-    .profile-right {
-        flex: 2;
-        padding: 20px;
+    .img-container img {
+        width: 200px;
+        height: 250px;
+        border-radius: 20%;
+        overflow: hidden;
     }
 
-    .profile-right h1 {
-        margin-top: 0;
-        color: #2c3e50;
+    .container .profile-details form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
     }
 
-    .profile-right p {
-        margin: 10px 0;
-        line-height: 1.6;
+    .profile-details .btn {
+        width: 100px;
+        height: 40px;
+        padding: 10px 20px;
+        background-color: #98BDFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
     }
 
-    .profile-right strong {
-        color: #3498db;
+    .profile-details .btn:hover {
+        background-color: #4b49AC;
     }
 </style>
 
 <body>
     <!-- SIDEBAR -->
-    <section id="sidebar">
-        <a href="#" class="brand">
-            <i class='bx bxs-smile'></i>
-            <span class="text">Bookly</span>
-        </a>
-        <ul class="side-menu top">
-            <li class="active">
-                <a href="admin_dashboard.php">
-                    <i class='bx bxs-dashboard'></i>
-                    <span class="text">Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="admin_add_book.php">
-                    <i class='bx bxs-file-plus'></i>
-                    <span class="text">Add Book</span>
-                </a>
-            </li>
-            <li>
-                <a href="admin_searchbooks.php">
-                    <i class='bx bx-search-alt-2'></i>
-                    <span class="text">Search Book</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bxs-folder-minus'></i>
-                    <span class="text">Delete Book</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bxs-group'></i>
-                    <span class="text">Order</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-line-chart'></i>
-                    <span class="text">Report</span>
-                </a>
-            </li>
-        </ul>
-        <ul class="side-menu">
-            <li>
-                <a href="#">
-                    <i class='bx bx-user-circle'></i>
-                    <span class="text">Profile</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="logout">
-                    <i class='bx bxs-log-out-circle'></i>
-                    <span class="text">Logout</span>
-                </a>
-            </li>
-        </ul>
-    </section>
+    <?php include "admin_sidebar.php"; ?>
     <!-- SIDEBAR -->
 
     <!-- CONTENT -->
@@ -143,15 +118,21 @@ require_once './connection/config.php';
         <!-- NAVBAR -->
 
         <div class="profile-container" id="main-content">
-            <div class="profile-left">
-                <img src="profile.jpg" alt="Profile Picture" class="profile-image">
-            </div>
-            <div class="profile-right">
-                <h1>John Doe</h1>
-                <p><strong>Email:</strong> johndoe@example.com</p>
-                <p><strong>Phone:</strong> +123 456 7890</p>
-                <p><strong>Address:</strong> 123 Main Street, Anytown, USA</p>
-                <p><strong>About Me:</strong> A passionate developer with experience in web technologies.</p>
+            <div class="container">
+                <div class="img-container">
+                    <img src="developerpic/deepak.jpg" alt="profile" class="profile-image">
+                </div>
+
+                <div class="profile-details">
+                    <form action="">
+                        <h1> <strong>Full Name: </strong> <?php echo $full_name ?></h1>
+                        <p><strong>Username:</strong> <?php echo $username ?></p>
+                        <p><strong>Email:</strong> <?php echo $email ?></p>
+                        <p><strong>Phone:</strong> <?php echo $phone ?></p>
+                        <input type="hidden" name="admin_id" value="<?php echo $admin_id ?>">
+                        <input type="submit" value="Edit Profile" name="edit_profile" class="btn">
+                    </form>
+                </div>
             </div>
         </div>
 
