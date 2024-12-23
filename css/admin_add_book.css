@@ -1,0 +1,44 @@
+*{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body{
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+.addbook-container{
+    text-align: center;
+}
+
+.addbook-container h1{
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.addbook-container .form-group{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 0 auto;
+}
+
+.addbook-container .form-group input[type="text"], .addbook-container .form-group input[type="number"]{
+    width: 500px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.addbook-container .form-group label{
+
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: left;
+    margin-right: 10px;
+}
+
+.addbook-container .form-group .input-group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
