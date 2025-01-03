@@ -15,20 +15,20 @@
     <div class="container">
         <h1>Contact Us</h1>
 
-        <form class="contactForm" action="submit_contact.php" method="POST">
+        <form class="contactForm" action="mail.php" method="post">
             <label for="name">Full Name</label>
             <input type="text" id="name" name="name" placeholder="Your Full Name" required>
 
             <label for="email">Email Address</label>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
-            <label for="number">Contact Number</label>
-            <input type="text" id="number" name="number" placeholder="Enter your phone number" required>
+            <label for="subject">Subject</label>
+            <input type="text" id="number" name="subject" placeholder="Enter your subject" required>
 
             <label for="message">Your Message</label>
             <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
 
-            <input type="submit" value="Submit">
+            <input type="submit" name="send" value="Send Message">
         </form>
 
         <!-- Company Info Section -->

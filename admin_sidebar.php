@@ -43,13 +43,13 @@
     </ul>
     <ul class="side-menu">
         <li>
-            <a href="admin_profilecard.php">
+            <a href="admin_profile.php">
                 <i class='bx bx-user-circle'></i>
                 <span class="text">Profile</span>
             </a>
         </li>
         <li>
-            <a href="#" class="logout">
+            <a href="admin_logout.php" class="logout">
                 <i class='bx bxs-log-out-circle'></i>
                 <span class="text">Logout</span>
             </a>
