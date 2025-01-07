@@ -117,7 +117,7 @@ if ($result) {
         .box {
             width: 15rem;
             height: 10rem;
-            border: 3px solid var(--light-red);
+            border: 3px solid var(--main-color);
             border-radius: 20px;
             background: var(--second-color);
             padding: 20px;

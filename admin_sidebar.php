@@ -22,12 +22,12 @@
                 <span class="text">Search Book</span>
             </a>
         </li>
-        <li>
+        <!-- <li>
             <a href="#">
                 <i class='bx bxs-folder-minus'></i>
                 <span class="text">Delete Book</span>
             </a>
-        </li>
+        </li> -->
         <li>
             <a href="admin_orderprocess.php">
                 <i class='bx bxs-group'></i>
@@ -159,7 +159,7 @@
         color: red;
     }
 
-    #sidebar .side-menu.top li a:hover {
+    #sidebar .side-menu.top li a:hover, #sidebar .side-menu li a:hover{
         color: white;
         background: var(--main-color);
     }
