@@ -167,7 +167,7 @@ $username = $_SESSION['username'];
     <nav>
       <a href="#" class="nav-link">Admin Dashboard : Add Book</a>
       <div class="nav-link-2">
-        <a href="#" class="profile">
+        <a href="admin_profile.php" class="profile">
           <img src="img/people.png">
         </a>
       </div>

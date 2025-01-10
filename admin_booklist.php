@@ -113,8 +113,8 @@ $result = $mysqli->query($sql);
         <nav>
             <a href="#" class="nav-link">Admin Dashboard : Booklist </a>
             <div class="nav-link-2">
-                <a href="#" class="profile">
-                    <img src="img/people.png">
+                <a href="admin_profile.php" class="profile">
+                    
                 </a>
             </div>
         </nav>
@@ -123,17 +123,19 @@ $result = $mysqli->query($sql);
         <div class="grid-container">
             <?php
             if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo '<div class="grid-item">';
-                    echo '<img src="./bookspic/' . $row['book_img'] . '" alt="' . htmlspecialchars($row['title']) . '">';
-                    echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
-                    echo '<p>by ' . htmlspecialchars($row['author']) . '</p>';
-                    echo '<p class="price">$' . htmlspecialchars($row['price']) . '</p>';
-                    echo '<form method="POST" action="admin_delbook.php"  name="delbook">';
-                    echo '<input type="hidden" name="book_title" value="' . htmlspecialchars($row['title']) . '">';
-                    echo '<button type="submit" name="delete">Delete</button>';
-                    echo '</form>';
-                    echo '</div>';
+                while ($row = $result->fetch_assoc()) { ?>
+                    <div class="grid-item">
+                        <img src="./bookspic/<?php echo htmlspecialchars($row['book_img']); ?>"
+                            alt="<?php echo htmlspecialchars($row['title']); ?>">
+                        <h3><?php echo htmlspecialchars($row['title']); ?></h3>
+                        <p>by <?php echo htmlspecialchars($row['author']); ?></p>
+                        <p class="price">$<?php echo htmlspecialchars($row['price']); ?></p>
+                        <form method="POST" action="admin_delbook.php" name="delbook">
+                            <input type="hidden" name="book_title" value="<?php echo htmlspecialchars($row['title']); ?>">
+                            <button type="submit" name="delete">Delete</button>
+                        </form>
+                    </div>
+                <?php
                 }
             } else {
                 echo '<p>No books found</p>';

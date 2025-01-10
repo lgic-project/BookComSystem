@@ -13,7 +13,7 @@ $username = $_SESSION['username'];
 
 
 // Handle status update
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isset($_POST['status'])) {
     // var_dump(  $_POST);
     $order_id = $_POST['order_id'];
     $status = $_POST['status'];
@@ -28,6 +28,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<p>Error updating order: " . $mysqli->error . "</p>";
     }
 }
+
+
+
+//show the order different status
+$order_cancelled_table = false;
+$order_completed_table = false;
+$order_pending_table = false;
+
+if (isset($_POST['book_order'])) {
+    $book_order = $_POST['book_order'];
+    if ($book_order === "Pending") {
+        $order_pending_table = true;
+    } elseif ($book_order === "Completed") {
+        $order_completed_table = true;
+    } elseif ($book_order === "Cancelled") {
+        $order_cancelled_table = true;
+    }
+}
+
 
 // Close connection
 $mysqli->close();
@@ -102,6 +121,20 @@ $mysqli->close();
             background-color: #dc3545;
             color: #fff;
         }
+
+        .status-btn1 {
+            padding: 5px 10px;
+            margin: 2px;
+            border: none;
+            cursor: pointer;
+            background-color: #7DA0FA;
+            color: white;
+        }
+
+        .status-btn1:hover {
+            background-color: #4b49ac;
+            color: #98BDFF;
+        }
     </style>
 
     <title>Dashboard Admin: <?php echo $username ?> </title>
@@ -135,8 +168,14 @@ $mysqli->close();
                 <div class="o-process-section">
                     <h1>Admin Order Management</h1>
                     <div class="order-processed">
-                        <p><a href=""> Completed</a> </p>
-                        <p><a href=""> Cancelled</a> </p>
+                        <form action="admin_orderprocess.php" method="POST" style="display:inline;">
+                            <button class="status-btn1 btn-processing1" name="book_order"
+                                value="Pending">Pending</button>
+                            <button class="status-btn1 btn-completed1" name="book_order"
+                                value="Completed">Completed</button>
+                            <button class="status-btn1 btn-cancelled1" name="book_order"
+                                value="Cancelled">Cancelled</button>
+                        </form>
                     </div>
                 </div>
 
@@ -157,7 +196,7 @@ $mysqli->close();
                     <tbody>
                         <?php if ($result->num_rows > 0): ?>
                             <?php while ($row = $result->fetch_assoc()):
-                                if (($row['status'] === "Pending")) {
+                                if (($row['status'] === "Pending") && $order_pending_table) {
                                     ?>
                                     <tr>
                                         <td><?php echo $row['id']; ?></td>
@@ -179,8 +218,31 @@ $mysqli->close();
                                             </form>
                                         </td>
                                     </tr>
-                                <?php }endwhile; ?>
-                        <?php else: ?>
+
+                                <?php } elseif (($row['status'] === "Completed") && $order_completed_table) { ?>
+                                    <tr>
+                                        <td><?php echo $row['id']; ?></td>
+                                        <td><?php echo $row['username']; ?> (<?php echo $row['email']; ?>)</td>
+                                        <td>Address</td>
+                                        <td>Phone No.</td>
+                                        <td><?php echo $row['order_date']; ?></td>
+                                        <td><?php echo $row['status']; ?></td>
+                                        <td>$<?php echo number_format($row['total_price'], 2); ?></td>
+                                        <td> <?php echo $row['status'] ?></td>
+                                    </tr>
+                                <?php } elseif (($row['status'] === "Cancelled") && $order_cancelled_table) { ?>
+                                    <tr>
+                                        <td><?php echo $row['id']; ?></td>
+                                        <td><?php echo $row['username']; ?> (<?php echo $row['email']; ?>)</td>
+                                        <td>Address</td>
+                                        <td>Phone No.</td>
+                                        <td><?php echo $row['order_date']; ?></td>
+                                        <td><?php echo $row['status']; ?></td>
+                                        <td>$<?php echo number_format($row['total_price'], 2); ?></td>
+                                        <td> <?php echo $row['status'] ?></td>
+                                    </tr>
+                                    <?php }endwhile; ?>
+                            <?php else: ?>
                             <tr>
                                 <td colspan="6">No orders found</td>
                             </tr>

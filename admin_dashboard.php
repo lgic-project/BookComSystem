@@ -100,6 +100,14 @@ if (isset($_GET['delete_book'])) {
       padding: 7px;
       border-radius: 10px;
     }
+
+    .nav-link-2 i{
+      width: 36px;
+      height: 36px;
+      object-fit: cover;
+      border-radius: 50%;
+      
+    }
   </style>
 </head>
 
@@ -119,20 +127,20 @@ if (isset($_GET['delete_book'])) {
 
       <a href="admin_dashboard.php" class="nav-link">Admin Dashboard</a>
       <div class="nav-link-2">
-        <a href="admin_profilecard.php" class="profile">
-          <img src="img/people.png">
+        <a href="admin_profile.php" class="profile">
+        <i class='bx bxs-user-circle'></i>
         </a>
       </div>
     </nav>
     <!-- NAVBAR -->
     <div id="main-content">
-      <h2> 
-      <?php  
-      if($error){
-      echo "<div class='error'> $error </div>";
-      } 
-      ?>
-    </h2>
+      <h2>
+        <?php
+        if ($error) {
+          echo "<div class='error'> $error </div>";
+        }
+        ?>
+      </h2>
       <h2>Book Lists</h2>
       <div class="grid-container">
         <?php

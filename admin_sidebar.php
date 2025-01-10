@@ -1,6 +1,6 @@
 <section id="sidebar">
     <a href="#" class="brand">
-        <i class='bx bxs-smile'></i>
+        <i class='bx bx-book-open'></i>
         <span class="text">Bookly</span>
     </a>
     <ul class="side-menu top">
@@ -159,7 +159,8 @@
         color: red;
     }
 
-    #sidebar .side-menu.top li a:hover, #sidebar .side-menu li a:hover{
+    #sidebar .side-menu.top li a:hover,
+    #sidebar .side-menu li a:hover {
         color: white;
         background: var(--main-color);
     }
