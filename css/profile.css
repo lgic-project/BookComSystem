@@ -1,0 +1,126 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Profile Form */
+#profile-form {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Heading */
+#profile-form h1 {
+    text-align: center;
+    color: #4CAF50;
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #555;
+}
+
+#username,
+#email,
+#new-profile-picture {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+/* Input Hover & Focus Effect */
+#username:hover,
+#email:hover,
+#new-profile-picture:hover {
+    border-color: #4CAF50;
+}
+
+#username:focus,
+#email:focus,
+#new-profile-picture:focus {
+    outline: none;
+    border-color: #4CAF50;
+    background-color: #ffffff;
+}
+
+/* Profile Image */
+#profile-img {
+    display: block;
+    margin: 20px auto;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+/* Submit Button */
+#submit-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+/* Button Hover Effect */
+#submit-btn:hover {
+    background-color: #45a049;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    #profile-form {
+        padding: 20px;
+    }
+
+    #profile-form h1 {
+        font-size: 22px;
+    }
+
+    #username,
+    #email,
+    #new-profile-picture {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    #submit-btn {
+        padding: 12px;
+        font-size: 16px;
+    }
+}

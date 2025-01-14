@@ -1,200 +1,103 @@
-/* Shared Light and Dark Mode Variables */
-:root {
-    --button-bg: #7e57c2;
-    --button-text: #fff;
-}
-
-/* Light Mode */
-body.light-mode {
-    --bg-color: #f9f9f9;
-    --text-color: #333;
-    --container-bg: #ffffff;
-    --input-bg: #ffffff;
-    --input-focus-bg: rgba(126, 87, 194, 0.1);
-    --error-bg: #ffdce0;
-    --error-text: #d32f2f;
-}
-
-/* Dark Mode */
-body.dark-mode {
-    --bg-color: #1e1e2e;
-    --text-color: #fff;
-    --container-bg: rgba(30, 30, 46, 0.9);
-    --input-bg: #2e2e44;
-    --input-focus-bg: rgba(126, 87, 194, 0.3);
-    --error-bg: #552f33;
-    --error-text: #ff616f;
-}
-
-/* Global Styles */
+/* General Styles */
 body {
-    font-family: 'Garamond', serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    transition: background-color 0.5s, color 0.5s;
 }
 
-/* Register Container */
-.register-container {
-    background: var(--container-bg);
+/* Profile Container */
+.profile-form {
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
-    width: 90%;
-    max-width: 350px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Heading */
+.profile-form h1 {
     text-align: center;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    animation: slideIn 0.5s ease;
+    color: #333333;
+    margin-bottom: 20px;
 }
 
-@keyframes slideIn {
-    from {
-        transform: translateY(-30px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+/* Form Fields */
+.profile-form .form-group {
+    margin-bottom: 15px;
 }
 
-/* Form Group */
-.form-group input {
-    /* width: 90%; */
+.profile-form .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555555;
+}
+
+.profile-form input[type="text"], 
+.profile-form input[type="email"], 
+.profile-form input[type="file"] {
+    width: 100%;
     padding: 10px;
-    border: 1px solid var(--button-bg);
-    border-radius: 8px;
-    width: 95%;
-    font-size: 1rem;
-    margin-top: 10px;
-    outline: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    background-color: #fff; /* Initial background */
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
 }
 
-.form-group input:focus {
-    background: var(--input-focus-bg);
-    outline: none;
-    border-color: var(--button-bg);
+.profile-form input[type="file"] {
+    padding: 3px;
 }
 
-/* Buttons */
-.btn {
-    background-color: var(--button-bg);
-    color: var(--button-text);
+/* Profile Picture */
+.profile-form .profile-img {
+    display: block;
+    margin: 10px auto;
+    max-width: 100px;
+    height: auto;
+    border-radius: 50%;
+    border: 2px solid #cccccc;
+}
+
+/* Submit Button */
+.profile-form button {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
     padding: 12px;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-    width: 100%;
-    font-size: 1rem;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    margin-top: 10px;
+    transition: background-color 0.3s ease;
 }
 
-.btn:hover {
-    background-color: var(--error-text);
-    transform: translateY(-3px);
+.profile-form button:hover {
+    background-color: #45a049;
 }
 
+/* Responsive Design */
+@media (max-width: 500px) {
+    .profile-form {
+        padding: 15px;
+    }
 
-/* Theme Toggle */
-.theme-toggle {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-}
+    .profile-form h1 {
+        font-size: 20px;
+    }
 
-.toggle-btn {
-    background-color: var(--button-bg);
-    color: var(--button-text);
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
+    .profile-form input[type="text"], 
+    .profile-form input[type="email"], 
+    .profile-form input[type="file"] {
+        font-size: 12px;
+    }
 
-.toggle-btn:hover {
-    background-color: var(--button-bg);
-    transform: scale(1.1) rotate(10deg);
-}
-/* Fall and Break Animation */
-@keyframes fallToGround {
-    0% {
-        transform: translateY(0);
-    }
-    80% {
-        transform: translateY(300px) rotate(30deg); /* Fall with rotation */
-    }
-    100% {
-        transform: translateY(300px) rotate(0); /* Stop at ground */
-    }
-}
-
-@keyframes shakeAndBreak {
-    0% {
-        transform: translateY(300px) rotate(0);
-    }
-    25% {
-        transform: translateY(300px) rotate(-5deg);
-    }
-    50% {
-        transform: translateY(300px) rotate(5deg);
-    }
-    75% {
-        transform: translateY(300px) rotate(-3deg);
-    }
-    100% {
-        transform: translateY(300px) scale(0.7); /* Shrink to show "breaking" */
-    }
-}
-
-/* Add the falling animation */
-.fall-and-break {
-    animation: fallToGround 1s ease-in-out forwards;
-    position: relative; /* Required for animation to work */
-}
-
-/* Add the breaking animation */
-.broken {
-    animation: shakeAndBreak 0.5s ease-in-out forwards;
-    opacity: 0.5; /* Make it look damaged */
-}
-/* Sarcastic Message Styles */
-.sarcastic-message {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-family: 'Garamond', serif;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    animation: fadeInOut 3s ease-in-out;
-}
-/* Fade in and out animation */
-@keyframes fadeInOut {
-    0% {
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
+    .profile-form button {
+        font-size: 14px;
     }
 }
