@@ -3,28 +3,28 @@ session_start();
 require_once './connection/config.php';
 
 // Check if user is logged in
-// if (!isset($_SESSION['user_id'])) {
-//     header("Location: login.php");
-//     exit();
-// }
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit();
+}
 
-// $user_id = $_SESSION['user_id']; // Get user ID from session
-// $username = $email = $profile_picture = ""; // Initialize variables
+$user_id = $_SESSION['id']; // Get user ID from session
+$username = $email = $profile_picture = ""; // Initialize variables
 
-// // Fetch user details from the database
-// $sql = "SELECT username, email, profile_picture FROM users WHERE id = ?";
-// if ($stmt = $mysqli->prepare($sql)) {
-//     $stmt->bind_param("i", $user_id);
-//     if ($stmt->execute()) {
-//         $stmt->bind_result($username, $email, $profile_picture);
-//         $stmt->fetch();
-//     } else {
-//         die("Error retrieving profile information: " . $mysqli->error);
-//     }
-//     $stmt->close();
-// } else {
-//     die("Database error: " . $mysqli->error);
-// }
+// Fetch user details from the database
+$sql = "SELECT username, email, profile_image FROM users WHERE id = ?";
+if ($stmt = $mysqli->prepare($sql)) {
+    $stmt->bind_param("i", $user_id);
+    if ($stmt->execute()) {
+        $stmt->bind_result($username, $email, $profile_picture);
+        $stmt->fetch();
+    } else {
+        die("Error retrieving profile information: " . $mysqli->error);
+    }
+    $stmt->close();
+} else {
+    die("Database error: " . $mysqli->error);
+}
 
 // Handle profile update form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile'])) {
