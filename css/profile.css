@@ -1,126 +1,145 @@
 /* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f7fc;
-    color: #333;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f4f7fc;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.profile-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    box-sizing: border-box;
+    flex-direction: column;
+    margin-top: 40px;
 }
 
-/* Profile Form */
-#profile-form {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-}
-
-/* Heading */
-#profile-form h1 {
+.profile-header {
     text-align: center;
-    color: #4CAF50;
-    font-size: 26px;
-    margin-bottom: 20px;
 }
 
-/* Form Group */
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-    font-size: 16px;
-    color: #555;
-}
-
-#username,
-#email,
-#new-profile-picture {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #333;
-    background-color: #f9f9f9;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease;
-}
-
-/* Input Hover & Focus Effect */
-#username:hover,
-#email:hover,
-#new-profile-picture:hover {
-    border-color: #4CAF50;
-}
-
-#username:focus,
-#email:focus,
-#new-profile-picture:focus {
-    outline: none;
-    border-color: #4CAF50;
-    background-color: #ffffff;
-}
-
-/* Profile Image */
-#profile-img {
-    display: block;
-    margin: 20px auto;
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border: 2px solid #ddd;
-}
-
-/* Submit Button */
-#submit-btn {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: #fff;
-    font-size: 18px;
+.profile-photo {
+    position: relative;
+    display: inline-block;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
 }
 
-/* Button Hover Effect */
-#submit-btn:hover {
+.profile-photo img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.photo-options {
+    display: none;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#profile-photo:hover .photo-options {
+    display: block;
+}
+
+#view-photo, #upload-photo {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#view-photo:hover, #upload-photo:hover {
     background-color: #45a049;
 }
 
-/* Responsive Design */
-@media (max-width: 600px) {
-    #profile-form {
-        padding: 20px;
-    }
+.user-details {
+    margin-top: 20px;
+    text-align: left;
+    max-width: 600px;
+    width: 100%;
+}
 
-    #profile-form h1 {
-        font-size: 22px;
-    }
+.user-details p {
+    font-size: 16px;
+}
 
-    #username,
-    #email,
-    #new-profile-picture {
-        padding: 10px;
-        font-size: 14px;
-    }
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
 
-    #submit-btn {
-        padding: 12px;
-        font-size: 16px;
+.modal-content {
+    position: relative;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.modal-content img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+/* Upload photo form */
+.upload-photo {
+    display: none;
+    text-align: center;
+}
+
+.upload-photo input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.upload-photo button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .profile-photo img {
+        width: 120px;
+        height: 120px;
     }
 }

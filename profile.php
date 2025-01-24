@@ -3,28 +3,28 @@ session_start();
 require_once './connection/config.php';
 
 // Check if user is logged in
-// if (!isset($_SESSION['user_id'])) {
-//     header("Location: login.php");
-//     exit();
-// }
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
 
-// $user_id = $_SESSION['user_id']; // Get user ID from session
-// $username = $email = $profile_picture = ""; // Initialize variables
+$user_id = $_SESSION['username']; // Get user ID from session
+$username = $email = $profile_picture = ""; // Initialize variables
 
-// // Fetch user details from the database
-// $sql = "SELECT username, email, profile_picture FROM users WHERE id = ?";
-// if ($stmt = $mysqli->prepare($sql)) {
-//     $stmt->bind_param("i", $user_id);
-//     if ($stmt->execute()) {
-//         $stmt->bind_result($username, $email, $profile_picture);
-//         $stmt->fetch();
-//     } else {
-//         die("Error retrieving profile information: " . $mysqli->error);
-//     }
-//     $stmt->close();
-// } else {
-//     die("Database error: " . $mysqli->error);
-// }
+// Fetch user details from the database
+$sql = "SELECT username, email, profile_picture FROM users WHERE id = ?";
+if ($stmt = $mysqli->prepare($sql)) {
+    $stmt->bind_param("i", $user_id);
+    if ($stmt->execute()) {
+        $stmt->bind_result($username, $email, $profile_picture);
+        $stmt->fetch();
+    } else {
+        die("Error retrieving profile information: " . $mysqli->error);
+    }
+    $stmt->close();
+} else {
+    die("Database error: " . $mysqli->error);
+}
 
 // Handle profile update form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile'])) {
@@ -60,7 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,36 +68,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile'])) {
 </head>
 <body>
 <?php include 'header.php'; ?>
-    <h1>Your Profile</h1>
-    <form action="profile.php" method="post" enctype="multipart/form-data" class="profile-form">
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <select id="username" name="username" required>
-                <option value="">Select Username</option>
-                <option value="user1" <?php echo $username == 'user1' ? 'selected' : ''; ?>>user1</option>
-                <option value="user2" <?php echo $username == 'user2' ? 'selected' : ''; ?>>user2</option>
-                <option value="user3" <?php echo $username == 'user3' ? 'selected' : ''; ?>>user3</option>
-            </select>
+    <section class="profile-container">
+        <div class="profile-header">
+            <div class="profile-photo" id="profile-photo">
+                <img src="<?php echo $profile_picture ? $profile_picture : 'default-icon.png'; ?>" alt="Profile Photo" id="profile-img">
+                <div class="photo-options" id="photo-options">
+                    <button id="view-photo">View Photo</button>
+                    <button id="upload-photo">Upload Photo</button>
+                </div>
+            </div>
         </div>
-        
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <select id="email" name="email" required>
-                <option value="">Select Email</option>
-                <option value="user1@example.com" <?php echo $email == 'user1@example.com' ? 'selected' : ''; ?>>user1@example.com</option>
-                <option value="user2@example.com" <?php echo $email == 'user2@example.com' ? 'selected' : ''; ?>>user2@example.com</option>
-                <option value="user3@example.com" <?php echo $email == 'user3@example.com' ? 'selected' : ''; ?>>user3@example.com</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="profile_picture">Profile Picture:</label>
-            <img src="<?php echo $profile_picture ? htmlspecialchars($profile_picture) : 'default.jpg'; ?>" alt="Profile Picture" class="profile-img">
-            <input type="file" id="new_profile_picture" name="new_profile_picture" accept="image/*">
-        </div>
-        
-        <button type="submit" name="update_profile">Update Profile</button>
-    </form>
-</body>
 
+        <div class="user-details">
+            <h2>Details</h2>
+            <p><strong>Username:</strong> <?php echo htmlspecialchars($username); ?></p>
+            <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
+            <!-- Add more user details as needed -->
+        </div>
+    </section>
+
+    <!-- Modal for Viewing Photo -->
+    <div class="modal" id="photo-modal">
+        <div class="modal-content">
+            <span class="close" id="close-modal">&times;</span>
+            <img src="<?php echo $profile_picture ? $profile_picture : 'default-icon.png'; ?>" alt="Profile Photo" id="modal-img">
+        </div>
+    </div>
+
+    <!-- Upload Photo Form -->
+    <div class="upload-photo" id="upload-photo-form">
+        <form action="upload-photo.php" method="POST" enctype="multipart/form-data">
+            <label for="new-profile-photo">Upload a new profile photo:</label>
+            <input type="file" name="new-profile-photo" id="new-profile-photo" accept="image/*" required>
+            <button type="submit" name="upload-photo">Upload</button>
+        </form>
+    </div>
+
+    <script src="js/profile.js"></script>
+</body>
 </html>
