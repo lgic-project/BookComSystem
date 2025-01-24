@@ -4,7 +4,7 @@
 require_once './connection/config.php';
 
 
-$sql = "SELECT id, title, author, price, book_img  FROM books";
+$sql = "SELECT id, title, author, price, book_img  FROM books ORDER BY RAND() LIMIT 5";
 $result = $mysqli->query($sql);
 
 
@@ -53,6 +53,7 @@ if (isset($_GET['delete_book'])) {
     .grid-item {
       border: 1px solid #ddd;
       border-radius: 8px;
+      position:relative;
       overflow: hidden;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       text-align: center;
@@ -88,6 +89,10 @@ if (isset($_GET['delete_book'])) {
       background: purple;
       border: 2px solid wheat;
       border-radius: 7px;
+      margin-bottom: 10px;
+      position: absolute;
+      bottom: 0;
+      align-items: center;
     }
   </style>
 
@@ -155,7 +160,7 @@ if (isset($_GET['delete_book'])) {
               <form method="POST" action="admin_delbook.php" name="delbook">
                 <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($row['id']) ?> ">
                 <input type="hidden" name="book_title" value="<?php echo htmlspecialchars($row['title']) ?> ">
-                <button type="submit" name="delete">Delete</button>
+                <button type="submit" name="delete" class="edit-button">Delete</button>
               </form>
             </div>
             <?php
@@ -164,6 +169,9 @@ if (isset($_GET['delete_book'])) {
           echo '<p>No books found</p>';
         }
         ?>
+      </div>
+      <div>
+        <a href="admin_addbook.php" class="edit-button">Add Book</a>
       </div>
     </div>
 
