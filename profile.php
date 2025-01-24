@@ -3,7 +3,7 @@ session_start();
 require_once './connection/config.php';
 
 // Check if user is logged in
-if (!isset($_SESSION['id'])) {
+if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
@@ -26,32 +26,45 @@ if ($stmt = $mysqli->prepare($sql)) {
     die("Database error: " . $mysqli->error);
 }
 
-// Handle profile update form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile'])) {
-    $new_username = $mysqli->real_escape_string(trim($_POST['username']));
-    $new_email = trim($_POST['email']);
+// Handle profile update form submission (only profile picture)
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile_picture'])) {
     $new_profile_picture = $profile_picture; // Default to current picture
 
     // Handle profile picture upload
     if (isset($_FILES['new_profile_picture']) && $_FILES['new_profile_picture']['error'] == 0) {
-        $upload_dir = 'uploads/';
+        $upload_dir = 'uploads/userPfp/';
+        
+        // Create the upload directory if it doesn't exist
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0755, true);
+        }
+
         $uploaded_file = $upload_dir . basename($_FILES['new_profile_picture']['name']);
-        if (move_uploaded_file($_FILES['new_profile_picture']['tmp_name'], $uploaded_file)) {
-            $new_profile_picture = $uploaded_file;
+        
+        // Get the file extension and validate the file type
+        $file_extension = strtolower(pathinfo($uploaded_file, PATHINFO_EXTENSION));
+        $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
+
+        if (in_array($file_extension, $allowed_extensions)) {
+            if (move_uploaded_file($_FILES['new_profile_picture']['tmp_name'], $uploaded_file)) {
+                $new_profile_picture = $uploaded_file;
+            } else {
+                echo "Error uploading new profile picture.";
+            }
         } else {
-            echo "Error uploading new profile picture.";
+            echo "Invalid file type. Please upload an image file (JPG, JPEG, PNG, or GIF).";
         }
     }
 
-    // Update user details in the database
-    $update_sql = "UPDATE users SET username = ?, email = ?, profile_picture = ? WHERE id = ?";
+    // Update profile picture in the database
+    $update_sql = "UPDATE users SET profile_image = ? WHERE id = ?";
     if ($stmt = $mysqli->prepare($update_sql)) {
-        $stmt->bind_param("sssi", $new_username, $new_email, $new_profile_picture, $user_id);
+        $stmt->bind_param("si", $new_profile_picture, $user_id);
         if ($stmt->execute()) {
             header("Location: profile.php?update=success");
             exit();
         } else {
-            echo "Error updating profile: " . $mysqli->error;
+            echo "Error updating profile picture: " . $mysqli->error;
         }
         $stmt->close();
     }
@@ -83,7 +96,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile'])) {
             <h2>Details</h2>
             <p><strong>Username:</strong> <?php echo htmlspecialchars($username); ?></p>
             <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
-            <!-- Add more user details as needed -->
         </div>
     </section>
 
@@ -97,10 +109,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile'])) {
 
     <!-- Upload Photo Form -->
     <div class="upload-photo" id="upload-photo-form">
-        <form action="upload-photo.php" method="POST" enctype="multipart/form-data">
-            <label for="new-profile-photo">Upload a new profile photo:</label>
-            <input type="file" name="new-profile-photo" id="new-profile-photo" accept="image/*" required>
-            <button type="submit" name="upload-photo">Upload</button>
+        <form method="POST" enctype="multipart/form-data">
+            <label for="new-profile-picture">Upload a new profile photo:</label>
+            <input type="file" name="new_profile_picture" id="new-profile-picture" accept="image/*">
+            <button type="submit" name="update_profile_picture">Upload</button>
         </form>
     </div>
 

@@ -1,16 +1,17 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f7fc;
+    background-color: #f8f3fc; /* Light purple background */
+    color: #4b3f63; /* Darker purple for text */
+    transition: background-color 0.3s ease;
 }
 
-header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 20px;
-    text-align: center;
+
+
+header:hover {
+    background-color: #8e44ad; /* Rich purple */
 }
 
 .profile-container {
@@ -19,24 +20,34 @@ header {
     align-items: center;
     flex-direction: column;
     margin-top: 40px;
+    animation: fadeIn 1s ease-in-out;
 }
 
 .profile-header {
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .profile-photo {
     position: relative;
     display: inline-block;
     cursor: pointer;
+    animation: bounce 1s ease infinite;
 }
 
 .profile-photo img {
     border-radius: 50%;
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 3px solid #c39bd3; /* Light purple border */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-photo:hover img {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .photo-options {
@@ -45,29 +56,33 @@ header {
     top: 60%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 10px;
+    background-color: rgba(75, 63, 99, 0.8); /* Semi-transparent dark purple */
+    padding: 12px;
     border-radius: 5px;
     text-align: center;
+    transition: opacity 0.3s ease;
 }
 
 #profile-photo:hover .photo-options {
     display: block;
+    opacity: 1;
 }
 
 #view-photo, #upload-photo {
-    background-color: #4CAF50;
+    background-color: #8e44ad; /* Rich purple */
     color: white;
     border: none;
-    padding: 10px;
+    padding: 12px;
     cursor: pointer;
     width: 100%;
     border-radius: 5px;
     font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 #view-photo:hover, #upload-photo:hover {
-    background-color: #45a049;
+    background-color: #732d91; /* Darker purple on hover */
+    transform: translateY(-3px);
 }
 
 .user-details {
@@ -75,10 +90,22 @@ header {
     text-align: left;
     max-width: 600px;
     width: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 1s ease-out;
+}
+
+.user-details h2 {
+    font-size: 1.25rem;
+    color: #5f4b8b;
+    margin-bottom: 10px;
 }
 
 .user-details p {
     font-size: 16px;
+    line-height: 1.6;
 }
 
 .modal {
@@ -89,57 +116,142 @@ header {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(75, 63, 99, 0.7); /* Semi-transparent dark purple */
     justify-content: center;
     align-items: center;
+    animation: fadeIn 1s ease-in-out;
 }
 
 .modal-content {
     position: relative;
-    background-color: white;
-    padding: 20px;
+    background-color: #f8f3fc; /* Light purple */
+    padding: 25px;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.5s ease-out;
 }
 
 .modal-content img {
     width: 100%;
     max-width: 500px;
     height: auto;
+    border-radius: 10px;
+    border: 2px solid #c39bd3; /* Light purple border */
 }
 
 .close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     font-size: 30px;
-    color: #aaa;
+    color: #732d91; /* Darker purple */
     cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #9b59b6; /* Medium purple */
 }
 
 /* Upload photo form */
 .upload-photo {
     display: none;
     text-align: center;
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .upload-photo input {
-    padding: 10px;
+    padding: 12px;
     border-radius: 5px;
-    border: 1px solid #ddd;
+    border: 1px solid #dcdcdc;
+    color: #4b3f63; /* Darker purple */
+    margin-bottom: 15px;
+    width: 80%;
+    transition: border-color 0.3s ease;
+}
+
+.upload-photo input:focus {
+    border-color: #9b59b6; /* Focus border color */
 }
 
 .upload-photo button {
-    padding: 10px;
-    background-color: #4CAF50;
+    padding: 12px;
+    background-color: #8e44ad; /* Rich purple */
     color: white;
     border: none;
     border-radius: 5px;
+    width: 80%;
     margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+.upload-photo button:hover {
+    background-color: #732d91; /* Darker purple */
+    transform: translateY(-3px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
     .profile-photo img {
         width: 120px;
         height: 120px;
+    }
+
+    .user-details {
+        padding: 15px;
+        width: 90%;
+    }
+
+    .upload-photo input {
+        width: 90%;
+    }
+
+    .upload-photo button {
+        width: 90%;
     }
 }

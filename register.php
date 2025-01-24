@@ -1,98 +1,70 @@
 <?php
+// Include the database connection
 require_once './connection/config.php';
 
+// Start the session
+session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
-
-    $username = $mysqli->real_escape_string(trim($_POST['username']));
-    $email = trim($_POST['email']);
+// Handle register request
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the input data
+    $email = $mysqli->real_escape_string($_POST['email']);
     $password = trim($_POST['password']);
-    $confirm_password = trim($_POST['confirm_password']);
-
-    if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+    $username = $mysqli->real_escape_string($_POST['username']);
+    
+    // Check if fields are empty
+    if (empty($email) || empty($password) || empty($username)) {
         header("Location: register.php?error=empty_fields");
         exit();
     }
-    if ($password !== $confirm_password) {
-        header("Location: register.php?error=password_mismatch");
-        exit();
-    }
-    if (strlen($password) < 6) {
-        header("Location: register.php?error=password_too_short");
-        exit();
-    }
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header("Location: register.php?error= Email Invalid");
-        exit();
-    }
-    $sql = "SELECT id FROM users WHERE username = ?";
-    if ($stmt = $mysqli->prepare($sql)) {
-        $stmt->bind_param("s", $username);
-        if ($stmt->execute()) {
-            if ($stmt->num_rows > 0) {
-                header("Location: register.php?error=username_taken");
-                exit();
-            }
-        }
-        $stmt->close();
-    }
-
+    // Check if email already exists
     $sql = "SELECT id FROM users WHERE email = ?";
-    if($stmt = $mysqli->prepare($sql)){
-        $stmt->bind_param("s",$email);
-        if($stmt->execute()){
-            if($stmt->num_rows > 0){
-                header("Location: register.php?error=email_taken");
+    if ($stmt = $mysqli->prepare($sql)) {
+        // Bind the email parameter
+        $stmt->bind_param("s", $email);
+
+        // Execute the query
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                // Email already exists error
+                header("Location: register.php?error=email_exists");
                 exit();
+            } else {
+                // Register the user
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+                if ($stmt = $mysqli->prepare($sql)) {
+                    // Bind parameters
+                    $stmt->bind_param("sss", $username, $email, $hashed_password);
+
+                    // Execute the insert
+                    if ($stmt->execute()) {
+                        // Successful registration
+                        header("Location: login.php?message=registration_successful");
+                        exit();
+                    } else {
+                        // Database error
+                        header("Location: register.php?error=database_error");
+                        exit();
+                    }
+                }
             }
         }
-        $stmt->close();
     }
-
-    // Insert new user
-    $sql = "INSERT INTO users (username , email , password) VALUES (?,?, ?)";
-
-    if ($stmt= $mysqli->prepare( $sql)) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt->bind_param("sss", $username, $email, $hashed_password);
-        if($stmt->execute()){
-            header("Location: login.php?signup=success");
-            $stmt->close();
-            exit();
-        }else{
-            header("Location: register.php?error=registration_failed");
-            $stmt->close();
-            exit();
-        }
-    }
-
 }
 
-
+// Handle registration error messages
 $error = '';
 if (isset($_GET['error'])) {
     switch ($_GET['error']) {
-        case 'invalid_password':
-            $error = "Invalid password!";
-            break;
-        case 'user_not_found':
-            $error = "User not found!";
-            break;
-        case 'username_taken':
-            $error = "Username is already taken!";
-            break;
-        case 'registration_failed':
-            $error = "Registration failed! Please try again.";
+        case 'email_exists':
+            $error = "Email already exists!";
             break;
         case 'database_error':
             $error = "Database error! Please try again.";
-            break;
-        case 'password_mismatch':
-            $error = "Passwords do not match!";
-            break;
-        case 'password_too_short':
-            $error = "Password must be at least 6 characters long!";
             break;
         case 'empty_fields':
             $error = "All fields are required!";
@@ -102,43 +74,34 @@ if (isset($_GET['error'])) {
             break;
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Sasto E-Pasal</title>
-    <link rel="stylesheet" href="./css/register.css">
-    <style>
-        .error {
-            background-color: #552f33;
-            color: white;
-            margin: 8px;
-            padding: 7px;
-        }
-    </style>
+    <title>Register - Bookly</title>
+    <link rel="stylesheet" href="./css/login.css">
 </head>
-
 <body>
-    <!-- //🌞 Light Mode
-    //🌙 Dark Mode -->
+
     <!-- Theme Toggle Button -->
     <div class="theme-toggle">
         <button id="theme-switch" class="toggle-btn">🌞 Light Mode</button>
     </div>
 
-    <div class="register-container">
+    <div class="login-container">
         <div class="book-cover">
-            <h1>Register - Sasto E-Pasal</h1>
+            <h1>Register - Bookly</h1>
         </div>
-        <?php if (isset($error_message)): ?>
-            <div class="error"><?php echo $error_message; ?></div>
-        <?php elseif (isset($success_message)): ?>
-            <div class="success"><?php echo $success_message; ?></div>
+
+        <!-- Display Error Message if any -->
+        <?php if ($error): ?>
+            <div class="error"><?php echo $error; ?></div>
         <?php endif; ?>
-        <form action="register.php" id="signup" method="post">
+
+        <form action="register.php" method="POST">
             <div class="form-group">
                 <input type="text" name="username" placeholder="Username" required>
             </div>
@@ -148,17 +111,9 @@ if (isset($_GET['error'])) {
             <div class="form-group">
                 <input type="password" name="password" placeholder="Password" required>
             </div>
-            <div class="form-group">
-                <input type="password" name="confirm_password" placeholder="Confirm your password" required>
-            </div>
-            <button type="submit" name="signup" class="btn">Register</button>
-
-            <?php
-            if (isset($_GET['error']) && in_array($_GET['error'], ['username_taken', 'registration_failed', 'password_mismatch', 'password_too_short', 'empty_fields'])) {
-                echo '<div class="error">' . $error . '</div>';
-            }
-            ?>
+            <button type="submit" class="btn">Register</button>
         </form>
+
         <p class="switch-link">
             Already have an account? <a href="login.php">Login here</a>.
         </p>
@@ -173,56 +128,55 @@ if (isset($_GET['error'])) {
         const savedTheme = localStorage.getItem('theme') || 'light';
         applyTheme(savedTheme);
 
-themeSwitch.addEventListener('click', () => {
-    clickCount++;
-    if (clickCount === 5) {
-        themeSwitch.classList.add('fall-and-break');
-        setTimeout(() => {
-            themeSwitch.classList.add('broken');
-            showSarcasticMessage(); // Display the sarcastic message
-        }, 1000); // Add broken effect after the fall animation
-        clickCount = 0; // Reset the click counter
-    }
-    const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    applyTheme(newTheme);
-});
+        themeSwitch.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 5) {
+                themeSwitch.classList.add('fall-and-break');
+                setTimeout(() => {
+                    themeSwitch.classList.add('broken');
+                    showSarcasticMessage(); // Display the sarcastic message
+                }, 1000); // Add broken effect after the fall animation
+                clickCount = 0; // Reset the click counter
+            }
+            const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            applyTheme(newTheme);
+        });
 
-function applyTheme(theme) {
-    if (theme === 'dark') {
-        body.classList.add('dark-mode');
-        body.classList.remove('light-mode');
-        themeSwitch.textContent = '🌙 Dark Mode';
-        localStorage.setItem('theme', 'dark');
-    } else {
-        body.classList.add('light-mode');
-        body.classList.remove('dark-mode');
-        themeSwitch.textContent = '🌞 Light Mode';
-        localStorage.setItem('theme', 'light');
-    }
-}
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+                body.classList.remove('light-mode');
+                themeSwitch.textContent = '🌙 Dark Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.add('light-mode');
+                body.classList.remove('dark-mode');
+                themeSwitch.textContent = '🌞 Light Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
 
-// Show sarcastic message
-function showSarcasticMessage() {
-    const message = document.createElement('div');
-    message.textContent = "Congratulations! You broke the toggle. Happy now? 🙄";
-    message.className = 'sarcastic-message';
-    document.body.appendChild(message);
+        // Show sarcastic message
+        function showSarcasticMessage() {
+            const message = document.createElement('div');
+            message.textContent = "Congratulations! You broke the toggle. Happy now? 🙄";
+            message.className = 'sarcastic-message';
+            document.body.appendChild(message);
 
-    // Automatically remove the message after 3 seconds
-    setTimeout(() => {
-        message.remove();
-    }, 3000);
-}
+            // Automatically remove the message after 3 seconds
+            setTimeout(() => {
+                message.remove();
+            }, 3000);
+        }
 
-// Reset button after the "broken" state
-themeSwitch.addEventListener('animationend', () => {
-    if (themeSwitch.classList.contains('broken')) {
-        themeSwitch.classList.remove('fall-and-break', 'broken');
-    }
-});
-
+        // Reset button after the "broken" state
+        themeSwitch.addEventListener('animationend', () => {
+            if (themeSwitch.classList.contains('broken')) {
+                themeSwitch.classList.remove('fall-and-break', 'broken');
+            }
+        });
     </script>
-</body>
 
+</body>
 </html>

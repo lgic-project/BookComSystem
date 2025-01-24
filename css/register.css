@@ -1,103 +1,125 @@
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
     margin: 0;
     padding: 0;
+    background-color: #f8f3fc; /* Light purple background */
+    color: #4b3f63; /* Darker purple for text */
+}
+
+header {
+    background-color: #9b59b6; /* Medium purple */
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.register-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    flex-direction: column;
+    margin-top: 40px;
 }
 
-/* Profile Container */
-.profile-form {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 100%;
-}
-
-/* Heading */
-.profile-form h1 {
+.profile-header {
     text-align: center;
-    color: #333333;
-    margin-bottom: 20px;
 }
 
-/* Form Fields */
-.profile-form .form-group {
+.form-group {
     margin-bottom: 15px;
 }
 
-.profile-form .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #555555;
-}
-
-.profile-form input[type="text"], 
-.profile-form input[type="email"], 
-.profile-form input[type="file"] {
+input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 14px;
-}
-
-.profile-form input[type="file"] {
-    padding: 3px;
-}
-
-/* Profile Picture */
-.profile-form .profile-img {
-    display: block;
-    margin: 10px auto;
-    max-width: 100px;
-    height: auto;
-    border-radius: 50%;
-    border: 2px solid #cccccc;
-}
-
-/* Submit Button */
-.profile-form button {
-    width: 100%;
-    background-color: #4CAF50;
-    color: white;
     padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #dcdcdc;
+    font-size: 16px;
+    color: #4b3f63; /* Darker purple */
+}
+
+input::placeholder {
+    color: #b8a9c9; /* Lighter purple placeholder text */
+}
+
+input:focus {
+    outline: none;
+    border-color: #9b59b6; /* Medium purple */
+}
+
+button {
+    padding: 12px;
+    background-color: #8e44ad; /* Rich purple */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #732d91; /* Darker purple */
+}
+
+.switch-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.switch-link a {
+    color: #9b59b6; /* Medium purple */
+    text-decoration: none;
+}
+
+.switch-link a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    background-color: #552f33;
+    color: white;
+    margin: 8px;
+    padding: 7px;
+}
+
+.success {
+    background-color: #27ae60;
+    color: white;
+    margin: 8px;
+    padding: 7px;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.toggle-btn {
+    background-color: #9b59b6; /* Medium purple */
+    color: white;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-.profile-form button:hover {
-    background-color: #45a049;
+.toggle-btn:hover {
+    background-color: #732d91; /* Darker purple */
 }
 
-/* Responsive Design */
-@media (max-width: 500px) {
-    .profile-form {
-        padding: 15px;
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .register-container {
+        padding: 20px;
     }
 
-    .profile-form h1 {
-        font-size: 20px;
-    }
-
-    .profile-form input[type="text"], 
-    .profile-form input[type="email"], 
-    .profile-form input[type="file"] {
-        font-size: 12px;
-    }
-
-    .profile-form button {
-        font-size: 14px;
+    .form-group input {
+        width: 100%;
     }
 }
