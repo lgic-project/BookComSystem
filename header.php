@@ -1,13 +1,78 @@
 <?php
-// Start the session
+// Check if session is already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-// Check if user is logged in
-$isLoggedIn = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
 
-// Set default user avatar if not logged in
-$userAvatar = $isLoggedIn && isset($_SESSION['user_avatar']) ? $_SESSION['user_avatar'] : 'images/default-avatar.png';
+require_once './connection/config.php';
+
+// Check if user is logged in
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$user_id = $_SESSION['id']; // Get user ID from session
+$username = $email = $profile_picture = ""; // Initialize variables
+
+// Fetch user details from the database
+$sql = "SELECT username, email, profile_image FROM users WHERE id = ?";
+if ($stmt = $mysqli->prepare($sql)) {
+    $stmt->bind_param("i", $user_id);
+    if ($stmt->execute()) {
+        $stmt->bind_result($username, $email, $profile_picture);
+        $stmt->fetch();
+    } else {
+        die("Error retrieving profile information: " . $mysqli->error);
+    }
+    $stmt->close();
+} else {
+    die("Database error: " . $mysqli->error);
+}
+
+// Handle profile update form submission (only profile picture)
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile_picture'])) {
+    $new_profile_picture = $profile_picture; // Default to current picture
+
+    // Handle profile picture upload
+    if (isset($_FILES['new_profile_picture']) && $_FILES['new_profile_picture']['error'] == 0) {
+        $upload_dir = 'uploads/userPfp/';
+        
+        // Create the upload directory if it doesn't exist
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0755, true);
+        }
+
+        $uploaded_file = $upload_dir . basename($_FILES['new_profile_picture']['name']);
+        
+        // Get the file extension and validate the file type
+        $file_extension = strtolower(pathinfo($uploaded_file, PATHINFO_EXTENSION));
+        $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
+
+        if (in_array($file_extension, $allowed_extensions)) {
+            if (move_uploaded_file($_FILES['new_profile_picture']['tmp_name'], $uploaded_file)) {
+                $new_profile_picture = $uploaded_file;
+            } else {
+                echo "Error uploading new profile picture.";
+            }
+        } else {
+            echo "Invalid file type. Please upload an image file (JPG, JPEG, PNG, or GIF).";
+        }
+    }
+
+    // Update profile picture in the database
+    $update_sql = "UPDATE users SET profile_image = ? WHERE id = ?";
+    if ($stmt = $mysqli->prepare($update_sql)) {
+        $stmt->bind_param("si", $new_profile_picture, $user_id);
+        if ($stmt->execute()) {
+            header("Location: profile.php?update=success");
+            exit();
+        } else {
+            echo "Error updating profile picture: " . $mysqli->error;
+        }
+        $stmt->close();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -73,17 +138,13 @@ $userAvatar = $isLoggedIn && isset($_SESSION['user_avatar']) ? $_SESSION['user_a
             <!-- User Profile -->
             <div class="user-profile">
                 <div class="profile-dropdown">
-                    <img src="<?php echo $userAvatar; ?>" alt="User Avatar" class="avatar">
+                    <!-- Display user profile picture -->
+                    <img src="<?php echo $profile_picture ? $profile_picture : 'uploads/userPfp/default-avatar.png'; ?>" alt="User Avatar" class="avatar">
                     <div class="dropdown-menu">
                         <ul>
-                            <?php if ($isLoggedIn): ?>
-                                <li><a href="profile.php">Profile</a></li>
-                                <li><a href="settings.php">Settings</a></li>
-                                <li><a href="logout.php">Logout</a></li>
-                            <?php else: ?>
-                                <li><a href="login.php">Login</a></li>
-                                <li><a href="register.php">Register</a></li>
-                            <?php endif; ?>
+                            <li><a href="profile.php">Profile</a></li>
+                            <li><a href="settings.php">Settings</a></li>
+                            <li><a href="logout.php">Logout</a></li>
                             <li><a href="index.php">Home</a></li>
                         </ul>
                     </div>
