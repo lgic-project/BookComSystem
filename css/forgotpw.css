@@ -51,37 +51,61 @@ body.dark-mode {
     border: 2px solid var(--button-bg);
     border-radius: 12px;
     width: 90%;
-    max-width: 350px;
+    max-width: 380px;
     text-align: center;
-    padding: 25px 20px;
+    padding: 30px 25px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
-.book-cover {
+/* Title */
+.forgotpw-container h1 {
     margin-bottom: 20px;
+    font-size: 1.8rem;
     color: var(--button-bg);
 }
 
-.form-group input {
-    width: 95%;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 8px;
-    border: 1px solid var(--button-bg);
+/* Book Cover */
+.book-cover {
+    margin-bottom: 25px;
+    color: var(--button-bg);
+    font-size: 1.5rem;
 }
 
+/* Form Input Fields */
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 8px;
+    border: 2px solid var(--button-bg);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: border 0.3s ease;
+}
+
+/* Focused Input */
+.form-group input:focus {
+    outline: none;
+    border-color: var(--button-bg);
+}
+
+/* Submit Button */
 .btn {
     background-color: var(--button-bg);
     color: var(--button-text);
-    padding: 12px;
+    padding: 14px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     width: 100%;
-    font-size: 1rem;
-    margin-top: 10px;
+    font-size: 1.1rem;
+    margin-top: 15px;
+    transition: all 0.3s ease;
 }
 
+/* Button Hover Effects */
 .btn:hover {
     background-color: var(--error-text);
     transform: translateY(-3px);
@@ -91,18 +115,20 @@ body.dark-mode {
 .error {
     background-color: var(--error-bg);
     color: var(--error-text);
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 1rem;
 }
 
 /* Success Message */
 .success {
     background-color: rgba(126, 204, 130, 0.2);
     color: green;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 1rem;
 }
 
 /* Theme Toggle */
@@ -122,4 +148,21 @@ body.dark-mode {
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 480px) {
+    .forgotpw-container {
+        padding: 20px 15px;
+        width: 95%;
+    }
+
+    .form-group input,
+    .btn {
+        font-size: 1rem;
+    }
+
+    .forgotpw-container h1 {
+        font-size: 1.6rem;
+    }
 }

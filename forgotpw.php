@@ -93,6 +93,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reset_password'])) {
     <link rel="stylesheet" href="./css/forgotpw.css">
 </head>
 <body>
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle">
+        <button id="theme-switch" class="toggle-btn">🌞 Light Mode</button>
+    </div>
+
     <div class="forgotpw-container">
         <h1>Forgot Password</h1>
         <?php if (isset($error_message)) : ?>
@@ -126,5 +131,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reset_password'])) {
             </form>
         <?php endif; ?>
     </div>
+
+    <script>
+        const themeSwitch = document.getElementById('theme-switch');
+        const body = document.body;
+
+        // Load saved theme from localStorage
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        applyTheme(savedTheme);
+
+        themeSwitch.addEventListener('click', () => {
+            const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            applyTheme(newTheme);
+        });
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+                body.classList.remove('light-mode');
+                themeSwitch.textContent = '🌙 Dark Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.add('light-mode');
+                body.classList.remove('dark-mode');
+                themeSwitch.textContent = '🌞 Light Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+    </script>
 </body>
 </html>
