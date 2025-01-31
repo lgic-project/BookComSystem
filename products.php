@@ -8,7 +8,13 @@ $result = $mysqli->query($sql);
 
 if (!$result) {
     die("Error fetching books: " . $mysqli->error);
-    
+}
+
+session_start();
+
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("Location: login.php");
+    exit();
 }
 ?>
 

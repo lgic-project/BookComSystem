@@ -42,6 +42,7 @@ if (!empty($cart_items)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
+    <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -166,9 +167,7 @@ if (!empty($cart_items)) {
         </div>
 
         <!-- Place Order Button -->
-        <form action="place_order.php" method="POST">
-            <button type="submit" class="btn place-order-btn">Place Order</button>
-        </form>
+        <button id="payment-button" class="btn place-order-btn">Pay with Khalti</button>
 
         <a href="products.php" class="btn">Continue Shopping</a>
     <?php endif; ?>
@@ -177,6 +176,71 @@ if (!empty($cart_items)) {
     <a href="products.php" class="btn" style="margin-top: 20px;">Continue Shopping</a>
 
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script>
+       var config = {
+         
+           "publicKey": "live_public_key_2c55477f922e4f60aac6caba3df4addb",
+           "productIdentity": "1234567890",
+           "productName": "Dragon",
+           "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
+           "paymentPreference": [
+               "KHALTI",
+               "EBANKING",
+               "MOBILE_BANKING",
+               "CONNECT_IPS",
+               "SCT",
+               ],
+           "eventHandler": {
+               onSuccess (payload) {
+                   console.log(payload);
+                   $.ajax({
+                       url: "verify.php",
+                       type: 'GET',
+                       data: {
+                           amount: payload.amount,
+                           trans_token: payload.token
+                       },
+                       success: function (res) {
+                           console.log(res);
+                           
+                           if (res.status === 'success') {
+                               console.log("Transaction successful");
+                           } else {
+                               console.log("Transaction failed");
+                           }
+                       },
+                       error: function (error) {
+                           console.log("AJAX error:", error);
+                       }
+                   });
 
+                  Swal.fire({
+                    title: "Payment Successful!",
+                    text: "Thank you for your payment!",
+                    icon: "success"
+                    });
+               },
+               onError (error) {
+                   console.log(error);
+                
+                Swal.fire({
+                    title: "Payment Error!",
+                    text: "There was an error processing your payment.",
+                    icon: "error"
+                    });
+               },
+           }
+       };
+
+       var checkout = new KhaltiCheckout(config);
+       var btn = document.getElementById("payment-button");
+       btn.onclick = function () {
+           // minimum transaction amount must be 10, i.e 1000 in paisa.
+           checkout.show({amount: 1000});
+       }
+    </script>
 </body>
+
+
 </html>

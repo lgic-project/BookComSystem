@@ -1,8 +1,8 @@
 <?php
 // Check if session is already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// if (session_status() === PHP_SESSION_NONE) {
+//     session_start();
+// }
 
 require_once './connection/config.php';
 
