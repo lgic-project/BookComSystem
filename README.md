@@ -1,7 +1,7 @@
 # Book Management System 
 
 ## Project Description
-The **Book Management System ** is a web-based application developed using PHP that allows users to manage books efficiently. This system provides features for adding, editing, deleting, and viewing book details. It is designed for libraries, bookstores, or personal use to keep track of book inventories.
+The "Book Management System " is a web-based application developed using PHP that allows users to manage books efficiently. This system provides features for adding, editing, deleting, and viewing book details. It is designed for libraries, bookstores, or personal use to keep track of book inventories.
 
 ## Features
 - User authentication (Admin & Regular users)
