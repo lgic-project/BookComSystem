@@ -33,6 +33,11 @@ $username = $_SESSION['username'];
     <link rel="stylesheet" href="./css/admin_add_book.css">
     <title>Dashboard Admin: <?php echo $username ?> </title>
 </head>
+<style>
+    .input-group #description{
+        padding: 5px;
+    }
+</style>
 
 <body>
 
@@ -75,6 +80,12 @@ $username = $_SESSION['username'];
                     <label for="genre">genre:</label>
                     <input type="text" id="genre" name="genre" value="<?php echo htmlspecialchars($book['genre']); ?>">
                 </div>
+
+                <div class="input-group">
+                    <label for="pages">Pages:</label>
+                    <input type="number" name="pages" id="pages" value="<?php echo htmlspecialchars($book['pages']) ?>" min="1" required>
+                </div>
+
                 <div class="input-group">
                     <label for="pub_year">Published year:</label>
                     <input type="text" id="pub_year" name="pub_year"
@@ -103,7 +114,13 @@ $username = $_SESSION['username'];
                     <input type="number" id="stock" name="stock"
                         value="<?php echo htmlspecialchars($book['stock']); ?>">
                 </div>
-                <input type="submit" name="edit_book" style="width: 8rem; height: 3rem; margin-left: 45px;" value="Update Book">
+
+                <div class="input-group">
+                    <label for="description">Description:</label>
+                    <textarea type="text" id="description" name="book_description" rows="5" cols="60"></textarea>
+                </div>
+                <input type="submit" name="edit_book" style="width: 8rem; height: 3rem; margin-left: 45px;"
+                    value="Update Book">
             </form>
 
         </div>
