@@ -10,10 +10,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $title = trim($_POST['title']);
   $author = trim($_POST['author']);
   $genre = trim($_POST['genre']);
+  $pages = trim($_POST['pages']);
   $pub_year = trim($_POST['pub_year']);
   $isbn = $_POST['isbn'];
   $publisher = trim($_POST['publisher']);
   $price = trim($_POST['price']);
+  $book_description = trim($_POST['description']);
   $stock = $_POST['stock'];
   $bookfile_name = basename($_FILES["book_image"]["name"]);
 
@@ -63,8 +65,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // inserting book in the database
   // first we need to uplaod file
   if (move_uploaded_file($_FILES["book_image"]["tmp_name"], $target_file)) {
-    if ($stmt = $mysqli->prepare("INSERT  INTO books(title, author, genre, pub_year, isbn, publisher, price, stock, book_img ) VAlUES (?, ?, ?, ?, ?, ?, ?, ?,?)")) {
-      $stmt->bind_param("sssissdis", $title, $author, $genre, $pub_year, $isbn, $publisher, $price, $stock, $new_book_img);
+    if ($stmt = $mysqli->prepare("INSERT  INTO books(title, author, genre,pages, book_description,  pub_year, isbn, publisher, price, stock, book_img ) VAlUES (?, ?, ?,?,?, ?, ?, ?, ?, ?,?)")) {
+      $stmt->bind_param("sssissdis", $title, $author, $genre, $pages, $book_description, $pub_year, $isbn, $publisher, $price, $stock, $new_book_img);
       if ($stmt->execute()) {
         $stmt->store_result();
         echo "book added into database";
@@ -138,7 +140,7 @@ $username = $_SESSION['username'];
   <!-- My CSS -->
   <link rel="stylesheet" href="./css/admindashboard.css">
   <link rel="stylesheet" href="./css/admin_add_book.css">
-  
+
   <title>Dashboard Admin: <?php echo $username ?> </title>
   <style>
     .error {
@@ -147,6 +149,23 @@ $username = $_SESSION['username'];
       margin: 8px;
       padding: 7px;
       border-radius: 10px;
+    }
+
+    .btn-submit {
+      margin-top: 20px;
+      margin-left: 100px;
+      background: #4b49ac;
+      height: 50px;
+      width: 150px;
+      padding: 10px 20px;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-submit:hover{
+      background: green !important;;
     }
   </style>
 </head>
@@ -173,7 +192,7 @@ $username = $_SESSION['username'];
       </div>
     </nav>
     <!-- NAVBAR -->
-     <!--MAIN CONTENT -->
+    <!--MAIN CONTENT -->
     <div class="addbook-container" id="main-content">
       <h2>
         <?php
@@ -200,6 +219,13 @@ $username = $_SESSION['username'];
           <label for="genre">Genre:</label>
           <input type="text" id="genre" name="genre">
         </div>
+
+        <!-- Page -->
+        <div class="input-group">
+          <label for="pages">Pages:</label>
+          <input type="number" id="pages" name="pages" min="1" required>
+        </div>
+
 
         <!-- Publication Year -->
         <div class="input-group">
@@ -237,8 +263,14 @@ $username = $_SESSION['username'];
           <input type="file" name="book_image" id="book_image" accept="bookspic/" required>
         </div>
 
+        <!--description -->
+        <div class="input-group">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" rows="5" cols="60"></textarea>
+        </div>
+
         <!-- Submit Button -->
-        <button type="submit">Add Book</button>
+        <button class="btn-submit" type="submit">Add Book</button>
       </form>
     </div>
   </section>

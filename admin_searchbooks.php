@@ -2,12 +2,12 @@
 
 include('./connection/config.php');
 $msg_from_edit = "";
-if (isset( $_GET['bookedit'])) {
+if (isset($_GET['bookedit'])) {
     if ($_GET['bookedit'] === 'success') {
         $msg_from_edit = "Successfully Book Edit";
-    }elseif($_GET['bookedit'] === 'unsuccess'){
+    } elseif ($_GET['bookedit'] === 'unsuccess') {
         $msg_from_edit = "Book Edit Unsuccessful";
-    }else{
+    } else {
         $msg_from_edit = "";
     }
 
@@ -32,15 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
         while ($row = $result->fetch_assoc()) {
             $search_results[] = $row;
         }
-    }else{
+    } else {
         header("Location: admin_searchbooks.php?error=search_failed");
         exit();
     }
 }
 $error = "";
-if(isset($_GET['error'])){
-    if($_GET['error'] == "search_failed"){
-        $error="Search Failed";
+if (isset($_GET['error'])) {
+    if ($_GET['error'] == "search_failed") {
+        $error = "Search Failed";
     }
 }
 $_SESSION['username'] = "Deepak";
@@ -168,7 +168,7 @@ $username = $_SESSION['username'];
                 if ($msg_from_edit) {
                     echo "<div class='error'> $msg_from_edit </div>";
                 }
-                if($error){
+                if ($error) {
                     echo "<div> class='error'> $error </div>";
                 }
                 ?>
@@ -196,26 +196,29 @@ $username = $_SESSION['username'];
                                 <h3> <?php echo htmlspecialchars($row['title']) ?> </h3>
                                 <p>by <?php echo htmlspecialchars($row['author']) ?></p>
                                 <p class="price">$ <?php echo htmlspecialchars($row['price']) ?> </p>
-                                <p><a class='b-button'
-                                        href='  admin_editbooks.php?book_title=<?php echo $row['title'] ?>'>Edit</a>
-                                <form method="POST" action="admin_delbook.php" name="delbook">
-                                    <input type="hidden" name="book_title"
-                                        value="<?php echo htmlspecialchars($row['title']) ?>">
-                                    <input type="hidden" name="del_from_search" value="<?php $del_from_search = true ?> ">
-                                    <button class="b-button" type="submit" name="delete">Delete</button>
-                                </form>
-                                </p>
-                            </div>
-                            <?php
+                                <div>
+                                    <p><a class='b-button' href='admin_book_profile.php?book_id=<?php echo $row['id'] ?>'>View
+                                        </a>
+                                        <a class='b-button'
+                                            href='  admin_editbooks.php?book_title=<?php echo $row['title'] ?>'>Edit</a>
+                                    <form method="POST" action="admin_delbook.php" name="delbook">
+                                        <input type="hidden" name="book_title"
+                                            value="<?php echo htmlspecialchars($row['title']) ?>">
+                                        <input type="hidden" name="del_from_search" value="<?php $del_from_search = true ?> ">
+                                        <button class="b-button" type="submit" name="delete">Delete</button>
+                                    </form>
+                                    </p>
+                                </div>
+                                <?php
                         }
                         ?>
-                    </div>
-                <?php elseif (!empty($search_query)): ?>
-                    <p>No results found for "<?php echo htmlspecialchars($search_query); ?>".</p>
-                <?php endif; ?>
+                        </div>
+                    <?php elseif (!empty($search_query)): ?>
+                        <p>No results found for "<?php echo htmlspecialchars($search_query); ?>".</p>
+                    <?php endif; ?>
 
+                </div>
             </div>
-        </div>
 
 
 
