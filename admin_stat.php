@@ -85,48 +85,126 @@ if ($result) {
 
     <!-- fro erro handling -->
     <style>
-        :root {
-            --main-color: #4b49AC;
-            --second-color: #98BDFF;
-            --light-blue: #7DA0FA;
-            --light-purple: #7978E9;
-            --light-red: #F3797E;
-        }
+        /* Define Theme Colors */
+:root {
+    --main-color: #4b49AC;
+    --second-color: #98BDFF;
+    --light-blue: #7DA0FA;
+    --light-purple: #7978E9;
+    --light-red: #F3797E;
+    --white: #fff;
+    --text-dark: #333;
+    --text-light: #555;
+}
 
-        .error {
-            background: #4b49ac;
-            color: white;
-            margin: 8px;
-            padding: 7px;
-            border-radius: 10px;
-        }
+.container {
+    margin-top: 30px;
+    margin: 38px auto;
+    max-width: 900px;
+    padding: 20px;
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-        .sales,
-        .order {
-            display: flex;
-            flex-direction: column;
-        }
+/* Error Message */
+.error-box {
+    background: var(--light-red);
+    color: var(--white);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+}
 
-        .sales .boxes, .order .boxes{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            
-        }
+/* Dashboard Title */
+.dashboard-title {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--main-color);
+}
 
-        .box {
-            width: 15rem;
-            height: 10rem;
-            border: 3px solid var(--main-color);
-            border-radius: 20px;
-            background: var(--second-color);
-            padding: 20px;
-            gap: 20px;
-            font-size: xx-large;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+/* Dashboard Layout */
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Card Styles */
+.card {
+    flex: 1;
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+/* Sales and Orders Specific Styling */
+.sales {
+    border-left: 5px solid var(--light-blue);
+}
+
+.orders {
+    border-left: 5px solid var(--light-purple);
+}
+
+/* Statistics Styling */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.stat {
+    background: var(--second-color);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease;
+}
+
+.stat:hover {
+    background: var(--light-blue);
+}
+
+h3 {
+    margin-bottom: 15px;
+    text-align: center;
+    color: var(--main-color);
+}
+
+h4 {
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-light);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard {
+        flex-direction: column;
+    }
+    
+    .stats {
+        grid-template-columns: 1fr;
+    }
+}
+
     </style>
 </head>
 
@@ -152,55 +230,56 @@ if ($result) {
             </div>
         </nav>
         <!-- NAVBAR -->
-        <div id="main-content">
-            <h2>
-                <?php
-                if ($error) {
-                    echo "<div class='error'> $error </div>";
+        <div class="container">
+        <!-- Error Message -->
+        <?php if (!empty($error)) { ?>
+            <div class="error-box"><?php echo $error; ?></div>
+        <?php } ?>
 
-                }
-                ?>
-            </h2>
-            <h2> Overview</h2>
-            <div class="overview">
-                <div class="sales">
-                    <h2>Sales</h2>
-                    <div class="boxes">
-                        <div class="box">
-                            <h4>Total sales</h4>
-                            <p><?php echo $total_sales; ?></p>
-                        </div>
-                        <div class="box">
-                            <h4>Books </h4>
-                            <p> <?php echo $book_count; ?></p>
-                        </div>
-                        <div class="box">
-                            <h4>Books Quantity</h4>
-                            <p><?php echo $book_quantities ?></p>
-                        </div>
+        <h2 class="dashboard-title">📊 Dashboard Overview</h2>
+
+        <div class="dashboard">
+            <!-- Sales Overview -->
+            <div class="card sales">
+                <h3>💰 Sales Overview</h3>
+                <div class="stats">
+                    <div class="stat">
+                        <h4>Total Sales</h4>
+                        <p>$<?php echo number_format($total_sales, 2); ?></p>
+                    </div>
+                    <div class="stat">
+                        <h4>Books Sold</h4>
+                        <p><?php echo $book_count; ?></p>
+                    </div>
+                    <div class="stat">
+                        <h4>Books Quantity</h4>
+                        <p><?php echo $book_quantities; ?></p>
                     </div>
                 </div>
-                <div class="order">
-                    <h2>Orders</h2>
-                    <div class="boxes">
-                        <div class="box">
-                            <h4>Pending</h4>
-                            <p><?php echo $order_pending ?> </p>
-                        </div>
-                        <div class="box">
-                            <h4>Completed</h4>
-                            <p><?php echo $order_completed ?> </p>
-                        </div>
-                        <div class="box">
-                            <h4>Cancelled</h4>
-                            <p><?php echo $order_cancelled ?> </p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
+            <!-- Orders Overview -->
+            <div class="card orders">
+                <h3>📦 Orders Overview</h3>
+                <div class="stats">
+                    <div class="stat">
+                        <h4>Pending Orders</h4>
+                        <p><?php echo $order_pending; ?></p>
+                    </div>
+                    <div class="stat">
+                        <h4>Completed Orders</h4>
+                        <p><?php echo $order_completed; ?></p>
+                    </div>
+                    <div class="stat">
+                        <h4>Cancelled Orders</h4>
+                        <p><?php echo $order_cancelled; ?></p>
+                    </div>
+                </div>
+            </div>
         </div>
+
+    </div>
+
 
     </section>
     <!-- CONTENT -->

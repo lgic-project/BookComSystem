@@ -25,15 +25,15 @@ if ($result->num_rows > 0) {
 $edit_before = true;
 $edit_after = false;
 if (isset($_POST['edit_profile'])) {
-    $edit_before=false;
+    $edit_before = false;
     $edit_after = true;
 }
 
 $change_password = false;
 if (isset($_POST['change_password'])) {
-        $change_password = true;
-        $edit_before = false;
-        $edit_after = false;
+    $change_password = true;
+    $edit_before = false;
+    $edit_after = false;
 }
 
 if (isset($_POST['update_cancel'])) {
@@ -42,7 +42,7 @@ if (isset($_POST['update_cancel'])) {
     $edit_after = false;
 }
 
-if(isset($_POST['update_password'])){
+if (isset($_POST['update_password'])) {
     $old_password = $mysqli->real_escape_string($_POST['old_password']);
     $new_password = $mysqli->real_escape_string($_POST['new_password']);
     $confirm_new_password = $mysqli->real_escape_string($_POST['confirm_new_password']);
@@ -56,41 +56,41 @@ if(isset($_POST['update_password'])){
     $row = $result->fetch_assoc();
     $current_password = $row['password'];
 
-    if(password_verify($old_password, $current_password)){
-        if($new_password == $confirm_new_password){
+    if (password_verify($old_password, $current_password)) {
+        if ($new_password == $confirm_new_password) {
             $new_password = password_hash($new_password, PASSWORD_DEFAULT);
             $sql = "UPDATE admin SET password = ? WHERE admin_id = ?";
             $stmt = $mysqli->prepare($sql);
             $stmt->bind_param("si", $new_password, $admin_id);
-            if($stmt->execute()){
+            if ($stmt->execute()) {
                 header("Location: admin_profile.php?message=Password updated successfully!&change_password=true");
                 exit();
-            }else{
+            } else {
                 echo "Error: " . $stmt->error;
             }
-        }else{
+        } else {
             $error = "New password and confirm password do not match!";
         }
-    }else{
+    } else {
         $error = "Old password is incorrect!";
     }
 }
 
-if($error){
+if ($error) {
     $edit_before = false;
     $edit_after = false;
     $change_password = true;
 }
 
-if(isset($_GET['message'])){
-    if(isset($_GET['change_password'])){
-    $error = $_GET['message'];
-    $edit_before = true;
-    $edit_after = false;
-    $change_password = false;
+if (isset($_GET['message'])) {
+    if (isset($_GET['change_password'])) {
+        $error = $_GET['message'];
+        $edit_before = true;
+        $edit_after = false;
+        $change_password = false;
     }
 
-    if(isset($_GET['edit_profile'])){
+    if (isset($_GET['edit_profile'])) {
         $error = $_GET['message'];
         $edit_before = true;
         $edit_after = false;
@@ -206,10 +206,7 @@ if (isset($_POST['update'])) {
         gap: 40px;
     }
 
-    .errormsg {
-        display: flex;
-        justify-content: center;
-    }
+
 
     .img-container img {
         width: 200px;
@@ -236,13 +233,70 @@ if (isset($_POST['update'])) {
         flex-direction: column;
     }
 
+    /* Error Message Container */
+    .errormsg {
+        display: flex;
+        justify-content: center;
+        margin: 10px auto;
+        width: 90%;
+        max-width: 600px;
+        position: relative;
+    }
+
+    /* Error Message Box */
     .error-msg {
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: #4b49AC;
+        background: #4b49AC;
+        /* Your Main Color */
         color: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        font-size: 1rem;
+        font-weight: bold;
+        position: relative;
+        opacity: 0;
+        transform: translateY(-10px);
+        animation: fadeIn 0.5s forwards;
     }
+
+    /* Close Button */
+    .error-msg .close-btn {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .error-msg .close-btn:hover {
+        color: #F3797E;
+        /* Light Red */
+    }
+
+    /* Fade-in Animation */
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 500px) {
+        .error-msg {
+            font-size: 0.9rem;
+            padding: 12px;
+        }
+    }
+
 
     form .img-container input[type='file'] {
         width: 200px;
@@ -287,15 +341,16 @@ if (isset($_POST['update'])) {
         background-color: #FF0000;
     }
 
-    .pass-btn-can{
+    .pass-btn-can {
         text-align: center;
-        background-color: #98BDFF ;
+        background-color: #98BDFF;
         color: white;
         padding: 10px;
         border-radius: 5px;
         cursor: pointer;
     }
-    .pass-btn-can:hover{
+
+    .pass-btn-can:hover {
         text-align: center;
         background-color: #FF0000;
         color: white;
@@ -305,8 +360,8 @@ if (isset($_POST['update'])) {
     }
 
 
-    
-    .change-pass{
+
+    .change-pass {
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -323,7 +378,7 @@ if (isset($_POST['update'])) {
         <!-- NAVBAR -->
         <nav>
 
-            <a href="#" class="nav-link">Admin Dashboard</a>
+            <a href="#" class="nav-link">Profile </a>
             <div class="nav-link-2">
                 <a href="#" class="profile">
                     <img src="img/people.png">
@@ -333,9 +388,14 @@ if (isset($_POST['update'])) {
         <!-- NAVBAR -->
 
         <div class="profile-container" id="main-content">
-            <div class="errormsg">
-                <?php echo "<h1 class='error-msg'>$error</h1>"; ?>
-            </div>
+            <?php if (!empty($error)) {
+                ?>
+                <div class="errormsg">
+                    <?php echo "<h1 class='error-msg'>$error</h1>"; ?>
+                </div>
+            <?php
+            }
+            ?>
             <div class="container">
                 <div class="profile-details">
                     <?php if ($edit_before) { ?>
@@ -358,7 +418,8 @@ if (isset($_POST['update'])) {
 
                             </div>
                         </form>
-                    <?php } if ($change_password) { ?>
+                    <?php }
+                    if ($change_password) { ?>
                         <form action="admin_profile.php" method="POST" enctype="multipart/form-data">
                             <div class="img-container">
                                 <img src="developerpic/<?php echo $profile_img ?>" alt="<?php echo $full_name ?>"
@@ -377,7 +438,8 @@ if (isset($_POST['update'])) {
                             </div>
                         </form>
 
-                    <?php } if($edit_after) { ?>
+                    <?php }
+                    if ($edit_after) { ?>
                         <form action="admin_profile.php" method="post" enctype="multipart/form-data">
                             <div class="img-container">
                                 <img src="developerpic/<?php echo $profile_img ?>" alt="<?php echo $full_name ?>"
