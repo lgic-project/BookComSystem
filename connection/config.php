@@ -15,7 +15,7 @@ if ($mysqli->connect_errno) {
     
     // Display a user-friendly message
     die("Database connection failed. Please try again later.");
-}
+}                   
 
 // Optional: Set character set to UTF-8
 if (!$mysqli->set_charset("utf8mb4")) {
