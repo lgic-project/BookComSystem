@@ -1,57 +1,78 @@
-
-General reset for footer
+/* General reset for footer */
 footer {
-    background-color: #333;
+    background-color: #6a0dad; /* Deep purple background */
     color: #fff;
     width: 100%;
+    padding: 20px 0;
+    font-family: 'Arial', sans-serif;
     position: relative;
+    height: auto; /* Fixed height for half height effect */
 }
 
 /* Footer Container */
 .footer .box-container {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin: 0 auto;
-    padding: 0 20px;
+    justify-content: space-around;
+    padding: auto 20px;
+    margin: auto 120px;
 }
 
+
+
 /* Each Box */
-.footer .box {
+.footer .box-container .box {
     flex: 1;
-    padding: 20px;
-    min-width: 250px;
+    padding: 10px;
     margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content:left;
+    align-items: center;
 }
 
 /* Logo styling (if you add an image) */
-.footer .box img {
-    width: 100px;
-    margin-bottom: 20px;
+.footer .box-container .box img {
+    width: 200px; /* Adjusted logo size */
+    margin-bottom: 15px;
+    align-self: center;
 }
 
 /* Header in each box */
-.footer .box h3 {
-    font-size: 20px;
-    margin-bottom: 20px;
+.footer .box-container .box h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
     text-transform: uppercase;
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     animation: fadeIn 1s ease-out;
+    text-align: center;
+    color: #f1f1f1; /* Lighter text for headers */
 }
 
 /* Styling links */
-.footer .box a {
-    color: #fff;
+.footer .box-container .box a {
+    color: #f1f1f1; /* Light color for links */
     display: block;
     margin: 5px 0;
-    font-size: 16px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+    text-align: center;
+}
+
+.footer .box-container .box p{
+    color: #f1f1f1; /* Light color for links */
+    display: block;
+    margin: 5px 0;
+    font-size: 14px;
     text-decoration: none;
     transition: color 0.3s ease-in-out;
 }
 
-.footer .box a:hover {
-    color: #ff6347; /* Change link color on hover */
+
+
+.footer .box-container .box a:hover {
+    color: #ffb3e6; /* Light pink hover effect */
 }
 
 /* Contact info icons */
@@ -86,6 +107,7 @@ footer {
     text-align: center;
     font-size: 14px;
     margin-top: 20px;
+    color: white; /* Lighter color for copyright text */
     animation: fadeIn 2s ease-out;
 }
 
@@ -96,6 +118,15 @@ footer {
         align-items: center;
     }
     .footer .box {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
+    }
+    .footer .box img {
+        width: 60px; /* Adjust logo size for smaller screens */
+    }
+    .footer .box h3 {
+        font-size: 16px; /* Reduce header font size */
+    }
+    .footer .box a {
+        font-size: 14px; /* Adjust link font size for small screens */
     }
 }
