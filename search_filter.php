@@ -200,12 +200,12 @@ if (isset($_POST['sort'])) {
         .container {
             display: flex;
             flex-direction: row;
-            gap: 60px;
-            margin: 60px 80px;
+            gap: 40px;
+            margin: 60px 0px 60px 60px;
         }
 
         .container .sidebar {
-            width: 200px;
+            width: 180px;
             height: 100%;
             background-color: #f4f4f4;
             color: white;
@@ -215,6 +215,7 @@ if (isset($_POST['sort'])) {
 
         .container .search-results {
             margin: auto 0px;
+            width: calc(100% - 180px);
         }
 
         .search-content .section-1 {
@@ -251,6 +252,7 @@ if (isset($_POST['sort'])) {
         }
 
         .grid {
+            margin-left: 70px;
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
@@ -262,8 +264,8 @@ if (isset($_POST['sort'])) {
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s;
-            width: 250px;
-            gap: 30px;
+            width: 230px;
+            gap: 20px;
             text-align: center;
             background: white;
             padding: 15px;
@@ -310,9 +312,8 @@ if (isset($_POST['sort'])) {
 
 
         .sidebar {
-            margin-left: 10px;
             color: #6a0dad;
-            width: 250px;
+            width: auto;
             padding: 20px;
             border-radius: 10px;
             color: white;
@@ -333,7 +334,7 @@ if (isset($_POST['sort'])) {
             border: none;
         }
         .content-sidebar {
-            width: 300px;
+            width: 250px;
             padding: 10px;
             border-radius: 10px;
         }
