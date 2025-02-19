@@ -66,8 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // inserting book in the database
   // first we need to uplaod file
   if (move_uploaded_file($_FILES["book_image"]["tmp_name"], $target_file)) {
-    if ($stmt = $mysqli->prepare("INSERT  INTO books(title, author, genre,pages,category, book_description,  pub_year, isbn, publisher, price, stock, book_img ) VAlUES (?, ?, ?,?,?,?, ?, ?, ?, ?, ?,?)")) {
-      $stmt->bind_param("sssissdis", $title, $author, $genre, $pages,$category, $book_description, $pub_year, $isbn, $publisher, $price, $stock, $new_book_img);
+    if ($stmt = $mysqli->prepare("INSERT  INTO books(title, author, genre,pages, book_description,  pub_year, isbn, publisher, price, stock, book_img ) VAlUES (?, ?, ?,?,?,?, ?, ?, ?, ?, ?)")) {
+      $stmt->bind_param("sssisissdis", $title, $author, $genre, $pages, $book_description, $pub_year, $isbn, $publisher, $price, $stock, $new_book_img);
       if ($stmt->execute()) {
         $stmt->store_result();
         header("Location: admin_add_book.php?add_book=success");

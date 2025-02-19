@@ -124,9 +124,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile_picture
         <div class="header-right">
             <!-- Search Bar -->
             <div class="search-bar">
-                <form action="search.php" method="GET">
-                    <input type="text" name="query" placeholder="Search for books..." />
-                    <button type="submit"><i class="fas fa-search"></i></button>
+                <form action="search_filter.php" method="post">
+                    <input type="text" name="search_query" placeholder="Search for books..." />
+                    <button type="submit" name="search_query_btn"><i class="fas fa-search"></i></button>
                 </form>
             </div>
 

@@ -6,6 +6,7 @@ footer {
     padding: 20px 0;
     font-family: 'Arial', sans-serif;
     position: relative;
+    margin-bottom: 0;
     height: auto; /* Fixed height for half height effect */
 }
 
