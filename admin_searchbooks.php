@@ -13,6 +13,22 @@ if (isset($_GET['bookedit'])) {
 
 }
 
+//book qunatity update 
+if (isset($_POST['book_stock_update'])) {
+    $book_id = $_POST['book_id'];
+    $new_quantity = $_POST['stock-input'];
+
+    $sql = "UPDATE books SET stock = ? WHERE id = ?";
+    if ($stmt = $mysqli->prepare($sql)) {
+        $stmt->bind_param('ii', $new_quantity, $book_id);
+        if ($stmt->execute()) {
+            $error = "Book Quantity Update Successful";
+        } else {
+            $error = "Book Quantity Update Failed";
+        }
+    }
+}
+
 $search_results = [];
 $search_query = '';
 
@@ -137,6 +153,60 @@ $username = $_SESSION['username'];
             border: 2px solid wheat;
             border-radius: 7px;
         }
+
+        .stock-update-wrapper {
+            margin-bottom: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border-radius: 8px;
+            padding: auto auto;
+        }
+
+        /* Label styling */
+        .stock-label {
+            font-size: 16px;
+            color: var(--text-dark);
+            margin-right: 5px;
+        }
+
+        /* Number input styling */
+        #stock-input {
+            width: 60px;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid var(--main-color);
+            border-radius: 4px;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        #stock-input:focus {
+            border-color: var(--light-purple);
+        }
+
+        /* Update button styling */
+        .stock-update-button {
+            background-color: #4b49AC;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        /* Hover effect for the button */
+        .stock-update-button:hover {
+            background-color: var(--light-purple);
+        }
+
+        /* Press (active) effect for the button */
+        .stock-update-button:active {
+            transform: scale(0.98);
+        }
     </style>
 </head>
 
@@ -196,6 +266,14 @@ $username = $_SESSION['username'];
                                 <h3> <?php echo htmlspecialchars($row['title']) ?> </h3>
                                 <p>by <?php echo htmlspecialchars($row['author']) ?></p>
                                 <p class="price">$ <?php echo htmlspecialchars($row['price']) ?> </p>
+                                <form action="admin_searchbooks.php" method="post" class="stock-update-wrapper"
+                                    enctype="multipart/form-data">
+                                    <input type="hidden" name="book_id" value="<?php echo $row['id'] ?>">
+                                    <label for="stock-input" class="stock-label">Stock:</label>
+                                    <input type="number" id="stock-input" name="stock-input" value="<?php echo $row['stock'] ?>"
+                                        min="0" />
+                                    <input type="submit" class="stock-update-button" value="Update" name="book_stock_update">
+                                </form>
                                 <div>
                                     <p><a class='b-button' href='admin_book_profile.php?book_id=<?php echo $row['id'] ?>'>View
                                         </a>
