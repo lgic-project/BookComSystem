@@ -151,6 +151,7 @@ if (isset($_GET['delete_book'])) {
       </h2>
       <h2>Book Lists</h2>
       <div class="grid-container">
+        
         <?php
         if ($result->num_rows > 0) {
           while ($row = $result->fetch_assoc()) {
