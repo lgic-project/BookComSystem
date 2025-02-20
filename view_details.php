@@ -1,33 +1,33 @@
 <?php
 include_once 'connection/config.php';
 
+// Start the session
+session_start();
+
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("Location: login.php");
+    exit();
+}
+
 // Check if 'id' is provided via GET and is numeric
-if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
+if (isset($_GET["id"])) {
     $book_id = intval($_GET["id"]); // Convert to integer for security
-
     // Fetch book details
-    $sql = "SELECT * FROM books WHERE id = ?";
+    $sql = "SELECT author, title, price , book_description, book_img  FROM books WHERE id = ?";
     $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param("i", $book_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($stmt) {
-        $stmt->bind_param("i", $book_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $book = $result->fetch_assoc();
-        } else {
-            die("<p>No book found with ID <strong>$book_id</strong>.</p>");
-        }
-        $stmt->close();
+    if ($result->num_rows > 0) {
+        $book = $result->fetch_assoc();
     } else {
-        die("<p>Database error: " . $mysqli->error . "</p>");
+        die("<p>No book found with ID <strong>$book_id</strong>.</p>");
     }
+    $stmt->close();
 } else {
     die("<p>Invalid request.</p>");
 }
-
-$mysqli->close();
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +48,7 @@ $mysqli->close();
         <h2><?php echo htmlspecialchars($book['title']); ?></h2>
         <p><strong>Author:</strong> <?php echo htmlspecialchars($book['author']); ?></p>
         <p><strong>Price:</strong> $<?php echo htmlspecialchars($book['price']); ?></p>
-        <p><strong>Description:</strong> <?php echo htmlspecialchars($book['description']); ?></p>
+        <p><strong>Description:</strong> <?php echo htmlspecialchars($book['book_description']); ?></p>
     </div>
     <?php include 'footer.php'; ?>
 </body>
