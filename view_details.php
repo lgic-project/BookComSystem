@@ -1,41 +1,56 @@
 <?php
 include_once 'connection/config.php';
 
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["genre"])) {
-    $genre = trim($_POST["genre"]);
+// Check if 'id' is provided via GET and is numeric
+if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
+    $book_id = intval($_GET["id"]); // Convert to integer for security
 
-    // Fetch books based on genre
-    $sql = "SELECT * FROM books WHERE genre = ?";
+    // Fetch book details
+    $sql = "SELECT * FROM books WHERE id = ?";
     $stmt = $mysqli->prepare($sql);
-    
-    if (!$stmt) {
-        die("Prepare failed: " . $mysqli->error);
-    }
 
-    $stmt->bind_param("s", $genre);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    if ($stmt) {
+        $stmt->bind_param("i", $book_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        echo "<h2>$genre</h2><div class='products-grid'>";
-        while ($book = $result->fetch_assoc()) {
-            echo '<div class="product-card">';
-            echo '<img src="bookspic/' . htmlspecialchars($book['book_img']) . '" alt="' . htmlspecialchars($book['title']) . '">';
-            echo '<h3>' . htmlspecialchars($book['title']) . '</h3>';
-            echo '<p>Author: ' . htmlspecialchars($book['author']) . '</p>';
-            echo '<p>Price: $' . htmlspecialchars($book['price']) . '</p>';
-            echo '<a href="view_details.php?id=' . htmlspecialchars($book['id']) . '" class="view-btn">View Details</a>';
-            echo '</div>';
+        if ($result->num_rows > 0) {
+            $book = $result->fetch_assoc();
+        } else {
+            die("<p>No book found with ID <strong>$book_id</strong>.</p>");
         }
-        echo "</div>";
+        $stmt->close();
     } else {
-        echo "<p>No books found for <strong>$genre</strong>.</p>";
+        die("<p>Database error: " . $mysqli->error . "</p>");
     }
-
-    $stmt->close();
 } else {
-    echo "<p>Invalid request.</p>";
+    die("<p>Invalid request.</p>");
 }
 
 $mysqli->close();
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo htmlspecialchars($book['title']); ?></title>
+    <link rel="stylesheet" href="./css/products.css">
+</head>
+
+<body>
+    <?php include 'header.php'; ?>
+    <div class="book-details">
+        <img src="bookspic/<?php echo htmlspecialchars($book['book_img']); ?>"
+            alt="<?php echo htmlspecialchars($book['title']); ?>">
+        <h2><?php echo htmlspecialchars($book['title']); ?></h2>
+        <p><strong>Author:</strong> <?php echo htmlspecialchars($book['author']); ?></p>
+        <p><strong>Price:</strong> $<?php echo htmlspecialchars($book['price']); ?></p>
+        <p><strong>Description:</strong> <?php echo htmlspecialchars($book['description']); ?></p>
+    </div>
+    <?php include 'footer.php'; ?>
+</body>
+
+</html>
