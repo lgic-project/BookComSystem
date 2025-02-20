@@ -3,75 +3,41 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include 'connection/config.php';
 
-// Fetch unique genres
-$sqlGenres = "SELECT DISTINCT genre FROM books";
-$resultGenres = $mysqli->query($sqlGenres);
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["genre"])) {
+    $genre = trim($_POST["genre"]);
 
-if (!$resultGenres) {
-    die("Error fetching genres: " . $mysqli->error);
-}
+    // Fetch books based on selected genre
+    $sql = "SELECT * FROM books WHERE genre = ?";
+    $stmt = $mysqli->prepare($sql);
+    
+    if (!$stmt) {
+        die("Prepare failed: " . $mysqli->error);
+    }
 
-echo "<div style='display: flex; gap: 10px; margin-bottom: 20px;'>";
+    $stmt->bind_param("s", $genre);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-while ($row = $resultGenres->fetch_assoc()) {
-    echo "<button class='genre-btn' onclick=\"fetchBooks('" . htmlspecialchars($row['genre']) . "')\">" . htmlspecialchars($row['genre']) . "</button>";
-}
-
-echo "</div>";
-
-// Fetch books dynamically based on genre
-echo "<div id='books-container'></div>";
-
-?>
-
-<script>
-function fetchBooks(genre) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "fetch_books.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            document.getElementById("books-container").innerHTML = xhr.responseText;
+    if ($result->num_rows > 0) {
+        echo "<div class='books-grid'>";
+        while ($book = $result->fetch_assoc()) {
+            echo "<div class='book-card'>";
+            echo "<img src='bookspic/" . htmlspecialchars($book['book_img']) . "' alt='" . htmlspecialchars($book['title']) . "'>";
+            echo "<h3>" . htmlspecialchars($book['title']) . "</h3>";
+            echo "<p><strong>Author:</strong> " . htmlspecialchars($book['author']) . "</p>";
+            echo "<p><strong>Price:</strong> $" . htmlspecialchars($book['price']) . "</p>";
+            echo "<a href='view_details.php?id=" . htmlspecialchars($book['id']) . "' class='view-btn'>View Details</a>";
+            echo "</div>";
         }
-    };
-    xhr.send("genre=" + encodeURIComponent(genre));
-}
-</script>
+        echo "</div>";
+    } else {
+        echo "<p>No books found for <strong>" . htmlspecialchars($genre) . "</strong>.</p>";
+    }
 
-<style>
-.genre-btn {
-    padding: 10px 15px;
-    background-color: #6200ea;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    $stmt->close();
+} else {
+    echo "<p>Invalid request.</p>";
 }
-.genre-btn:hover {
-    background-color: #3700b3;
-}
-.book-card {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px 0;
-    width: 200px;
-    text-align: center;
-}
-.book-card img {
-    width: 100px;
-    height: 150px;
-    object-fit: cover;
-}
-.view-btn {
-    display: block;
-    margin-top: 10px;
-    background: #ff4081;
-    color: white;
-    padding: 5px;
-    text-decoration: none;
-    border-radius: 3px;
-}
-.view-btn:hover {
-    background: #d81b60;
-}
-</style>
+
+$mysqli->close();
+?>
