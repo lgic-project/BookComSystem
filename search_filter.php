@@ -79,12 +79,25 @@ function byTitledesc($query, $mysqli)
     return $result;
 }
 
-function category($query, $category, $mysqli)
+function defaultsort($query, $mysqli)
 {
-    $search_sql = "SELECT title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? AND genre = ?";
+    $search_sql = "SELECT title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? ORDER BY rand()";
     $stmt = $mysqli->prepare($search_sql);
 
     $query = "%" . $query . "%"; // Adding wildcard for LIKE
+    $stmt->bind_param("ss", $query, $query);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result;
+}
+
+function category($query, $category, $mysqli)
+{
+    $search_sql = "SELECT title, author, price, book_img FROM books WHERE (title LIKE ? OR author LIKE ?) AND genre LIKE ?";
+    $stmt = $mysqli->prepare($search_sql);
+
+    $query = "%" . $query . "%"; // Adding wildcard for LIKE
+    $category = "%" . $category . "%"; // Adding wildcard for LIKE 
     $stmt->bind_param("sss", $query, $query, $category);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -92,10 +105,11 @@ function category($query, $category, $mysqli)
 }
 function catetitleasc($query, $category, $mysqli)
 {
-    $search_sql = "SELECT title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? AND genre = ? ORDER BY title ASC";
+    $search_sql = "SELECT title, author, price, book_img FROM books WHERE (title LIKE ? OR author LIKE ?) AND genre LIKE ? ORDER BY title ASC";
     $stmt = $mysqli->prepare($search_sql);
 
     $query = "%" . $query . "%"; // Adding wildcard for LIKE
+    $category = "%" . $category . "%"; // Adding wildcard for LIKE 
     $stmt->bind_param("sss", $query, $query, $category);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -104,10 +118,11 @@ function catetitleasc($query, $category, $mysqli)
 
 function catetitledesc($query, $category, $mysqli)
 {
-    $search_sql = "SELECT title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? AND genre = ? ORDER BY title Desc";
+    $search_sql = "SELECT title, author, price, book_img FROM books WHERE (title LIKE ? OR author LIKE ?) AND genre LIKE ? ORDER BY title Desc";
     $stmt = $mysqli->prepare($search_sql);
 
     $query = "%" . $query . "%"; // Adding wildcard for LIKE
+    $category = "%" . $category . "%"; // Adding wildcard for LIKE 
     $stmt->bind_param("sss", $query, $query, $category);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -116,10 +131,11 @@ function catetitledesc($query, $category, $mysqli)
 
 function catetitlepriceasc($query, $category, $mysqli)
 {
-    $search_sql = "SELECT title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? AND genre = ? ORDER BY price ASC";
+    $search_sql = "SELECT title, author, price, book_img FROM books WHERE (title LIKE ? OR author LIKE ?) AND genre LIKE ? ORDER BY price ASC";
     $stmt = $mysqli->prepare($search_sql);
 
     $query = "%" . $query . "%"; // Adding wildcard for LIKE
+    $category = "%" . $category . "%"; // Adding wildcard for LIKE 
     $stmt->bind_param("sss", $query, $query, $category);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -128,15 +144,19 @@ function catetitlepriceasc($query, $category, $mysqli)
 
 function catetitlepricedesc($query, $category, $mysqli)
 {
-    $search_sql = "SELECT title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? AND genre = ? ORDER BY price Desc";
+    $search_sql = "SELECT title, author, price, book_img FROM books WHERE (title LIKE ? OR author LIKE ?) AND genre LIKE ? ORDER BY price DESC";
+
     $stmt = $mysqli->prepare($search_sql);
 
     $query = "%" . $query . "%"; // Adding wildcard for LIKE
+    $category = "%" . $category . "%"; // Adding wildcard for LIKE 
+
     $stmt->bind_param("sss", $query, $query, $category);
     $stmt->execute();
-    $result = $stmt->get_result();
-    return $result;
+    return $stmt->get_result();
 }
+
+
 
 
 if (isset($_POST['sort'])) {
@@ -145,7 +165,7 @@ if (isset($_POST['sort'])) {
     $sort_by = $_POST['sort_by'];
     $search_query = $_POST['search_query'];
     $search_term = $_POST['search_query'];
-    if (!$category) {
+    if (empty($category)) {
         switch ($sort_by) {
             case 'Price: Low to High':
                 $result = byPriceAsc($search_query, $mysqli);
@@ -160,10 +180,10 @@ if (isset($_POST['sort'])) {
                 $result = byTitledesc($search_query, $mysqli);
                 break;
             default:
-                $result = $mysqli->query("SELECT title, author, price, book_img FROM books WHERE title LIKE '%$search_query%' OR author LIKE '%$search_query%'");
+                $result = defaultsort($search_query, $mysqli);
                 break;
         }
-    } else {
+    } elseif ($category) {
         switch ($sort_by) {
             case 'Price: Low to High':
                 $result = catetitlepriceasc($search_query, $category, $mysqli);
@@ -183,6 +203,39 @@ if (isset($_POST['sort'])) {
         }
     }
 }
+
+
+//for sorting options
+// Define sorting options
+$sortOptions = [
+    "Price: Low to High",
+    "Price: High to Low",
+    "Title: A to Z",
+    "Title: Z to A"
+];
+
+// Get the selected option from POST (default to first option if not set)
+$sort_by = isset($_POST['sort_by']) ? $_POST['sort_by'] : '';
+
+
+
+// Define category options
+$categories = [
+    "Fantasy",
+    "Sci-Fi",
+    "Biography",
+    "History",
+    "Mystery/Thriller",
+    "Romance",
+    "Horror",
+    "Self-Help",
+    "Other"
+];
+
+// Get selected category from POST (default is empty)
+$category = isset($_POST['category']) ? $_POST['category'] : '';
+
+
 ?>
 
 
@@ -318,14 +371,17 @@ if (isset($_POST['sort'])) {
             border-radius: 10px;
             color: white;
         }
+
         h2 {
             color: #6a0dad;
             text-align: center;
             margin-bottom: 15px;
         }
+
         p {
             font-weight: bold;
         }
+
         select {
             width: 100%;
             padding: 10px;
@@ -333,16 +389,23 @@ if (isset($_POST['sort'])) {
             border-radius: 5px;
             border: none;
         }
+
         .content-sidebar {
             width: 250px;
             padding: 10px;
             border-radius: 10px;
         }
+
+        .content-sidebar p {
+            color: #6a0dad;
+        }
+
         select {
             background: #fff;
             color: #333;
         }
-        .filter-form  button {
+
+        .filter-form button {
             width: 100px;
             height: 50px;
             margin: 10px;
@@ -354,8 +417,14 @@ if (isset($_POST['sort'])) {
             cursor: pointer;
             font-weight: bold;
         }
+
         .filter-form button:hover {
             background: #5e2a9e;
+        }
+
+
+        .search-results .no-found {
+            margin-left: 100px;
         }
     </style>
 </head>
@@ -372,32 +441,38 @@ if (isset($_POST['sort'])) {
             <div class="content-sidebar">
                 <p>Sort By:</p>
                 <form action="search_filter.php" class="filter-form" method="post">
-                    <input type="hidden" name="search_query"  value="<?php echo $search_query ?>">
+                    <input type="hidden" name="search_query" value="<?php echo $search_query ?>">
                     <select name="sort_by" id="sort_by">
-                        <?php if ($sort_by) {
-                            echo "<option value='$sort_by'>$sort_by</option>";
+                        <?php
+                        // Show the selected option first (if it's a valid option)
+                        if ($sort_by && in_array($sort_by, $sortOptions)) {
+                            echo "<option value='$sort_by' selected>$sort_by</option>";
+                        }
+
+                        // Show remaining options except the selected one
+                        foreach ($sortOptions as $option) {
+                            if ($option !== $sort_by) {
+                                echo "<option value='$option'>$option</option>";
+                            }
                         }
                         ?>
-                        <option value="Price: Low to High">Price: Low to High</option>
-                        <option value="Price: High to Low">Price: High to Low</option>
-                        <option value="Title: A to Z">Title: A to Z</option>
-                        <option value="Title: Z to A">Title: Z to A</option>
                     </select>
                     <select name="category" id="category">
-                        <?php if ($category) {
-                            echo "<option value='$category'>$category</option>";
+                        <?php
+                        // Show the selected option first (if valid)
+                        if ($category && in_array($category, $categories)) {
+                            echo "<option value='$category' selected>$category</option>";
+                        } else {
+                            echo "<option value='' selected>Default</option>";
+                        }
+
+                        // Show remaining options except the selected one
+                        foreach ($categories as $cat) {
+                            if ($cat !== $category) {
+                                echo "<option value='$cat'>$cat</option>";
+                            }
                         }
                         ?>
-                        <option value="">Default</option>
-                        <option value="Fantasy">Fantasy</option>
-                        <option value="Sci-Fi">Sci-Fi</option>
-                        <option value="Biography">Biography</option>
-                        <option value="History">History</option>
-                        <option value="Mystery/Thriller">Mystery/Thriller</option>
-                        <option value="Romance">Romance</option>
-                        <option value="Horror">Horror</option>
-                        <option value="Self-Help">Self-Help</option>
-                        <option value="Other">Other</option>
                     </select>
                     <button type="submit" name="sort">Sort</button>
                 </form>
@@ -428,7 +503,7 @@ if (isset($_POST['sort'])) {
                             <?php } ?>
                         </div>
                     <?php } else { ?>
-                        <p>No books found.</p>
+                        <p class="no-found">No books found.</p>
                     <?php } ?>
                 </div>
             </div>
