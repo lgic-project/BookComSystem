@@ -39,7 +39,58 @@ if (isset($_GET["id"])) {
     <title><?php echo htmlspecialchars($book['title']); ?></title>
     <link rel="stylesheet" href="./css/products.css">
 </head>
+<style>
+    /* products.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
 
+.book-details {
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.book-details img {
+    width: 200px;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.book-details h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.book-details p {
+    font-size: 18px;
+    color: #666;
+}
+
+.book-details strong {
+    color: #000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .book-details {
+        width: 80%;
+    }
+
+    .book-details img {
+        width: 150px;
+    }
+}
+
+</style>
 <body>
     <?php include 'header.php'; ?>
     <div class="book-details">
