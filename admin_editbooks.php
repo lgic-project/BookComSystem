@@ -118,12 +118,6 @@ $username = $_SESSION['username'];
                     <input type="text" id="publisher" name="publisher"
                         value="<?php echo htmlspecialchars($book['publisher']); ?>">
                 </div>
-                <div class="input-group">
-                    <label for="Category">Category:</label>
-                    <input type="text" id="category" name="category"
-                        value="<?php echo htmlspecialchars($book['category']); ?>">
-                </div>
-
 
                 <div class="input-group">
                     <label for="price">Price:</label>
@@ -142,7 +136,7 @@ $username = $_SESSION['username'];
                     <label for="description">Description:</label>
                     <textarea type="text" id="description" name="book_description" rows="5" cols="60"></textarea>
                 </div>
-                <button class="btn-submit" type="submit">Update</button>
+                <button class="btn-submit" type="submit" name="edit_book">Update</button>
             </form>
 
         </div>
