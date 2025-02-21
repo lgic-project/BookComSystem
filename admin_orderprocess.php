@@ -3,10 +3,11 @@
 include_once './connection/config.php';
 
 // Fetch orders from the database
-$sql = "SELECT o.id, o.order_date, o.status, o.total_price, u.username, u.email 
+$sql = "SELECT o.id, o.order_date, o.status, o.total_price, u.username, u.email, o.address, o.phone_no
         FROM orders o 
         JOIN users u ON o.user_id = u.id";
 $result = $mysqli->query($sql);
+
 
 $_SESSION['username'] = "Deepak";
 $username = $_SESSION['username'];
@@ -48,8 +49,7 @@ if (isset($_POST['book_order'])) {
 }
 
 
-// Close connection
-$mysqli->close();
+
 
 ?>
 
@@ -185,6 +185,7 @@ $mysqli->close();
                         <tr>
                             <th>Order ID</th>
                             <th>Customer</th>
+                            <th>Order items</th>
                             <th>Address</th>
                             <th>Phone No.</th>
                             <th>Order Date</th>
@@ -195,14 +196,34 @@ $mysqli->close();
                     </thead>
                     <tbody>
                         <?php if ($result->num_rows > 0): ?>
-                            <?php while ($row = $result->fetch_assoc()):
-                                if (($row['status'] === "Pending") && $order_pending_table) {
-                                    ?>
+                            <?php while ($row = $result->fetch_assoc()): ?>
+                                <?php if ($row['status'] === "Pending" && $order_pending_table): ?>
                                     <tr>
                                         <td><?php echo $row['id']; ?></td>
                                         <td><?php echo $row['username']; ?> (<?php echo $row['email']; ?>)</td>
-                                        <td>Address</td>
-                                        <td>Phone No.</td>
+                                        <td>
+                                            <?php
+                                            $sql = "SELECT * FROM order_items o WHERE order_id =" . (int) $row['id'];
+                                            $result1 = $mysqli->query($sql);
+                                            if ($result1->num_rows > 0) {
+                                                while ($row1 = $result1->fetch_assoc()) {
+                                                    $sql = "SELECT * FROM books WHERE id =" . (int) $row1['product_id'];
+                                                    $result2 = $mysqli->query($sql);
+                                                    if ($result2->num_rows > 0) {
+                                                        while ($row2 = $result2->fetch_assoc()) {
+                                                            echo $row2['title'] . "(" . $row1['quantity'] . ") :" . $row2['price'] . "<br>";
+
+                                                        }
+                                                    }
+                                                }
+                                                $result2->close();
+                                                $result1->close();
+
+                                            }
+                                            ?>
+                                        </td>
+                                        <td><?php echo $row['address']; ?></td>
+                                        <td><?php echo $row['phone_no']; ?></td>
                                         <td><?php echo $row['order_date']; ?></td>
                                         <td><?php echo $row['status']; ?></td>
                                         <td>$<?php echo number_format($row['total_price'], 2); ?></td>
@@ -218,36 +239,37 @@ $mysqli->close();
                                             </form>
                                         </td>
                                     </tr>
-
-                                <?php } elseif (($row['status'] === "Completed") && $order_completed_table) { ?>
+                                <?php elseif ($row['status'] === "Completed" && $order_completed_table): ?>
                                     <tr>
                                         <td><?php echo $row['id']; ?></td>
                                         <td><?php echo $row['username']; ?> (<?php echo $row['email']; ?>)</td>
-                                        <td>Address</td>
-                                        <td>Phone No.</td>
+                                        <td><?php echo $row['address']; ?></td>
+                                        <td><?php echo $row['phone_no']; ?></td>
                                         <td><?php echo $row['order_date']; ?></td>
                                         <td><?php echo $row['status']; ?></td>
                                         <td>$<?php echo number_format($row['total_price'], 2); ?></td>
-                                        <td> <?php echo $row['status'] ?></td>
+                                        <td><?php echo $row['status']; ?></td>
                                     </tr>
-                                <?php } elseif (($row['status'] === "Cancelled") && $order_cancelled_table) { ?>
+                                <?php elseif ($row['status'] === "Cancelled" && $order_cancelled_table): ?>
                                     <tr>
                                         <td><?php echo $row['id']; ?></td>
                                         <td><?php echo $row['username']; ?> (<?php echo $row['email']; ?>)</td>
-                                        <td>Address</td>
-                                        <td>Phone No.</td>
+                                        <td><?php echo $row['address']; ?></td>
+                                        <td><?php echo $row['phone_no']; ?></td>
                                         <td><?php echo $row['order_date']; ?></td>
                                         <td><?php echo $row['status']; ?></td>
                                         <td>$<?php echo number_format($row['total_price'], 2); ?></td>
-                                        <td> <?php echo $row['status'] ?></td>
+                                        <td><?php echo $row['status']; ?></td>
                                     </tr>
-                                    <?php }endwhile; ?>
-                            <?php else: ?>
+                                <?php endif; ?>
+                            <?php endwhile; ?>
+                        <?php else: ?>
                             <tr>
-                                <td colspan="6">No orders found</td>
+                                <td colspan="8">No orders found</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
+
                 </table>
 
 
