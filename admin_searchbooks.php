@@ -1,4 +1,4 @@
-<?php
+git pull origin main <?php
 
 include('./connection/config.php');
 $msg_from_edit = "";
