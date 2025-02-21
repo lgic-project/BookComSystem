@@ -1,9 +1,9 @@
-/* General styling */
+/* General Styling */
 body {
     font-family: Arial, sans-serif;
 }
 
-/* Grid layout for books */
+/* Grid Layout for Books */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -11,7 +11,7 @@ body {
     margin-top: 20px;
 }
 
-/* Individual product card */
+/* Individual Product Card */
 .product-card {
     border: 1px solid #ddd;
     padding: 15px;
@@ -27,17 +27,61 @@ body {
     border-radius: 8px;
 }
 
+/* Buttons */
 .buttons {
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.buttons .add-to-cart-btn {
+/* Add to Cart Button */
+.add-to-cart-btn {
     background-color: #28a745;
     color: white;
-    padding: 8px 12px;
+    padding: 10px 14px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.add-to-cart-btn:active {
+    background-color: #1e7e34;
+    transform: scale(0.98);
+}
+
+/* View Details Button */
+.view-btn {
+    background: linear-gradient(135deg, #ff4081, #d81b60);
+    color: white;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.view-btn:hover {
+    background: linear-gradient(135deg, #d81b60, #b0003a);
+    transform: scale(1.05);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+}
+
+.view-btn:active {
+    background: linear-gradient(135deg, #b0003a, #7a0028);
+    transform: scale(0.98);
 }
 
 /* Cart Confirmation Overlay */
@@ -68,16 +112,29 @@ body {
     margin-bottom: 10px;
 }
 
+/* Confirm Cart Button */
 #confirm-cart-btn {
-    background-color: #28a745;
+    background-color: #007bff;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 16px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-/* Fade-in animation */
+#confirm-cart-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+#confirm-cart-btn:active {
+    background-color: #004085;
+    transform: scale(0.98);
+}
+
+/* Fade-in Animation */
 @keyframes fadeIn {
     from {
         opacity: 0;
