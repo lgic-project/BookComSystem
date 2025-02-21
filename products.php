@@ -81,7 +81,7 @@ if (!$result) {
                     <img src="bookspic/<?php echo htmlspecialchars($row['book_img']); ?>" alt="<?php echo htmlspecialchars($row['title']); ?>">
                     <h3><?php echo htmlspecialchars($row['title']); ?></h3>
                     <p>Author: <?php echo htmlspecialchars($row['author']); ?></p>
-                    <p>Price: $<?php echo htmlspecialchars($row['price']); ?></p>
+                    <p>Price: Rs.<?php echo htmlspecialchars($row['price']); ?></p>
                     <div class="buttons">
                         <form action="view_details.php" method="GET" style="display: inline;">
                             <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
