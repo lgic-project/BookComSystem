@@ -158,23 +158,18 @@ $username = $_SESSION['username'];
             margin-bottom: 10px;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            border-radius: 8px;
-            padding: auto auto;
         }
 
         /* Label styling */
         .stock-label {
             font-size: 16px;
             color: var(--text-dark);
-            margin-right: 5px;
         }
 
         /* Number input styling */
         #stock-input {
+            height: 35px;
             width: 60px;
-            padding: 8px;
-            font-size: 16px;
             border: 1px solid var(--main-color);
             border-radius: 4px;
             text-align: center;
@@ -258,45 +253,45 @@ $username = $_SESSION['username'];
                 if (!empty($search_results)): ?>
                     <h3>Search Results:</h3>
                     <div class="grid-container">
-                        <?php
-                        foreach ($search_results as $row) { ?>
-                            <div class="grid-item">'
-                                <img src="./bookspic/<?php echo $row['book_img'] ?>"
-                                    alt=" <?php echo htmlspecialchars($row['title']) ?> ">
-                                <h3> <?php echo htmlspecialchars($row['title']) ?> </h3>
-                                <p>by <?php echo htmlspecialchars($row['author']) ?></p>
-                                <p class="price">$ <?php echo htmlspecialchars($row['price']) ?> </p>
-                                <form action="admin_searchbooks.php" method="post" class="stock-update-wrapper"
-                                    enctype="multipart/form-data">
-                                    <input type="hidden" name="book_id" value="<?php echo $row['id'] ?>">
-                                    <label for="stock-input" class="stock-label">Stock:</label>
-                                    <input type="number" id="stock-input" name="stock-input" value="<?php echo $row['stock'] ?>"
-                                        min="0" />
+                        <?php foreach ($search_results as $row): ?>
+                            <div class="grid-item">
+                                <img src="./bookspic/<?php echo htmlspecialchars($row['book_img']); ?>"
+                                    alt="<?php echo htmlspecialchars($row['title']); ?>">
+                                <h3><?php echo htmlspecialchars($row['title']); ?></h3>
+                                <p>by <?php echo htmlspecialchars($row['author']); ?></p>
+                                <p class="price">$<?php echo htmlspecialchars($row['price']); ?></p>
+
+                                <form action="admin_searchbooks.php" method="post" class="stock-update-wrapper">
+                                    <input type="hidden" name="book_id" value="<?php echo $row['id']; ?>">
+                                    <label for="stock-input-<?php echo $row['id']; ?>" class="stock-label">Stock:</label>
+                                    <input type="number" id="stock-input" name="stock-input"
+                                        value="<?php echo htmlspecialchars($row['stock']); ?>" min="0">
                                     <input type="submit" class="stock-update-button" value="Update" name="book_stock_update">
                                 </form>
+
                                 <div>
-                                    <p><a class='b-button' href='admin_book_profile.php?book_id=<?php echo $row['id'] ?>'>View
-                                        </a>
-                                        <a class='b-button'
-                                            href='  admin_editbooks.php?book_title=<?php echo $row['title'] ?>'>Edit</a>
+                                    <p>
+                                        <a class="b-button"
+                                            href="admin_book_profile.php?book_id=<?php echo $row['id']; ?>">View</a>
+                                        <a class="b-button"
+                                            href="admin_editbooks.php?book_title=<?php echo urlencode($row['title']); ?>">Edit</a>
+                                    </p>
+
                                     <form method="POST" action="admin_delbook.php" name="delbook">
                                         <input type="hidden" name="book_title"
-                                            value="<?php echo htmlspecialchars($row['title']) ?>">
-                                        <input type="hidden" name="del_from_search" value="<?php $del_from_search = true ?> ">
+                                            value="<?php echo htmlspecialchars($row['title']); ?>">
+                                        <input type="hidden" name="del_from_search" value="1">
                                         <button class="b-button" type="submit" name="delete">Delete</button>
                                     </form>
-                                    </p>
                                 </div>
-                                <?php
-                        }
-                        ?>
-                        </div>
-                    <?php elseif (!empty($search_query)): ?>
-                        <p>No results found for "<?php echo htmlspecialchars($search_query); ?>".</p>
-                    <?php endif; ?>
-
-                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php elseif (!empty($search_query)): ?>
+                    <p>No results found for "<?php echo htmlspecialchars($search_query); ?>".</p>
+                <?php endif; ?>
             </div>
+        </div>
 
 
 

@@ -46,6 +46,7 @@ if (!empty($cart_items)) {
     <link rel="stylesheet" href="css/cart.css">
 </head>
 <body>
+<?php include 'header.php'; ?>
 
 <div class="container">
     <h1>Your Cart</h1>

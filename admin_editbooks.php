@@ -34,8 +34,25 @@ $username = $_SESSION['username'];
     <title>Dashboard Admin: <?php echo $username ?> </title>
 </head>
 <style>
-    .input-group #description{
+    .input-group #description {
         padding: 5px;
+    }
+
+    .btn-submit {
+        margin-top: 20px;
+        margin-left: 40px;
+        background: #4b49ac;
+        height: 50px;
+        width: 150px;
+        padding: 10px 20px;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-submit:hover {
+        background: green !important;
     }
 </style>
 
@@ -83,7 +100,8 @@ $username = $_SESSION['username'];
 
                 <div class="input-group">
                     <label for="pages">Pages:</label>
-                    <input type="number" name="pages" id="pages" value="<?php echo htmlspecialchars($book['pages']) ?>" min="1" required>
+                    <input type="number" name="pages" id="pages" value="<?php echo htmlspecialchars($book['pages']) ?>"
+                        min="1" required>
                 </div>
 
                 <div class="input-group">
@@ -100,7 +118,6 @@ $username = $_SESSION['username'];
                     <input type="text" id="publisher" name="publisher"
                         value="<?php echo htmlspecialchars($book['publisher']); ?>">
                 </div>
-
 
                 <div class="input-group">
                     <label for="price">Price:</label>
@@ -119,8 +136,7 @@ $username = $_SESSION['username'];
                     <label for="description">Description:</label>
                     <textarea type="text" id="description" name="book_description" rows="5" cols="60"></textarea>
                 </div>
-                <input type="submit" name="edit_book" style="width: 8rem; height: 3rem; margin-left: 45px;"
-                    value="Update Book">
+                <button class="btn-submit" type="submit" name="edit_book">Update</button>
             </form>
 
         </div>

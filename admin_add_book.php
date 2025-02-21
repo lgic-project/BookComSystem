@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $isbn = $_POST['isbn'];
   $publisher = trim($_POST['publisher']);
   $price = trim($_POST['price']);
+  $category = trim($_POST['category']);
   $book_description = trim($_POST['description']);
   $stock = $_POST['stock'];
   $bookfile_name = basename($_FILES["book_image"]["name"]);
@@ -65,11 +66,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // inserting book in the database
   // first we need to uplaod file
   if (move_uploaded_file($_FILES["book_image"]["tmp_name"], $target_file)) {
-    if ($stmt = $mysqli->prepare("INSERT  INTO books(title, author, genre,pages, book_description,  pub_year, isbn, publisher, price, stock, book_img ) VAlUES (?, ?, ?,?,?, ?, ?, ?, ?, ?,?)")) {
-      $stmt->bind_param("sssissdis", $title, $author, $genre, $pages, $book_description, $pub_year, $isbn, $publisher, $price, $stock, $new_book_img);
+    if ($stmt = $mysqli->prepare("INSERT  INTO books(title, author, genre,pages, book_description,  pub_year, isbn, publisher, price, stock, book_img ) VAlUES (?, ?, ?,?,?,?, ?, ?, ?, ?, ?)")) {
+      $stmt->bind_param("sssisissdis", $title, $author, $genre, $pages, $book_description, $pub_year, $isbn, $publisher, $price, $stock, $new_book_img);
       if ($stmt->execute()) {
         $stmt->store_result();
-        echo "book added into database";
         header("Location: admin_add_book.php?add_book=success");
         $stmt->close();
         exit();
@@ -152,8 +152,8 @@ $username = $_SESSION['username'];
     }
 
     .btn-submit {
-      margin-top: 20px;
-      margin-left: 100px;
+      margin-left: 40px;
+      margin-top: -40px;
       background: #4b49ac;
       height: 50px;
       width: 150px;
@@ -164,8 +164,9 @@ $username = $_SESSION['username'];
       cursor: pointer;
     }
 
-    .btn-submit:hover{
-      background: green !important;;
+    .btn-submit:hover {
+      background: green !important;
+      ;
     }
   </style>
 </head>
@@ -245,10 +246,16 @@ $username = $_SESSION['username'];
           <input type="text" id="publisher" name="publisher">
         </div>
 
+        <!-- category -->
+        <div class="input-group">
+          <label for="category">Category:</label>
+          <input type="text" id="category" name="category" required>
+        </div>
+
         <!-- Price -->
         <div class="input-group">
           <label for="price">Price:</label>
-          <input type="number" id="price" name="price" step="0.01" min="0">
+          <input type="number" id="price" name="price" step="1" min="0">
         </div>
 
         <!-- Stock -->
