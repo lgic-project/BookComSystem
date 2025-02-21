@@ -1,8 +1,8 @@
 <?php
 // Check if session is already started
-// if (session_status() === PHP_SESSION_NONE) {
-//     session_start();
-// }
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 require_once './connection/config.php';
 
@@ -11,6 +11,9 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
+
+$cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
+json_encode(["cartCount" => $cartCount]);
 
 $user_id = $_SESSION['id']; // Get user ID from session
 $username = $email = $profile_picture = ""; // Initialize variables
@@ -108,15 +111,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile_picture
                         <a href="category.php">Categories <i class="fas fa-caret-down"></i></a>
                         <div class="dropdown_menu">
                             <ul>
-                                <li><a href="#">Fantasy</a></li>
-                                <li><a href="#">Sci-Fi</a></li>
-                                <li><a href="#">Biography</a></li>
-                                <li><a href="#">Self-Help</a></li>
-                                <li><a href="#">Mystery/Thriller</a></li>
-                                <li><a href="#">Romance</a></li>
-                                <li><a href="#">Horror</a></li>
-                                <li><a href="#">History</a></li>
-                                <li><a href="#">Other</a></li>
+                                <li><a href="./category.php?category=fantasy">Fantasy</a></li>
+                                <li><a href="./category.php?category=sci-fi">Sci-Fi</a></li>
+                                <li><a href="./category.php?category=biography">Biography</a></li>
+                                <li><a href="./category.php?category=self-help">Self-Help</a></li>
+                                <li><a href="./category.php?category=mystery/thriller">Mystery/Thriller</a></li>
+                                <li><a href="./category.php?category=romance">Romance</a></li>
+                                <li><a href="./category.php?category=horror">Horror</a></li>
+                                <li><a href="./category.php?category=history">History</a></li>
+                                <li><a href="./category.php?category=other">Other</a></li>
                             </ul>
                         </div>
                     </li>
@@ -136,8 +139,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile_picture
                 </div>
 
                 <!-- Shopping Cart -->
-                <div class="cart">
-                    <a href="cart.php"><i class="fas fa-shopping-cart"></i></a>
+                <div style="position: relative; display: inline-block;">
+                    <a href="cart.php"><i class="fa fa-shopping-cart" style="font-size: 24px;"></i></a>
+                    <span
+                        style="position: absolute; top: -5px; right: -10px; background: red; color: white; font-size: 12px; padding: 2px 5px; border-radius: 50%;">
+                        <?php echo $cartCount; ?>
+                    </span>
                 </div>
 
                 <!-- User Profile -->
@@ -159,6 +166,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile_picture
             </div>
         </div>
     </header>
+    <script>
+        function updateCartCount() {
+            fetch("header.php")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("cartCount").textContent = data.cartCount;
+                })
+                .catch(error => console.error("Error fetching cart count:", error));
+        }
+
+        // Call function on page load
+        document.addEventListener("DOMContentLoaded", updateCartCount);
+    </script>
 </body>
+
 
 </html>

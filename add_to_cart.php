@@ -13,6 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['cart'][] = $product_id;
 
     // Return success message
-    echo json_encode(['message' => 'Added to cart']);
+    $_SESSION['cart_success'] = "Book added to cart successfully!";
 }
 ?>

@@ -19,6 +19,7 @@ if (!$result) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +29,8 @@ if (!$result) {
     <style>
         /* Centered Modal */
         .cart-modal {
-            display: none; /* Hidden by default */
+            display: none;
+            /* Hidden by default */
             position: fixed;
             top: 50%;
             left: 50%;
@@ -44,7 +46,8 @@ if (!$result) {
 
         /* Overlay Background */
         .modal-overlay {
-            display: none; /* Hidden by default */
+            display: none;
+            /* Hidden by default */
             position: fixed;
             top: 0;
             left: 0;
@@ -70,7 +73,13 @@ if (!$result) {
         }
     </style>
 </head>
+
 <body>
+    <!-- Success Alert -->
+    <div id="cartAlert"
+        style="display: none; background: green; color: white; padding: 10px; position: fixed; top: 10px; right: 10px; border-radius: 5px;">
+        Book added to cart successfully!
+    </div>
 
     <?php include 'header.php'; ?>
     <div class="container">
@@ -78,7 +87,8 @@ if (!$result) {
         <div class="products-grid">
             <?php while ($row = $result->fetch_assoc()): ?>
                 <div class="product-card">
-                    <img src="bookspic/<?php echo htmlspecialchars($row['book_img']); ?>" alt="<?php echo htmlspecialchars($row['title']); ?>">
+                    <img src="bookspic/<?php echo htmlspecialchars($row['book_img']); ?>"
+                        alt="<?php echo htmlspecialchars($row['title']); ?>">
                     <h3><?php echo htmlspecialchars($row['title']); ?></h3>
                     <p>Author: <?php echo htmlspecialchars($row['author']); ?></p>
                     <p>Price: Rs.<?php echo htmlspecialchars($row['price']); ?></p>
@@ -87,7 +97,14 @@ if (!$result) {
                             <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                             <button type="submit">View Details</button>
                         </form>
-                        <button class="add-to-cart-btn" data-id="<?php echo $row['id']; ?>">Add to Cart</button>
+                        <form method="add_to_cart.php" method="POST"
+                            style="display: inline;">
+                            <input type="hidden" name="product_id" value="<?php echo $row['id']; ?>">
+
+                            <button type="submit" class="add-to-cart-btn" data-id="<?php echo $row['id']; ?>">Add to
+                                Cart</button>
+                        </form>
+                        
                     </div>
                 </div>
             <?php endwhile; ?>
@@ -113,14 +130,14 @@ if (!$result) {
                     },
                     body: `product_id=${productId}`
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById('cart-modal').style.display = 'block';
-                        document.getElementById('modal-overlay').style.display = 'block';
-                    }
-                })
-                .catch(err => console.error('Error:', err));
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('cart-modal').style.display = 'block';
+                            document.getElementById('modal-overlay').style.display = 'block';
+                        }
+                    })
+                    .catch(err => console.error('Error:', err));
             });
         });
 
@@ -134,6 +151,8 @@ if (!$result) {
         }
     </script>
 
+
     <?php include 'footer.php'; ?>
 </body>
+
 </html>

@@ -2,15 +2,15 @@
 session_start();
 include 'connection/config.php'; // Database connection
 
-if (isset($_SESSION['transaction_msg'])) {
-    echo $_SESSION['transaction_msg'];
-    unset($_SESSION['transaction_msg']);
-}
+// if (isset($_SESSION['transaction_msg'])) {
+//     echo $_SESSION['transaction_msg'];
+//     unset($_SESSION['transaction_msg']);
+// }
 
-if (isset($_SESSION['validate_msg'])) {
-    echo $_SESSION['validate_msg'];
-    unset($_SESSION['validate_msg']);
-}
+// if (isset($_SESSION['validate_msg'])) {
+//     echo $_SESSION['validate_msg'];
+//     unset($_SESSION['validate_msg']);
+// }
 
 
 // Handle removing an item from the cart
