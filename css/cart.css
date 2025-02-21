@@ -4,7 +4,14 @@ body {
     color: #333;
 }
 
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
 .container {
+    flex: 1;
     max-width: 800px;
     margin: 50px auto;
     padding: 20px;
@@ -22,7 +29,8 @@ table {
     border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
     padding: 10px;
     text-align: left;
     border: 1px solid #ddd;
