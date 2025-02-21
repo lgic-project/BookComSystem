@@ -15,6 +15,7 @@ if (!isset($_SESSION['theme'])) {
     $_SESSION['theme'] = 'light-mode';
 }
 
+
 include 'header.php';
 include 'connection/config.php';
 

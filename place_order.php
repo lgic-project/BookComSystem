@@ -89,8 +89,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         unset($_SESSION['cart']);
                         $data = base64_encode(json_encode(["status" => "order_placed", "order_id" => "$order_id", "user_id" => $user_id, "amount" => $total_price, "order_date" => $order_date]));
                         if (!empty($payment_method)) {
+                            $_SESSION['order_id'] = $order_id;
                             header("Location: payment-request.php?data=$data");
                         } else {
+                            $_SESSION['order_id'] = $order_id;
                             header("Location: cart.php?status=order_placed");
                         }
                     } else {

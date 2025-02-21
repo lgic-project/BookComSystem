@@ -1,4 +1,5 @@
 <?php
+include './connection/config.php';
 session_start();
 // Get the pidx from the URL
 $pidx = $_GET['pidx'] ?? null;
@@ -20,7 +21,7 @@ if ($pidx) {
             'Content-Type: application/json',
         ),
     ));
- 
+
 
     $response = curl_exec($curl);
     curl_close($curl);
@@ -30,6 +31,22 @@ if ($pidx) {
         switch ($responseArray['status']) {
             case 'Completed':
                 //here you can write your logic to update the database
+                $order_id = $_SESSION['order_id'];
+                $sql = "SELECT product_id, quantity FROM order_items WHERE order_id = ?";
+                $stmt = $mysqli->prepare($sql);
+                $stmt->bind_param("i", $order_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                while ($row = $result->fetch_assoc()) {
+                    $product_id = $row['product_id'];
+                    $quantity = $row['quantity'];
+
+                    // Update stock in products table
+                    $update_sql = "UPDATE books SET stock = stock - ? WHERE id = ?";
+                    $update_stmt = $mysqli->prepare($update_sql);
+                    $update_stmt->bind_param("ii", $quantity, $product_id);
+                    $update_stmt->execute();
+                }
                 $_SESSION['transaction_msg'] = '<script>
                         Swal.fire({
                             icon: "success",
@@ -58,7 +75,7 @@ if ($pidx) {
                 exit();
                 break;
             default:
-            //here you can write your logic to update the database
+                //here you can write your logic to update the database
                 $_SESSION['transaction_msg'] = '<script>
                         Swal.fire({
                             icon: "error",
