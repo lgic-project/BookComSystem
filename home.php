@@ -239,7 +239,7 @@ $resultLatest = $mysqli->query($sqlLatest);
                 echo '<img src="./bookspic/' . htmlspecialchars($row['book_img']) . '" alt="' . htmlspecialchars($row['title']) . '">';
                 echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
                 echo '<p>by ' . htmlspecialchars($row['author']) . '</p>';
-                echo '<p class="price">$' . htmlspecialchars($row['price']) . '</p>';
+                echo '<p class="price">Rs.' . htmlspecialchars($row['price']) . '</p>';
                 echo '<a href="view_details.php?id=' . htmlspecialchars($row['id']) . '" class="view-btn">View Details</a>';
                 echo '</div>';
             }
@@ -261,7 +261,7 @@ $resultLatest = $mysqli->query($sqlLatest);
                 echo '<img src="./bookspic/' . htmlspecialchars($row['book_img']) . '" alt="' . htmlspecialchars($row['title']) . '">';
                 echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
                 echo '<p>by ' . htmlspecialchars($row['author']) . '</p>';
-                echo '<p class="price">$' . htmlspecialchars($row['price']) . '</p>';
+                echo '<p class="price">Rs.' . htmlspecialchars($row['price']) . '</p>';
                 echo '<a href="view_details.php?id=' . htmlspecialchars($row['id']) . '" class="view-btn">View Details</a>';
                 echo '</div>';
             }
