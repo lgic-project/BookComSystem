@@ -232,27 +232,27 @@ $resultLatest = $mysqli->query($sqlLatest);
         <p>A book a day keeps reality away!!</p>
     </section>
 
-<!-- Featured Books Section -->
-<section class="book-grid">
-    <h2>Featured Books</h2>
-    <div class="scroll-container">
-        <?php
-        if ($resultFeatured->num_rows > 0) {
-            while ($row = $resultFeatured->fetch_assoc()) {
-                echo '<div class="book-card">';
-                echo '<img src="./bookspic/' . htmlspecialchars($row['book_img']) . '" alt="' . htmlspecialchars($row['title']) . '">';
-                echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
-                echo '<p>by ' . htmlspecialchars($row['author']) . '</p>';
-                echo '<p class="price">$' . htmlspecialchars($row['price']) . '</p>';
-                echo '<a href="view_details.php?id=' . htmlspecialchars($row['id']) . '" class="view-btn">View Details</a>';
-                echo '</div>';
+    <!-- Featured Books Section -->
+    <section class="book-grid">
+        <h2>Featured Books</h2>
+        <div class="scroll-container">
+            <?php
+            if ($resultFeatured->num_rows > 0) {
+                while ($row = $resultFeatured->fetch_assoc()) {
+                    echo '<div class="book-card">';
+                    echo '<img src="./bookspic/' . htmlspecialchars($row['book_img']) . '" alt="' . htmlspecialchars($row['title']) . '">';
+                    echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
+                    echo '<p>by ' . htmlspecialchars($row['author']) . '</p>';
+                    echo '<p class="price">Rs.' . htmlspecialchars($row['price']) . '</p>';
+                    echo '<a href="view_details.php?id=' . htmlspecialchars($row['id']) . '" class="view-btn">View Details</a>';
+                    echo '</div>';
+                }
+            } else {
+                echo '<p>No featured books available</p>';
             }
-        } else {
-            echo '<p>No featured books available</p>';
-        }
-        ?>
-    </div>
-</section>
+            ?>
+        </div>
+    </section>
 
 <!-- Latest Books Section -->
 <section class="book-grid">
