@@ -28,12 +28,13 @@ $resultLatest = $mysqli->query($sqlLatest);
     background: url('bookspic/bg4.jpg') no-repeat center center/cover;
     height: 50vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: 100px 20px;
     color: white;
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
     font-size: 1.2rem;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }

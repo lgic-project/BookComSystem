@@ -26,15 +26,12 @@ if (!$result) {
     <title>Products</title>
     <link rel="stylesheet" href="./css/products.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
-    <style>
-      /* Enhanced Centered Modal */
-.cart-modal {
-    display: none;
-    /* Hidden by default */
+    <style>.cart-modal {
+    display: none; /* Start hidden */
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0.8);
     width: 350px;
     background: #fff;
     padding: 30px;
@@ -47,14 +44,13 @@ if (!$result) {
 }
 
 .cart-modal.show {
+    display: block;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
 }
 
-/* Overlay Background */
 .modal-overlay {
-    display: none;
-    /* Hidden by default */
+    display: none; /* Start hidden */
     position: fixed;
     top: 0;
     left: 0;
@@ -67,6 +63,7 @@ if (!$result) {
 }
 
 .modal-overlay.show {
+    display: block;
     opacity: 1;
 }
 
@@ -175,8 +172,9 @@ if (!$result) {
                     .then(data => {
                         if (data.success) {
                             // Show modal confirmation
-                            document.getElementById('cart-modal').style.display = 'block';
-                            document.getElementById('modal-overlay').style.display = 'block';
+                            document.getElementById('cart-modal').classList.add('show');
+                            document.getElementById('modal-overlay').classList.add('show');
+
                         }
                     })
                     .catch(err => console.error('Error:', err));
@@ -188,8 +186,9 @@ if (!$result) {
         document.getElementById('confirm-btn').addEventListener('click', closeModal);
 
         function closeModal() {
-            document.getElementById('cart-modal').style.display = 'none';
-            document.getElementById('modal-overlay').style.display = 'none';
+            document.getElementById('cart-modal').classList.remove('show');
+document.getElementById('modal-overlay').classList.remove('show');
+
         }
     </script>
 
