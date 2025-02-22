@@ -156,6 +156,47 @@ $resultLatest = $mysqli->query($sqlLatest);
         height: 200px;
     }
 }
+/* 📝 About Section Styling */
+.about {
+    text-align: center;
+    padding: 40px 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    margin: 30px auto;
+    max-width: 800px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.about h2 {
+    font-size: 28px;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+.about p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.about h3 {
+    font-size: 20px;
+    color: #444;
+    margin-top: 20px;
+}
+
+.about ul {
+    list-style: none;
+    padding: 0;
+}
+
+.about ul li {
+    font-size: 16px;
+    color: #666;
+    padding: 5px 0;
+}
+
 
     </style>
 </head>
@@ -211,9 +252,27 @@ $resultLatest = $mysqli->query($sqlLatest);
 
 <!-- About Section -->
 <section class="about">
-    <h2>About Us</h2>
-    <p>E-Book Pasal is your one-stop shop for amazing books. We provide a wide range of collections to satisfy every reader.</p>
+    <h2>📖 About Us</h2>
+    <p>Welcome to <strong>Bookly</strong>, your ultimate online bookstore! We bring the joy of reading to your fingertips, offering a diverse collection of books across various genres.</p>
+
+    <h3>🌟 Our Mission</h3>
+    <ul>
+        <li>📚 To make books accessible and affordable for everyone.</li>
+        <li>🌍 To promote a culture of reading and knowledge sharing.</li>
+        <li>💡 To support and showcase talented authors from all backgrounds.</li>
+    </ul>
+
+    <h3>📌 Why Choose Us?</h3>
+    <p>We offer:</p>
+    <ul>
+        <li>✔️ A vast collection of books in different categories.</li>
+        <li>✔️ Competitive pricing and regular discounts.</li>
+        <li>✔️ A seamless shopping experience with secure payment options.</li>
+    </ul>
+
+    <p>Join us in our journey to create a world where books are more than just words on paper—they're gateways to new adventures! 🚀</p>
 </section>
+
 
 <!-- Footer -->
 <?php include 'footer.php'; ?>
