@@ -97,14 +97,8 @@ if (!$result) {
                             <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                             <button type="submit">View Details</button>
                         </form>
-                        <form method="add_to_cart.php" method="POST"
-                            style="display: inline;">
-                            <input type="hidden" name="product_id" value="<?php echo $row['id']; ?>">
-
-                            <button type="submit" class="add-to-cart-btn" data-id="<?php echo $row['id']; ?>">Add to
-                                Cart</button>
-                        </form>
-                        
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-btn" data-id="<?php echo $row['id']; ?>">Add to Cart</button>
                     </div>
                 </div>
             <?php endwhile; ?>
@@ -133,6 +127,7 @@ if (!$result) {
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
+                            // Show modal confirmation
                             document.getElementById('cart-modal').style.display = 'block';
                             document.getElementById('modal-overlay').style.display = 'block';
                         }
@@ -150,7 +145,6 @@ if (!$result) {
             document.getElementById('modal-overlay').style.display = 'none';
         }
     </script>
-
 
     <?php include 'footer.php'; ?>
 </body>
