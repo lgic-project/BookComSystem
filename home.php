@@ -303,7 +303,7 @@ $resultLatest = $mysqli->query($sqlLatest);
 
 
     <!-- Footer -->
-    <?php include 'footer.php'; ?>
+    <!-- <?php include 'footer.php'; ?> -->
 
 </body>
 
