@@ -1,5 +1,9 @@
 <?php
-$_SESSION['username'] = "Deepak";
+
+if (!isset($_SESSION['username']) && !$_SESSION['login_success']) {
+    header(" Location: admin_login.php");
+    exit();
+}
 $username = $_SESSION['username'];
 
 require_once './connection/config.php';
