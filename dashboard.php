@@ -14,7 +14,7 @@ $username = $_SESSION['username']; // Fetch the logged-in username from session 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Sasto E-Pasal</title>
+    <title>Bookly | Dashboard</title>
     <link rel="stylesheet" href="./css/dashboard.css">
 </head>
 <body>

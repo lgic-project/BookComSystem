@@ -245,7 +245,7 @@ $category = isset($_POST['category']) ? $_POST['category'] : '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
+    <title>Search</title>
 
     <!-- Linking external CSS -->
     <link rel="stylesheet" href="css/style.css">

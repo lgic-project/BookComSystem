@@ -30,7 +30,7 @@ if (!isset($_SESSION['theme'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
+    <title>Bookly | Homepage</title>
 
     <!-- Linking external CSS -->
     <link rel="stylesheet" href="css/style.css">
