@@ -60,7 +60,6 @@ if (!isset($_SESSION['theme'])) {
 //         echo "<p>Error: home.php file not found.</p>";
 //     }
 // }
-include 'footer.php';
 ?>
 
 </body>

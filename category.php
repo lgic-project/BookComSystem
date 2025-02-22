@@ -133,14 +133,18 @@ document.getElementById('confirm-btn').addEventListener('click', function () {
 }
 
 /* Books Container - Horizontal Scroll with Wrapping */
-#books-container {
+/* #books-container {
+    * Center the books */
+ *
+
+.book-grid{
     display: flex;
     flex-wrap: wrap;  /* Allow books to wrap into multiple rows */
     gap: 15px;
     padding: 10px;
     margin-top: 30px;
     scroll-behavior: smooth;
-    justify-content: center; /* Center the books */
+    justify-content: center; /
 }
 
 /* Book Card Styling */
