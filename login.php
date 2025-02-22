@@ -131,9 +131,6 @@ if (isset($_GET['error'])) {
         <p class="switch-link">
             <a href="forgotpw.php">Forgot Password?</a>.
         </p>
-        <p>
-            <a href="admin_login.php">Admin Login</a>
-        </p>
         <p class="switch-link">
             Don't have an account? <a href="register.php">Register here</a>.
         </p>
