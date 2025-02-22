@@ -59,7 +59,6 @@ if (isset($_GET['error'])) {
         $error = "Search Failed";
     }
 }
-$_SESSION['username'] = "Deepak";
 $username = $_SESSION['username'];
 ?>
 
@@ -259,7 +258,7 @@ $username = $_SESSION['username'];
                                     alt="<?php echo htmlspecialchars($row['title']); ?>">
                                 <h3><?php echo htmlspecialchars($row['title']); ?></h3>
                                 <p>by <?php echo htmlspecialchars($row['author']); ?></p>
-                                <p class="price">$<?php echo htmlspecialchars($row['price']); ?></p>
+                                <p class="price">Rs.<?php echo htmlspecialchars($row['price']); ?></p>
 
                                 <form action="admin_searchbooks.php" method="post" class="stock-update-wrapper">
                                     <input type="hidden" name="book_id" value="<?php echo $row['id']; ?>">

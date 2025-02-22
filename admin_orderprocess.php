@@ -6,6 +6,16 @@ if (!isset($_SESSION['username']) && !$_SESSION['login_success']) {
   exit();
 }
 
+
+
+//show the order different status
+$order_cancelled_table = false;
+$order_completed_table = false;
+$order_pending_table = false;
+
+if($_SESSION['login_success']){
+    $order_pending_table = true;
+}
 //database connection
 include_once './connection/config.php';
 
@@ -15,8 +25,6 @@ $sql = "SELECT o.id, o.order_date, o.status, o.total_price, u.username, u.email,
         JOIN users u ON o.user_id = u.id";
 $result = $mysqli->query($sql);
 
-
-$_SESSION['username'] = "Deepak";
 $username = $_SESSION['username'];
 
 
@@ -39,10 +47,7 @@ if (isset($_POST['status'])) {
 
 
 
-//show the order different status
-$order_cancelled_table = false;
-$order_completed_table = false;
-$order_pending_table = false;
+
 
 if (isset($_POST['book_order'])) {
     $book_order = $_POST['book_order'];
@@ -233,7 +238,7 @@ if (isset($_POST['book_order'])) {
                                         <td><?php echo $row['phone_no']; ?></td>
                                         <td><?php echo $row['order_date']; ?></td>
                                         <td><?php echo $row['status']; ?></td>
-                                        <td>$<?php echo number_format($row['total_price'], 2); ?></td>
+                                        <td>Rs.<?php echo number_format($row['total_price'], 2); ?></td>
                                         <td>
                                             <form method="POST" style="display:inline;">
                                                 <input type="hidden" name="order_id" value="<?php echo $row['id']; ?>">
@@ -254,7 +259,7 @@ if (isset($_POST['book_order'])) {
                                         <td><?php echo $row['phone_no']; ?></td>
                                         <td><?php echo $row['order_date']; ?></td>
                                         <td><?php echo $row['status']; ?></td>
-                                        <td>$<?php echo number_format($row['total_price'], 2); ?></td>
+                                        <td>Rs.<?php echo number_format($row['total_price'], 2); ?></td>
                                         <td><?php echo $row['status']; ?></td>
                                     </tr>
                                 <?php elseif ($row['status'] === "Cancelled" && $order_cancelled_table): ?>
@@ -265,7 +270,7 @@ if (isset($_POST['book_order'])) {
                                         <td><?php echo $row['phone_no']; ?></td>
                                         <td><?php echo $row['order_date']; ?></td>
                                         <td><?php echo $row['status']; ?></td>
-                                        <td>$<?php echo number_format($row['total_price'], 2); ?></td>
+                                        <td>Rs.<?php echo number_format($row['total_price'], 2); ?></td>
                                         <td><?php echo $row['status']; ?></td>
                                     </tr>
                                 <?php endif; ?>

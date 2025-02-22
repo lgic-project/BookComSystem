@@ -164,7 +164,7 @@ if (isset($_GET['delete_book'])) {
               <img src="./bookspic/<?php echo $row['book_img'] ?> " alt="<?php echo htmlspecialchars($row['title']) ?>">
               <h3> <?php echo htmlspecialchars($row['title']) ?> </h3>
               <p>by <?php htmlspecialchars($row['author']) ?> </p>
-              <p class="price">$ <?php echo htmlspecialchars($row['price']) ?> </p>
+              <p class="price">Rs. <?php echo htmlspecialchars($row['price']) ?> </p>
               <form method="POST" action="admin_delbook.php" name="delbook">
                 <input type="hidden" name="book_id" value="<?php echo htmlspecialchars($row['id']) ?> ">
                 <input type="hidden" name="book_title" value="<?php echo htmlspecialchars($row['title']) ?> ">

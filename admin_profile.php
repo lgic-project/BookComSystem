@@ -5,9 +5,8 @@ if (!isset($_SESSION['username']) && !$_SESSION['login_success']) {
   exit();
 }
 $error = "";
-$_SESSION['username'] = "Deepak";
 $username = $_SESSION['username'];
-$admin_id = 1;
+$admin_id = $_SESSION['id'];
 
 require_once './connection/config.php';
 

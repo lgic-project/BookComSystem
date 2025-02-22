@@ -20,6 +20,9 @@ $result = $mysqli->query("SELECT sum(total_price) AS total_sales FROM orders WHE
 if ($result) {
     $row = $result->fetch_assoc();
     $total_sales = $row['total_sales'];
+    if($total_sales < 0 ){
+        $total_sales = 0;
+    }
 } else {
     $total_sales = 0;
 }
@@ -236,7 +239,7 @@ p {
             <div class="error-box"><?php echo $error; ?></div>
         <?php } ?>
 
-        <h2 class="dashboard-title">📊 Dashboard Overview</h2>
+        <h2 class="dashboard-title">📊 Report Overview</h2>
 
         <div class="dashboard">
             <!-- Sales Overview -->
@@ -245,10 +248,10 @@ p {
                 <div class="stats">
                     <div class="stat">
                         <h4>Total Sales</h4>
-                        <p>$<?php echo number_format($total_sales, 2); ?></p>
+                        <p>Rs.<?php echo number_format((float)$total_sales, 2); ?></p>
                     </div>
                     <div class="stat">
-                        <h4>Books Sold</h4>
+                        <h4>Total Books</h4>
                         <p><?php echo $book_count; ?></p>
                     </div>
                     <div class="stat">

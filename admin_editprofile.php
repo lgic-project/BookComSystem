@@ -1,8 +1,7 @@
 <?php
 session_start();
-$_SESSION['username'] = "Deepak";
 $username = $_SESSION['username'];
-$admin_id = 1;
+$admin_id = $_SESSION['id'];
 
 require_once './connection/config.php';
 

@@ -133,7 +133,7 @@ $result = $mysqli->query($sql);
                             alt="<?php echo htmlspecialchars($row['title']); ?>">
                         <h3><?php echo htmlspecialchars($row['title']); ?></h3>
                         <p>by <?php echo htmlspecialchars($row['author']); ?></p>
-                        <p class="price">$<?php echo htmlspecialchars($row['price']); ?></p>
+                        <p class="price">Rs.<?php echo htmlspecialchars($row['price']); ?></p>
                         <form method="POST" action="admin_delbook.php" name="delbook">
                             <input type="hidden" name="book_title" value="<?php echo htmlspecialchars($row['title']); ?>">
                             <button type="submit" name="delete">Delete</button>
