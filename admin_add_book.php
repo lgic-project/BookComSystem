@@ -154,7 +154,6 @@ $username = $_SESSION['username'];
 
     .btn-submit {
       margin-left: 40px;
-      margin-top: -40px;
       background: #4b49ac;
       height: 50px;
       width: 150px;
@@ -247,11 +246,11 @@ $username = $_SESSION['username'];
           <input type="text" id="publisher" name="publisher">
         </div>
 
-        <!-- category -->
+        <!-- category
         <div class="input-group">
           <label for="category">Category:</label>
           <input type="text" id="category" name="category" required>
-        </div>
+        </div> -->
 
         <!-- Price -->
         <div class="input-group">

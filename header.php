@@ -157,7 +157,7 @@ if ($user_id) {
 
             <div class="header-right">
                 <div class="search-bar">
-                    <form action="" method="post">
+                    <form action="search_filter.php" method="post">
                         <input type="text" name="search_query" placeholder="Search for books..." value="<?php echo htmlspecialchars($search_query); ?>" />
                         <button type="submit" name="search_query_btn"><i class="fas fa-search"></i></button>
                     </form>
