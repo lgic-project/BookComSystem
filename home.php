@@ -104,7 +104,7 @@ $resultLatest = $mysqli->query($sqlLatest);
 
         .book-card img {
             width: 100%;
-            height: 230px;
+            height: 320px;
             object-fit: cover;
             border-radius: 8px;
         }

@@ -6,31 +6,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
 require_once './connection/config.php';
 
-// Handle search query
-$search_query = "";
-$search_results = [];
 
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['search_query_btn'])) {
-    $search_query = isset($_POST['search_query']) ? trim($_POST['search_query']) : '';
 
-    if (!empty($search_query)) {
-        // Query to find books with titles matching the search query
-        $sql = "SELECT id, title, book_img FROM books WHERE title LIKE ?";
-
-        if ($stmt = $mysqli->prepare($sql)) {
-            $search_param = "%$search_query%"; // Matches partial text
-            $stmt->bind_param("s", $search_param);
-
-            if ($stmt->execute()) {
-                $result = $stmt->get_result();
-                while ($row = $result->fetch_assoc()) {
-                    $search_results[] = $row;
-                }
-            }
-            $stmt->close();
-        }
-    }
-}
 
 // Check if user is logged in
 if (!isset($_SESSION['username'])) {
@@ -68,27 +45,7 @@ if ($user_id) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/style.css">
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const searchInput = document.querySelector('input[name="search_query"]');
-            const searchResults = document.querySelector('.search-results');
-
-            searchInput.addEventListener("input", function () {
-                if (this.value.length > 0) {
-                    searchResults.style.display = "block";
-                } else {
-                    searchResults.style.display = "none";
-                }
-            });
-
-            document.addEventListener("click", function (event) {
-                if (!searchResults.contains(event.target) && event.target !== searchInput) {
-                    searchResults.style.display = "none";
-                }
-            });
-        });
-    </script>
-    <style>
+    <!-- <style>
         .search-results {
             position: absolute;
             background: #fff;
@@ -120,7 +77,7 @@ if ($user_id) {
             height: 40px;
             margin-right: 10px;
         }
-    </style>
+    </style> -->
 </head>
 
 <body class="<?php echo $_SESSION['theme'] ?? 'default-theme'; ?>">
@@ -158,25 +115,13 @@ if ($user_id) {
             <div class="header-right">
                 <div class="search-bar">
                     <form action="search_filter.php" method="post">
-                        <input type="text" name="search_query" placeholder="Search for books..." value="<?php echo htmlspecialchars($search_query); ?>" />
+                        <input type="text" name="search_query" placeholder="Search for books..." value="<?php echo isset($search_query) ? $search_query : ''; ?>"
+                        />
                         <button type="submit" name="search_query_btn"><i class="fas fa-search"></i></button>
                     </form>
 
                     <!-- Search Results Dropdown -->
-                    <?php if (!empty($search_results)): ?>
-                        <div class="search-results">
-                            <ul>
-                                <?php foreach ($search_results as $book): ?>
-                                    <li>
-                                        <a href="book_details.php?id=<?php echo $book['id']; ?>">
-                                            <img src="uploads/<?php echo $book['book_img']; ?>" alt="<?php echo htmlspecialchars($book['title']); ?>">
-                                            <?php echo htmlspecialchars($book['title']); ?>
-                                        </a>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
+
                 </div>
 
                 <!-- Shopping Cart -->

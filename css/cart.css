@@ -8,11 +8,10 @@ body {
 .wrapper {
     display: flex;
     flex-direction: column;
-    height: 100vh;
 }
 .container {
     flex: 1;
-    max-width: 800px;
+    width: 800px;
     margin: 50px auto;
     padding: 20px;
     background: #fff;

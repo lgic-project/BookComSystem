@@ -80,7 +80,7 @@
 
     <script>
         // Countdown timer before redirection
-        let count = 5;
+        let count = 3;
         let timer = document.getElementById("timer");
 
         setInterval(() => {

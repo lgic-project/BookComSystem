@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'connection/config.php';
-$_SESSION['user_id'] = 1;
+$user_id = $_SESSION['id'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_SESSION['user_id'])) {
         header("Location:cart.php?status=login_to_place_order_");
@@ -47,9 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             while ($row = $result->fetch_assoc()) {
                 $total_price += $row['price'];
             }
-
-
-            $user_id = 1;
             $order_date = date("Y-m-d H:i:s");
             $status = 'Pending';
 

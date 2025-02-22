@@ -2,6 +2,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" href="css/footer.css">
 </head>
+<style>
+    #box-2{
+        text-align: left;
+    }
+    #box-3{
+        text-align: left;
+    }
+</style>
 
 <footer class="footer">
 
@@ -17,7 +25,7 @@
             <a href="contact.php">Contact</a>
         </div>
 
-        <div class="box">
+        <div class="box" id="box-2">
             <h3>Contact info</h3>
             <p><i class="fas fa-phone"></i> +977-9746311761</p>
             <p><i class="fas fa-phone"></i> +977-9746311761</p>
@@ -25,7 +33,7 @@
             <p><i class="fas fa-map-marker-alt"></i> Pokhara, Nepal - 33700</p>
         </div>
 
-        <div class="box">
+        <div class="box" id="box-3">
             <h3>Follow Us</h3>
             <a href="#"> <i class="fab fa-facebook-f"></i> Facebook </a>
             <a href="#"> <i class="fab fa-twitter"></i> Twitter </a>
