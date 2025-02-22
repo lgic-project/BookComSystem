@@ -2,8 +2,8 @@
 
 session_start();
 if (!isset($_SESSION['username']) && !$_SESSION['login_success']) {
-  header(" Location: admin_login.php");
-  exit();
+    header(" Location: admin_login.php");
+    exit();
 }
 
 
@@ -13,7 +13,7 @@ $order_cancelled_table = false;
 $order_completed_table = false;
 $order_pending_table = false;
 
-if($_SESSION['login_success']){
+if ($_SESSION['login_success']) {
     $order_pending_table = true;
 }
 //database connection
@@ -255,6 +255,27 @@ if (isset($_POST['book_order'])) {
                                     <tr>
                                         <td><?php echo $row['id']; ?></td>
                                         <td><?php echo $row['username']; ?> (<?php echo $row['email']; ?>)</td>
+                                        <td>
+                                            <?php
+                                            $sql = "SELECT * FROM order_items o WHERE order_id =" . (int) $row['id'];
+                                            $result1 = $mysqli->query($sql);
+                                            if ($result1->num_rows > 0) {
+                                                while ($row1 = $result1->fetch_assoc()) {
+                                                    $sql = "SELECT * FROM books WHERE id =" . (int) $row1['product_id'];
+                                                    $result2 = $mysqli->query($sql);
+                                                    if ($result2->num_rows > 0) {
+                                                        while ($row2 = $result2->fetch_assoc()) {
+                                                            echo $row2['title'] . "(" . $row1['quantity'] . ") :" . $row2['price'] . "<br>";
+
+                                                        }
+                                                    }
+                                                }
+                                                $result2->close();
+                                                $result1->close();
+
+                                            }
+                                            ?>
+                                        </td>
                                         <td><?php echo $row['address']; ?></td>
                                         <td><?php echo $row['phone_no']; ?></td>
                                         <td><?php echo $row['order_date']; ?></td>
@@ -266,6 +287,27 @@ if (isset($_POST['book_order'])) {
                                     <tr>
                                         <td><?php echo $row['id']; ?></td>
                                         <td><?php echo $row['username']; ?> (<?php echo $row['email']; ?>)</td>
+                                        <td>
+                                            <?php
+                                            $sql = "SELECT * FROM order_items o WHERE order_id =" . (int) $row['id'];
+                                            $result1 = $mysqli->query($sql);
+                                            if ($result1->num_rows > 0) {
+                                                while ($row1 = $result1->fetch_assoc()) {
+                                                    $sql = "SELECT * FROM books WHERE id =" . (int) $row1['product_id'];
+                                                    $result2 = $mysqli->query($sql);
+                                                    if ($result2->num_rows > 0) {
+                                                        while ($row2 = $result2->fetch_assoc()) {
+                                                            echo $row2['title'] . "(" . $row1['quantity'] . ") :" . $row2['price'] . "<br>";
+
+                                                        }
+                                                    }
+                                                }
+                                                $result2->close();
+                                                $result1->close();
+
+                                            }
+                                            ?>
+                                        </td>
                                         <td><?php echo $row['address']; ?></td>
                                         <td><?php echo $row['phone_no']; ?></td>
                                         <td><?php echo $row['order_date']; ?></td>

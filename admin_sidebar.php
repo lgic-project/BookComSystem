@@ -34,12 +34,12 @@
                 <span class="text">Order</span>
             </a>
         </li>
-        <li>
+        <!-- <li>
             <a href="admin_stat.php">
                 <i class='bx bx-line-chart'></i>
                 <span class="text">Report</span>
             </a>
-        </li>
+        </li> -->
     </ul>
     <ul class="side-menu">
         <li>

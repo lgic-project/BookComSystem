@@ -1,5 +1,5 @@
-git pull origin main <?php
-
+<?php
+session_start();
 include('./connection/config.php');
 $msg_from_edit = "";
 if (isset($_GET['bookedit'])) {
@@ -61,7 +61,6 @@ if (isset($_GET['error'])) {
 }
 $username = $_SESSION['username'];
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
