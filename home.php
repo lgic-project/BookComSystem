@@ -196,6 +196,25 @@ $resultLatest = $mysqli->query($sqlLatest);
     color: #666;
     padding: 5px 0;
 }
+/* 📌 View Details Button */
+.view-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: #6200ea;
+    color: white;
+    padding: 8px 0;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: 0.3s ease;
+}
+
+.view-btn:hover {
+    background: #3700b3;
+}
 
 
     </style>
@@ -220,6 +239,7 @@ $resultLatest = $mysqli->query($sqlLatest);
                 echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
                 echo '<p>by ' . htmlspecialchars($row['author']) . '</p>';
                 echo '<p class="price">$' . htmlspecialchars($row['price']) . '</p>';
+                echo '<a href="view_details.php?id=' . htmlspecialchars($row['id']) . '" class="view-btn">View Details</a>';
                 echo '</div>';
             }
         } else {
@@ -241,6 +261,7 @@ $resultLatest = $mysqli->query($sqlLatest);
                 echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
                 echo '<p>by ' . htmlspecialchars($row['author']) . '</p>';
                 echo '<p class="price">$' . htmlspecialchars($row['price']) . '</p>';
+                echo '<a href="view_details.php?id=' . htmlspecialchars($row['id']) . '" class="view-btn">View Details</a>';
                 echo '</div>';
             }
         } else {
