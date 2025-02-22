@@ -27,50 +27,97 @@ if (!$result) {
     <link rel="stylesheet" href="./css/products.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <style>
-        /* Centered Modal */
-        .cart-modal {
-            display: none;
-            /* Hidden by default */
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 30%;
-            background: white;
-            padding: 20px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            z-index: 1000;
-            text-align: center;
-        }
+      /* Enhanced Centered Modal */
+.cart-modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    background: #fff;
+    padding: 30px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    z-index: 1000;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
 
-        /* Overlay Background */
-        .modal-overlay {
-            display: none;
-            /* Hidden by default */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
+.cart-modal.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
 
-        /* Button styling */
-        .confirm-btn {
-            margin-top: 10px;
-            padding: 8px 15px;
-            background: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+/* Overlay Background */
+.modal-overlay {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
 
-        .confirm-btn:hover {
-            background: #218838;
-        }
+.modal-overlay.show {
+    opacity: 1;
+}
+
+/* Button styling */
+.confirm-btn {
+    margin-top: 20px;
+    padding: 12px 20px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.confirm-btn:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+.confirm-btn:active {
+    transform: translateY(1px);
+}
+
+/* Subtle animation for the overlay */
+.modal-overlay.show {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive design for small screens */
+@media (max-width: 480px) {
+    .cart-modal {
+        width: 80%;
+        padding: 20px;
+    }
+    .confirm-btn {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+}
+
     </style>
 </head>
 
