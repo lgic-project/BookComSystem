@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if (!isset($_SESSION['username']) && !$_SESSION['login_success']) {
+if (!isset($_SESSION['username']) && !$_SESSION['loggedin']) {
     header(" Location: admin_login.php");
     exit();
 }
@@ -13,7 +13,7 @@ $order_cancelled_table = false;
 $order_completed_table = false;
 $order_pending_table = false;
 
-if ($_SESSION['login_success']) {
+if ($_SESSION['loggedin']=== true) {
     $order_pending_table = true;
 }
 //database connection

@@ -92,8 +92,9 @@ if ($user_id) {
                     <li><a href="index.php">Home</a></li>
                     <li><a href="products.php">Products</a></li>
                     <li>
-                        <a href="category.php">Categories <i class="fas fa-caret-down"></i></a>
-                        <div class="dropdown_menu">
+                        <a href="category.php">Categories </i></a>
+                        <!-- <i class="fas fa-caret-down"> -->
+                        <!-- <div class="dropdown_menu">
                             <ul>
                                 <li><a href="./category.php?category=fantasy">Fantasy</a></li>
                                 <li><a href="./category.php?category=sci-fi">Sci-Fi</a></li>
@@ -105,7 +106,7 @@ if ($user_id) {
                                 <li><a href="./category.php?category=history">History</a></li>
                                 <li><a href="./category.php?category=other">Other</a></li>
                             </ul>
-                        </div>
+                        </div> -->
                     </li>
                     <li><a href="about.php">About Us</a></li>
                     <li><a href="contactus.php">Contact Us</a></li>

@@ -3,10 +3,10 @@ session_start();
 include 'connection/config.php';
 $user_id = $_SESSION['id'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!isset($_SESSION['user_id'])) {
-        header("Location:cart.php?status=login_to_place_order_");
-        exit;
-    }
+    // if (!isset($_SESSION['user_id'])) {
+    //     header("Location:cart.php?status=login_to_place_order_");
+    //     exit;
+    // }
     $payment_method = '';
     if ($_POST['online'] == 'online') {
         $payment_method = 'Online';
