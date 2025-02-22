@@ -24,97 +24,148 @@ if (!$result) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
-    <link rel="stylesheet" href="./css/products.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
-    <style>.cart-modal {
-    display: none; /* Start hidden */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    width: 350px;
-    background: #fff;
-    padding: 30px;
-    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    z-index: 1000;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
+    <style>
+        .cart-modal {
+            display: none;
+            /* Start hidden */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 350px;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            z-index: 1000;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
 
-.cart-modal.show {
-    display: block;
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-}
+        .cart-modal.show {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
 
-.modal-overlay {
-    display: none; /* Start hidden */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 999;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
+        .modal-overlay {
+            display: none;
+            /* Start hidden */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
 
-.modal-overlay.show {
-    display: block;
-    opacity: 1;
-}
+        .modal-overlay.show {
+            display: block;
+            opacity: 1;
+        }
 
-/* Button styling */
-.confirm-btn {
-    margin-top: 20px;
-    padding: 12px 20px;
-    background: #28a745;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s ease, transform 0.3s ease;
-}
+        /* Button styling */
+        .confirm-btn {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
 
-.confirm-btn:hover {
-    background: #218838;
-    transform: translateY(-2px);
-}
+        .confirm-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
 
-.confirm-btn:active {
-    transform: translateY(1px);
-}
+        .confirm-btn:active {
+            transform: translateY(1px);
+        }
 
-/* Subtle animation for the overlay */
-.modal-overlay.show {
-    animation: fadeIn 0.5s ease-in-out;
-}
+        /* Subtle animation for the overlay */
+        .modal-overlay.show {
+            animation: fadeIn 0.5s ease-in-out;
+        }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
 
-/* Responsive design for small screens */
-@media (max-width: 480px) {
-    .cart-modal {
-        width: 80%;
-        padding: 20px;
-    }
-    .confirm-btn {
-        font-size: 14px;
-        padding: 10px 15px;
-    }
-}
+            to {
+                opacity: 1;
+            }
+        }
 
+        /* Responsive design for small screens */
+        @media (max-width: 480px) {
+            .cart-modal {
+                width: 80%;
+                padding: 20px;
+            }
+
+            .confirm-btn {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            /* 4 books per row */
+            gap: 20px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card img {
+            width: 80%;
+            height: 300px;
+            /* Set a fixed height */
+            object-fit: cover;
+            /* Ensures uniform image display */
+            border-radius: 5px;
+        }
+
+        .buttons {
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 
@@ -187,7 +238,7 @@ if (!$result) {
 
         function closeModal() {
             document.getElementById('cart-modal').classList.remove('show');
-document.getElementById('modal-overlay').classList.remove('show');
+            document.getElementById('modal-overlay').classList.remove('show');
 
         }
     </script>
