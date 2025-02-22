@@ -11,7 +11,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 // Check if 'id' is provided via GET and is numeric
 if (isset($_GET["id"])) {
-    $book_id = intval($_GET["id"]); // Convert to integer for security
+
+    $book_id = intval(urldecode($_GET["id"])); // Convert to integer for security
     // Fetch book details
     $sql = "SELECT author, title, price , book_description, book_img  FROM books WHERE id = ?";
     $stmt = $mysqli->prepare($sql);

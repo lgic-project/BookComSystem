@@ -22,7 +22,7 @@ if (isset($_POST['search_query_btn'])) {
 
     $search_query = $_POST['search_query'];
     $search_term = $_POST['search_query'];
-    $search_sql = "SELECT title,author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ?";
+    $search_sql = "SELECT id,title,author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ?";
     $stmt = $mysqli->prepare($search_sql);
 
     $search_term = "%" . $search_term . "%"; // Adding wildcard for LIKE
@@ -36,7 +36,7 @@ if (isset($_POST['search_query_btn'])) {
 
 function byPriceAsc($query, $mysqli)
 {
-    $search_sql = "SELECT title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? ORDER BY price ASC";
+    $search_sql = "SELECT id,title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? ORDER BY price ASC";
     $stmt = $mysqli->prepare($search_sql);
 
     $query = "%" . $query . "%"; // Adding wildcard for LIKE
@@ -47,7 +47,7 @@ function byPriceAsc($query, $mysqli)
 }
 function byPriceDesc($query, $mysqli)
 {
-    $search_sql = "SELECT title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? ORDER BY price Desc";
+    $search_sql = "SELECT id,title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? ORDER BY price Desc";
     $stmt = $mysqli->prepare($search_sql);
 
     $query = "%" . $query . "%"; // Adding wildcard for LIKE
@@ -58,7 +58,7 @@ function byPriceDesc($query, $mysqli)
 }
 function byTitleAsc($query, $mysqli)
 {
-    $search_sql = "SELECT title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? ORDER BY title ASC";
+    $search_sql = "SELECT id,title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? ORDER BY title ASC";
     $stmt = $mysqli->prepare($search_sql);
 
     $query = "%" . $query . "%"; // Adding wildcard for LIKE
@@ -69,7 +69,7 @@ function byTitleAsc($query, $mysqli)
 }
 function byTitledesc($query, $mysqli)
 {
-    $search_sql = "SELECT title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? ORDER BY title Desc";
+    $search_sql = "SELECT id,title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? ORDER BY title Desc";
     $stmt = $mysqli->prepare($search_sql);
 
     $query = "%" . $query . "%"; // Adding wildcard for LIKE
@@ -81,7 +81,7 @@ function byTitledesc($query, $mysqli)
 
 function defaultsort($query, $mysqli)
 {
-    $search_sql = "SELECT title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? ORDER BY rand()";
+    $search_sql = "SELECT id,title, author, price, book_img FROM books WHERE title LIKE ? OR author LIKE ? ORDER BY rand()";
     $stmt = $mysqli->prepare($search_sql);
 
     $query = "%" . $query . "%"; // Adding wildcard for LIKE
@@ -93,7 +93,7 @@ function defaultsort($query, $mysqli)
 
 function category($query, $category, $mysqli)
 {
-    $search_sql = "SELECT title, author, price, book_img FROM books WHERE (title LIKE ? OR author LIKE ?) AND genre LIKE ?";
+    $search_sql = "SELECT id,title, author, price, book_img FROM books WHERE (title LIKE ? OR author LIKE ?) AND genre LIKE ?";
     $stmt = $mysqli->prepare($search_sql);
 
     $query = "%" . $query . "%"; // Adding wildcard for LIKE
@@ -105,7 +105,7 @@ function category($query, $category, $mysqli)
 }
 function catetitleasc($query, $category, $mysqli)
 {
-    $search_sql = "SELECT title, author, price, book_img FROM books WHERE (title LIKE ? OR author LIKE ?) AND genre LIKE ? ORDER BY title ASC";
+    $search_sql = "SELECT id,title, author, price, book_img FROM books WHERE (title LIKE ? OR author LIKE ?) AND genre LIKE ? ORDER BY title ASC";
     $stmt = $mysqli->prepare($search_sql);
 
     $query = "%" . $query . "%"; // Adding wildcard for LIKE
@@ -118,7 +118,7 @@ function catetitleasc($query, $category, $mysqli)
 
 function catetitledesc($query, $category, $mysqli)
 {
-    $search_sql = "SELECT title, author, price, book_img FROM books WHERE (title LIKE ? OR author LIKE ?) AND genre LIKE ? ORDER BY title Desc";
+    $search_sql = "SELECT id,title, author, price, book_img FROM books WHERE (title LIKE ? OR author LIKE ?) AND genre LIKE ? ORDER BY title Desc";
     $stmt = $mysqli->prepare($search_sql);
 
     $query = "%" . $query . "%"; // Adding wildcard for LIKE
@@ -131,7 +131,7 @@ function catetitledesc($query, $category, $mysqli)
 
 function catetitlepriceasc($query, $category, $mysqli)
 {
-    $search_sql = "SELECT title, author, price, book_img FROM books WHERE (title LIKE ? OR author LIKE ?) AND genre LIKE ? ORDER BY price ASC";
+    $search_sql = "SELECT id,title, author, price, book_img FROM books WHERE (title LIKE ? OR author LIKE ?) AND genre LIKE ? ORDER BY price ASC";
     $stmt = $mysqli->prepare($search_sql);
 
     $query = "%" . $query . "%"; // Adding wildcard for LIKE
@@ -144,7 +144,7 @@ function catetitlepriceasc($query, $category, $mysqli)
 
 function catetitlepricedesc($query, $category, $mysqli)
 {
-    $search_sql = "SELECT title, author, price, book_img FROM books WHERE (title LIKE ? OR author LIKE ?) AND genre LIKE ? ORDER BY price DESC";
+    $search_sql = "SELECT id,title, author, price, book_img FROM books WHERE (title LIKE ? OR author LIKE ?) AND genre LIKE ? ORDER BY price DESC";
 
     $stmt = $mysqli->prepare($search_sql);
 
@@ -490,7 +490,7 @@ $category = isset($_POST['category']) ? $_POST['category'] : '';
                     <?php if ($result->num_rows > 0) { ?>
                         <div class="grid">
                             <?php while ($row = $result->fetch_assoc()) { ?>
-                                <!-- <a href="book.php?id=<?php echo $row['id']; ?>"> -->
+                                <a href="view_details.php?id=<?php echo $row['id']; ?>">
                                 <div class="card">
                                     <img src="./bookspic/<?php echo $row['book_img']; ?>" alt="<?php echo $row['title']; ?>">
                                     <div class="card-content">
