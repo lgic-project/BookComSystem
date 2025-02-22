@@ -22,77 +22,141 @@ $resultLatest = $mysqli->query($sqlLatest);
     <title>Book Commercial Site</title>
     <link rel="stylesheet" href="css/home.css">
     <style>
-        /* Banner */
-        .banner {
-            background: url('bookspic/bg4.jpg') no-repeat center center/cover;
-            height: 50vh;
-            text-align: center;
-            padding: 100px 20px;
-            color: white;
-        }
+       /* 🔥 Enhanced Banner */
+.banner {
+    position: relative;
+    background: url('bookspic/bg4.jpg') no-repeat center center/cover;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 20px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
 
-        /* Scrollable Row Container */
-        .scroll-container {
-            display: flex;
-            overflow-x: auto;
-            white-space: nowrap;
-            gap: 15px;
-            padding: 10px;
-            scroll-behavior: smooth;
-        }
+.banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay for better readability */
+}
 
-        /* Hide scrollbar */
-        .scroll-container::-webkit-scrollbar {
-            display: none;
-        }
-        .scroll-container {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+.banner h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    z-index: 2;
+    position: relative;
+}
 
-        /* Book Card */
-        .book-card {
-            flex: 0 0 auto;
-            width: 200px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            padding: 15px;
-            background: white;
-        }
+.banner p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    z-index: 2;
+    position: relative;
+}
 
-        .book-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
+/* 📚 Scrollable Book Container */
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 15px;
+    padding: 10px;
+    scroll-behavior: smooth;
+    scrollbar-width: thin; /* Makes scrollbar less intrusive */
+    scrollbar-color: #6200ea transparent;
+}
 
-        .book-card h3 {
-            font-size: 16px;
-            margin: 10px 0 5px;
-        }
+/* Hide Scrollbar in WebKit Browsers */
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
 
-        .book-card p {
-            font-size: 14px;
-            color: #555;
-        }
+/* 🔥 Book Card Styling */
+.book-card {
+    flex: 0 0 auto;
+    width: 220px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    padding: 15px;
+    background: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
 
-        .book-card .price {
-            font-weight: bold;
-            color: #000;
-            margin-bottom: 10px;
-        }
+.book-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
 
-        /* Section Title */
-        .book-grid h2 {
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 22px;
-            color: #333;
-        }
+.book-card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.book-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+.book-card p {
+    font-size: 14px;
+    color: #777;
+}
+
+.book-card .price {
+    font-weight: bold;
+    color: #ff4081;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+/* 📌 Section Titles */
+.book-grid h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #222;
+    font-weight: 600;
+}
+
+/* 🌎 Responsive Design */
+@media (max-width: 768px) {
+    .banner {
+        height: 40vh;
+        font-size: 1rem;
+    }
+    
+    .banner h1 {
+        font-size: 2rem;
+    }
+
+    .banner p {
+        font-size: 1rem;
+    }
+
+    .book-card {
+        width: 180px;
+    }
+
+    .book-card img {
+        height: 200px;
+    }
+}
+
     </style>
 </head>
 <body>
