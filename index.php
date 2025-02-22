@@ -30,6 +30,7 @@ if (!isset($_SESSION['theme'])) {
 
 <?php include 'header.php'; ?>
 
+<?php include 'home.php'; ?>
 <?php 
 // Determine the page to include
 // $page = isset($_GET['page']) ? $_GET['page'] : 'home';
@@ -50,7 +51,6 @@ if (!isset($_SESSION['theme'])) {
 //         echo "<p>Error: home.php file not found.</p>";
 //     }
 // }
-
 include 'footer.php';
 ?>
 
