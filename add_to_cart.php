@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+$response = array("success" => false);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $product_id = $_POST['product_id'];
 
@@ -12,7 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Add the product ID to the cart
     $_SESSION['cart'][] = $product_id;
 
-    // Return success message
-    $_SESSION['cart_success'] = "Book added to cart successfully!";
+    // Set response success
+    $response['success'] = true;
+    $response['message'] = "Book added to cart successfully!";
 }
+
+echo json_encode($response);
+exit();
 ?>
