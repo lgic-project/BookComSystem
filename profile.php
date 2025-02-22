@@ -9,14 +9,14 @@ if (!isset($_SESSION['username'])) {
 }
 
 $user_id = $_SESSION['id']; // Get user ID from session
-$username = $email = $profile_picture = ""; // Initialize variables
+$username = $email = $profile_picture = $address = $phone_no = ""; // Initialize variables
 
 // Fetch user details from the database
-$sql = "SELECT username, email, profile_image FROM users WHERE id = ?";
+$sql = "SELECT username, email, profile_image, address, phone_no FROM users WHERE id = ?";
 if ($stmt = $mysqli->prepare($sql)) {
     $stmt->bind_param("i", $user_id);
     if ($stmt->execute()) {
-        $stmt->bind_result($username, $email, $profile_picture);
+        $stmt->bind_result($username, $email, $profile_picture, $address, $phone_no);
         $stmt->fetch();
     } else {
         die("Error retrieving profile information: " . htmlspecialchars($mysqli->error));
@@ -88,8 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile_picture
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Profile</title>
     <link rel="stylesheet" href="css/profile.css">
-    <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
-
 </head>
 <body>
     <?php include 'header.php'; ?>
@@ -103,34 +101,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile_picture
                 </div>
             </div>
         </div>
+
         <script>
-document.getElementById('profile-photo').addEventListener('click', function(event) {
-    if (event.target.id === 'view-photo') {
-        // Open the view photo modal
-        document.getElementById('photo-modal').style.display = 'flex';
-    } else if (event.target.id === 'upload-photo') {
-        // Show the upload photo form
-        document.getElementById('upload-photo-form').style.display = 'block';
-    }
-});
+            document.getElementById('profile-photo').addEventListener('click', function(event) {
+                if (event.target.id === 'view-photo') {
+                    // Open the view photo modal
+                    document.getElementById('photo-modal').style.display = 'flex';
+                } else if (event.target.id === 'upload-photo') {
+                    // Show the upload photo form
+                    document.getElementById('upload-photo-form').style.display = 'block';
+                }
+            });
 
-// Close modal when the user clicks the close button
-document.getElementById('close-modal').addEventListener('click', function() {
-    document.getElementById('photo-modal').style.display = 'none';
-});
+            // Close modal when the user clicks the close button
+            document.getElementById('close-modal').addEventListener('click', function() {
+                document.getElementById('photo-modal').style.display = 'none';
+            });
 
-// Close modal if user clicks outside of it
-window.onclick = function(event) {
-    if (event.target === document.getElementById('photo-modal')) {
-        document.getElementById('photo-modal').style.display = 'none';
-    }
-};
-</script>
+            // Close modal if user clicks outside of it
+            window.onclick = function(event) {
+                if (event.target === document.getElementById('photo-modal')) {
+                    document.getElementById('photo-modal').style.display = 'none';
+                }
+            };
+        </script>
         
         <div class="user-details">
             <h2>Details</h2>
             <p><strong>Username:</strong> <?php echo htmlspecialchars($username); ?></p>
             <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
+            <p><strong>Address:</strong> <?php echo htmlspecialchars($address); ?></p>
+            <p><strong>Phone Number:</strong> <?php echo htmlspecialchars($phone_no); ?></p>
         </div>
     </section>
     
@@ -143,7 +144,7 @@ window.onclick = function(event) {
     </div>
     
     <!-- Upload Photo Form -->
-    <div class="upload-photo" id="upload-photo-form">
+    <div class="upload-photo" id="upload-photo-form" style="display:none;">
         <form method="POST" enctype="multipart/form-data">
             <label for="new-profile-picture">Upload a new profile photo:</label>
             <input type="file" name="new_profile_picture" id="new-profile-picture" accept="image/*">

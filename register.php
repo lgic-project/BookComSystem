@@ -11,9 +11,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $mysqli->real_escape_string($_POST['email']);
     $password = trim($_POST['password']);
     $username = $mysqli->real_escape_string($_POST['username']);
-    
+    $address = $mysqli->real_escape_string($_POST['address']);
+    $phone_no = $mysqli->real_escape_string($_POST['phone_no']);
+
     // Check if fields are empty
-    if (empty($email) || empty($password) || empty($username)) {
+    if (empty($email) || empty($password) || empty($username) || empty($address) || empty($phone_no)) {
         header("Location: register.php?error=empty_fields");
         exit();
     }
@@ -21,32 +23,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if email already exists
     $sql = "SELECT id FROM users WHERE email = ?";
     if ($stmt = $mysqli->prepare($sql)) {
-        // Bind the email parameter
         $stmt->bind_param("s", $email);
-
-        // Execute the query
         if ($stmt->execute()) {
             $result = $stmt->get_result();
-
             if ($result->num_rows > 0) {
-                // Email already exists error
                 header("Location: register.php?error=email_exists");
                 exit();
             } else {
                 // Register the user
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+                $sql = "INSERT INTO users (username, email, password, address, phone_no) VALUES (?, ?, ?, ?, ?)";
                 if ($stmt = $mysqli->prepare($sql)) {
-                    // Bind parameters
-                    $stmt->bind_param("sss", $username, $email, $hashed_password);
-
-                    // Execute the insert
+                    $stmt->bind_param("sssss", $username, $email, $hashed_password, $address, $phone_no);
                     if ($stmt->execute()) {
-                        // Successful registration
                         header("Location: login.php?message=registration_successful");
                         exit();
                     } else {
-                        // Database error
                         header("Location: register.php?error=database_error");
                         exit();
                     }
@@ -111,6 +103,12 @@ if (isset($_GET['error'])) {
             <div class="form-group">
                 <input type="password" name="password" placeholder="Password" required>
             </div>
+            <div class="form-group">
+                <input type="text" name="address" placeholder="Address" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="phone_no" placeholder="Phone Number" required>
+            </div>
             <button type="submit" class="btn">Register</button>
         </form>
 
@@ -135,8 +133,8 @@ if (isset($_GET['error'])) {
                 setTimeout(() => {
                     themeSwitch.classList.add('broken');
                     showSarcasticMessage(); // Display the sarcastic message
-                }, 1000); // Add broken effect after the fall animation
-                clickCount = 0; // Reset the click counter
+                }, 1000);
+                clickCount = 0;
             }
             const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
