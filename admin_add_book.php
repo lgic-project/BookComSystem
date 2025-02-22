@@ -1,8 +1,8 @@
 <?php
-// if (!isset($_SESSION['username']) && !$_SESSION['login_success']) {
-//     header(" Location: login.php");
-//     exit();
-// }
+if (!isset($_SESSION['username']) && !$_SESSION['login_success']) {
+    header(" Location: admin_login.php");
+    exit();
+}
 
 include './connection/config.php';
 

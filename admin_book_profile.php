@@ -1,6 +1,10 @@
 <?php
 require_once './connection/config.php';
 
+if (!isset($_SESSION['username']) && !$_SESSION['login_success']) {
+  header(" Location: admin_login.php");
+  exit();
+}
 if (isset($_GET['book_id'])) {
   $book_id = intval($_GET['book_id']);
 

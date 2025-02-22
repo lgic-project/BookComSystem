@@ -1,6 +1,11 @@
 <?php
 include_once './connection/config.php';
 
+session_start();
+if (!isset($_SESSION['username']) && !$_SESSION['login_success']) {
+  header(" Location: admin_login.php");
+  exit();
+}
 $book_title = htmlspecialchars($_GET['book_title']);
 
 $sql = "SELECT * FROM books WHERE title = ?";
