@@ -2,6 +2,11 @@
 
 
 require_once './connection/config.php';
+session_start();
+if (!isset($_SESSION['username']) && !$_SESSION['login_success']) {
+  header(" Location: admin_login.php");
+  exit();
+}
 $error = "";
 
 //for fetching the count of the books

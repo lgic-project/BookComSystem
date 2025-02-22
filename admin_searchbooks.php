@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['username']) && !$_SESSION['login_success']) {
+  header(" Location: admin_login.php");
+  exit();
+}
 include('./connection/config.php');
 $msg_from_edit = "";
 if (isset($_GET['bookedit'])) {

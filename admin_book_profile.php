@@ -1,6 +1,7 @@
 <?php
 require_once './connection/config.php';
 
+session_start();
 if (!isset($_SESSION['username']) && !$_SESSION['login_success']) {
   header(" Location: admin_login.php");
   exit();
@@ -152,7 +153,7 @@ if (isset($_GET['book_id'])) {
             <p><strong>Publisher:</strong> <?php echo htmlspecialchars($row['publisher']); ?></p>
             <p><strong>Stock:</strong> <?php echo htmlspecialchars($row['stock']); ?></p>
 
-            <p class="price">Price: $<?php echo number_format($row['price'], 2); ?></p>
+            <p class="price">Price: Rs.<?php echo number_format($row['price'], 2); ?></p>
             <p><?php echo htmlspecialchars($row['book_description']); ?></p>
 
             <a class='b-button' href='  admin_editbooks.php?book_title=<?php echo $row['title'] ?>'>Edit</a>
