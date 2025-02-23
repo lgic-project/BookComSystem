@@ -1,4 +1,5 @@
 <?php
+require_once './connection/config.php';
 session_start();
 if (!isset($_SESSION['username']) && !$_SESSION['login_success']) {
   header(" Location: admin_login.php");
@@ -8,7 +9,9 @@ $error = "";
 $username = $_SESSION['username'];
 $admin_id = $_SESSION['id'];
 
-require_once './connection/config.php';
+
+
+
 
 $stmt = $mysqli->prepare("SELECT * FROM admin WHERE admin_id=?");
 $stmt->bind_param('i', $admin_id);
@@ -372,6 +375,8 @@ if (isset($_POST['update'])) {
 </style>
 
 <body>
+<?php print_r($_SESSION); ?>
+
     <!-- SIDEBAR -->
     <?php include "admin_sidebar.php"; ?>
     <!-- SIDEBAR -->

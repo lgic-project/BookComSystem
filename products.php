@@ -156,7 +156,7 @@ if (!$result) {
 
         button {
             padding: 8px 12px;
-            background-color: #007bff;
+            background-color: #6200ea;
             color: white;
             border: none;
             cursor: pointer;
