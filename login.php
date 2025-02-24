@@ -7,6 +7,7 @@ session_start();
 
 // Handle login request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    var_dump($_POST['password']);
     // Get the input data
     $email = $mysqli->real_escape_string($_POST['email']);
     $password = trim($_POST['password']);
@@ -18,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Prepare the SQL query to check if the user exists
-    $sql = "SELECT id, username, `password` FROM users WHERE email = ?";
+    $sql = "SELECT id, username, password FROM users WHERE email = ?";
     if ($stmt = $mysqli->prepare($sql)) {
         // Bind the email parameter
         $stmt->bind_param("s", $email);
